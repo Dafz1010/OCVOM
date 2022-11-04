@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_04_133334) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_04_134115) do
   create_table "adoptions", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.integer "dog_id", null: false
@@ -27,8 +27,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_133334) do
     t.date "booked_appointment_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["customer_id"], name: "index_appointments_on_customer_id"
     t.index ["dog_id"], name: "index_appointments_on_dog_id"
+    t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
   create_table "breeds", force: :cascade do |t|
