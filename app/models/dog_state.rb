@@ -1,0 +1,2 @@
+class DogState < ApplicationRecord
+end
