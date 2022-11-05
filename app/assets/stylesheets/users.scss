@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik+Bubbles');
+
+html,body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    weight: 100%;
+}
+
+.home{
+	background-image: url("coverpagebg.png");
+   	background-size: cover;
+   	background-repeat: no-repeat;
+   	background-position: right center;
+   	overflow-y: hidden;
+	height: 100%;
+}
+.logo{
+	font-family: Rubix Bubbles;
+	display: inline;
+	text-align: center;
+	img{
+		width: 111px
+	}
+}
