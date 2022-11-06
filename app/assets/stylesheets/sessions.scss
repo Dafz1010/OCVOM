@@ -1,0 +1,23 @@
+@import "init";
+
+.login{
+	background-image: url("loginpagebg.png");
+   	background-size: cover;
+   	background-repeat: no-repeat;
+   	background-position: center center;
+   	overflow-y: hidden;
+	height: 100%;
+	display:flex;
+	position:relative;
+	&-c{
+		position: absolute; 
+	    left: 50%;
+	    top: 50%;
+    	transform: translate(-50%, -50%);
+		width: 50%;
+		height: 50%;
+		background-color: transparentize(black, 0.5);
+		border-color: $blue;
+		border-radius: 40px;
+	}
+}

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'login' => "sessions#new"
   root "users#index"
   resources :dogs
   resources :users

@@ -1,0 +1,27 @@
+$blue : #4f81bd;
+$lightblue: #3fbcef;
+
+html,body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+
+}
+
+.logo{
+	font-family: Arvo;
+	display: inline;
+	a{
+		display: flex;
+		align-items: center;
+		color: $blue;
+		text-decoration: none;
+		width: fit-content;
+		-webkit-text-stroke: $lightblue 2px;
+		font-size: 37px;
+		img{
+			width: 111px
+		}
+	}
+}

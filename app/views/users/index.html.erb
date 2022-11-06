@@ -1,21 +1,13 @@
 <div class="home">
-  <div class="logo">
-
-    <%= link_to root_path do %>
-      <%= image_tag 'logo 1.png' %>
-      OCVOM
-    <% end %>
-  </div>
-  
+  <%= render "logo" %>
   <div class="home-i">
     <h1>ANIMAL CARE</h1>
     <p>Get your pets special treatment from our trusted veterinarians</p>
     <div class="home-i-b">
-      <%= button_to "Login", root_path, method: :get%>
+      <%= button_to "Login", login_path, method: :get%>
       <%= button_to "See more", root_path, method: :get%>
     </div>
   </div>
-  
 
 </div>
 
