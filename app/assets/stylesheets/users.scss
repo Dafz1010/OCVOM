@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Arvo');
+@import url('https://fonts.googleapis.com/css?family=Chango');
 
 $blue : #4f81bd;
 $lightblue: #3fbcef;
@@ -7,7 +8,7 @@ html,body{
     margin: 0;
     padding: 0;
     height: 100%;
-    weight: 100%;
+    width: 100%;
 
 }
 
@@ -18,6 +19,60 @@ html,body{
    	background-position: right center;
    	overflow-y: hidden;
 	height: 100%;
+	&-i{
+		position: relative;
+		height: 70%;
+		width: 50%;
+		top: 5%;
+		left: 5%;
+		text-align: center;
+
+		h1{
+			font-family: Chango;
+			font-size: 54px;
+			-webkit-text-stroke: $blue 3px;
+			color: $lightblue
+
+		}
+		p{
+			margin-top: -27px;
+			font-size: 26px;
+			color: #003D9B;
+			-webkit-text-stroke: black 0.3px;
+		}
+		&-b{
+			display: flex;
+			width: 100%;
+			margin-top: 150px;
+			justify-content: space-around;
+			button{
+				width:165px;
+				height: 53px;
+				border-radius: 40px;
+				font-size: 29px;
+			}
+			form:first-child button{
+				background: $blue;
+				color: white;
+				border-color: $blue;
+				&:hover{
+					background: complement($blue);
+					color: complement(white);
+					border-color: complement($blue);
+				}
+			}
+			form:last-child button{
+				background: white;
+				color: $blue;
+				border-color: $blue;
+				&:hover{
+					background: complement(white);
+					color: complement($blue);
+					border-color: complement($blue);
+				}
+			}
+		}
+	}
 }
 .logo{
 	font-family: Arvo;
@@ -28,7 +83,7 @@ html,body{
 		color: $blue;
 		text-decoration: none;
 		width: fit-content;
-		-webkit-text-stroke: #3fbcef 2px;
+		-webkit-text-stroke: $lightblue 2px;
 		font-size: 37px;
 		img{
 			width: 111px
