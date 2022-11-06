@@ -1,10 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Rubik+Bubbles');
+@import url('https://fonts.googleapis.com/css?family=Arvo');
+
+$blue : #4f81bd;
+$lightblue: #3fbcef;
 
 html,body{
     margin: 0;
     padding: 0;
     height: 100%;
     weight: 100%;
+
 }
 
 .home{
@@ -16,10 +20,18 @@ html,body{
 	height: 100%;
 }
 .logo{
-	font-family: Rubix Bubbles;
+	font-family: Arvo;
 	display: inline;
-	text-align: center;
-	img{
-		width: 111px
+	a{
+		display: flex;
+		align-items: center;
+		color: $blue;
+		text-decoration: none;
+		width: fit-content;
+		-webkit-text-stroke: #3fbcef 2px;
+		font-size: 37px;
+		img{
+			width: 111px
+		}
 	}
-}
+}	
