@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'login' => "sessions#new"
   root "users#index"
   resources :dogs
   resources :users
@@ -7,4 +6,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  resource :session , only: [:new, :create, :destroy]
 end

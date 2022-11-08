@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_signin, except: [:new,:index, :create]
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
