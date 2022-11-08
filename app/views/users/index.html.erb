@@ -1,11 +1,14 @@
-<div class="home">
-  <%= render "logo" %>
-  <div class="home-i">
-    <h1>ANIMAL CARE</h1>
-    <p>Get your pets special treatment from our trusted veterinarians</p>
-    <div class="home-i-b">
-      <%= button_to "Login", new_session_path, method: :get%>
-      <%= button_to "See more", root_path, method: :get%>
+<div class="dashboard">
+  <%= render "home/logo" %>
+  <div class="navigation">
+    <div class="item">
+      <%= link_to (tag.div "Dashboard"), users_path %>
+    </div>
+    <div class="item">
+      <%= link_to (tag.div "Rcords"), users_path %>
+    </div>
+    <div class="item">
+      <%= link_to (tag.div "Scan"), users_path %>
     </div>
   </div>
 </div>
