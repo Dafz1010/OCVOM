@@ -2,11 +2,14 @@
 	<%= render "home/logo" %>
 	<div class="login-c">
 		<%= form_with(url: session_path,local: true) do |f| %>
-			<%= f.label :username, "Username" %>
-			<%= f.text_field :username, autofocus: true %>
-			<%= f.label :password, "Password" %>
-			<%= f.password_field :password %>
-			<%= f.submit "Sign In" %>
+			<h1>LOGIN</h1>
+			<label class="icon-user">
+				<%= f.text_field :username, placeholder: "Username", autocomplete: 'off', required: true %>
+			</label>
+			<label class="icon-lock">
+				<%= f.password_field :password, placeholder: "Password", autocomplete: 'off', required: true %>
+			</label>
+			<%= f.submit "Log In" %>
 		<% end %>
 	</div>	
 </div>

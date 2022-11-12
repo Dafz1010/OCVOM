@@ -1,3 +1,6 @@
+
+$nav-blue: #1F528F;
+$nav-lblue: #4F81BD;
 @import "init";
 .dashboard{
     background-image: url("dashboardbg.png");
@@ -10,13 +13,20 @@
         display:flex;
         justify-content: space-around;
         .item{
-            background-color: $lightblue;
-            width: 33%;
-            height: 65px;
-            display: flex;
-            justify-content: center;
             align-items: center;
-            
+            background-color: $nav-lblue;
+            display: flex;
+            height: 65px;
+            justify-content: center;
+            width: 33%;
+            font-size: 20%;
+            a{
+                text-decoration: none;
+                color: white;
+            }
+        }
+        .item:active{
+            background-color: $nav-blue;
         }
     }
 }
