@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
   def new
-    
+    if current_user
+      redirect_to users_path
+    end
   end
 
   def create
@@ -8,7 +10,6 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to users_path
-      session[:intended_url] = nil
     else
       render :new, status: :unprocessable_entity
     end
