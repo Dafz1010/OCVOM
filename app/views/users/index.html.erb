@@ -1,9 +1,15 @@
 <div class="dashboard">
   <%= render "home/logo" %>
   <div class="navigation">
-    <%= button_to "DASHBOARD", root_path, method: :get, class: "nav-item" %>
-    <%= button_to "RECORDS", root_path, method: :get, class: "nav-item" %>
-    <%= button_to "SCAN", root_path, method: :get, class: "nav-item" %>
+    <div class="nav-item">
+      <%= button_to "DASHBOARD", root_path, method: :get %>
+    </div>
+    <div class="nav-item">
+      <%= button_to "RECORDS", root_path, method: :get %>
+    </div>
+    <div class="nav-item">
+      <%= button_to "SCAN", root_path, method: :get %>
+    </div>
   </div>
 </div>
 
