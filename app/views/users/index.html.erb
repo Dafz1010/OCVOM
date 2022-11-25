@@ -2,10 +2,9 @@
   <%= render "home/logo" %>
   <div class="navigation">
     <div class="profilepic">
-
-    </div>
-    <div class="welcome">
-      Dr. <%= current_user.username.capitalize %>
+      <div class="welcome">
+        Dr <%= current_user.username.capitalize %>
+      </div>
     </div>
     <div class="nav-item">
       <%= button_to "DASHBOARD", root_path, method: :get %>

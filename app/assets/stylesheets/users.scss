@@ -2,6 +2,10 @@
 $nav-blue: #4F81BD;
 $nav-lblue:#A4CDFF;
 @import "init";
+@font-face {
+	font-family: 'TheDoctor';
+	src: url('TheDoctor.ttf');
+ }
 .dashboard{
     background-image: url("dashboardbg.png");
     background-size: cover;
@@ -31,10 +35,15 @@ $nav-lblue:#A4CDFF;
             border-radius: 12px;
             margin: 0px auto;
             margin-top: 57px;
-        }
-        & .welcome{
-            font-size: 1.3em;
+            & .welcome{
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+                font-size: 2.5em;
+                font-family: "TheDoctor";
+                height: 125%;
 
+            }
         }
         & .nav-item{
             width: 100%;
