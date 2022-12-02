@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   resource :session , only: [:new, :create, :destroy]
+  get '/records', to: 'records#index', as: 'records'
+  get '/scan', to: 'scan#index', as: 'scan'
 end

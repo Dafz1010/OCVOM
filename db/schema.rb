@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_04_134115) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_30_153445) do
   create_table "adoptions", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.integer "dog_id", null: false
@@ -35,8 +35,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_134115) do
 
   create_table "breeds", force: :cascade do |t|
     t.string "name"
-    t.string "group"
-    t.string "origin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -57,7 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_134115) do
   create_table "dogs", force: :cascade do |t|
     t.integer "breed_id", null: false
     t.string "location"
-    t.boolean "has_color"
+    t.boolean "has_colar"
     t.integer "dog_state_id", null: false
     t.string "image_file_name"
     t.integer "age"

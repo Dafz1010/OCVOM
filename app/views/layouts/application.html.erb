@@ -11,6 +11,27 @@
   </head>
 
   <body>
+    <% if current_user %>
+      <div class="dashboard">
+        <%= render "home/logo" %>
+        <div class="navigation">
+          <div class="profilepic">
+            <div class="welcome">
+              Dr <%= current_user.username.capitalize %>
+            </div>
+          </div>
+          <div class="nav-item">
+            <%= button_to "DASHBOARD", root_path, method: :get %>
+          </div>
+          <div class="nav-item">
+            <%= button_to "RECORDS", records_path, method: :get %>
+          </div>
+          <div class="nav-item">
+            <%= button_to "SCAN", scan_path, method: :get %>
+          </div>
+        </div>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
