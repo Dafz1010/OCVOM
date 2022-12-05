@@ -1,1 +1,19 @@
 @import "users";
+
+.record_categories{
+	display: flex;
+	flex-direction: row;
+	margin-left: 70px;
+	background-color: $nav-lblue;
+	justify-content: space-around;
+	& .category{
+		background-color: $nav-lblue;
+		font-size: 1.3em;
+		border: none;
+		width: 100%;
+	}
+	& .category:hover{
+		background-color: complement($nav-lblue);
+		cursor: pointer;
+	}
+}
