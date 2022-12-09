@@ -6,19 +6,21 @@ $nav-lblue:#A4CDFF;
 	font-family: 'TheDoctor';
 	src: url('TheDoctor.ttf');
  }
-.dashboard{
+ body{
     background-image: url("dashboardbg.png");
-    background-size: cover;
+    background-size: auto 100%;
     background-repeat: no-repeat;
     background-position: center;
+ }
+ 
+.dashboard{
     overflow-y: hidden;
     height: 100%;
     position: relative;
     & .navigation{
         position: absolute;
-        left: -140px;
         height: 100%;
-        width: 210px;
+        width: 70px;
         background-color: $nav-blue;
         transition: 300ms;
         display: flex;
@@ -34,48 +36,57 @@ $nav-lblue:#A4CDFF;
             background-position: top;
             border: $nav-lblue 5px solid;
             border-radius: 50%;
-            margin-bottom: 10px;
-            margin-top: 10px;
-            margin-left: auto;
-            margin-right: 7px;
+            margin: 10px auto;
             transition: 300ms;
 
         }
         & .nav-item{
             width: 100%;
             transition: 300ms;
+            height: auto;
             margin: 10px 0px 10px 20px;
-            & button{
+            
+            & .item-button{
+                display: block;
+                text-decoration: none;
                 font-size: 1.3em;
                 background: $nav-lblue;
                 border-radius: 12px;
-                margin:auto auto;
+                color: black;
+                margin:auto;
+                margin-left: 0;
                 padding: 10px;
-                width: 90%;
+                width: 0;
                 text-align: start;
+                overflow: hidden;
+                transform: scale(0);
                 transition: 300ms;
+
             }
-            & button:hover{
+            & .item-button:hover{
                 cursor: pointer;
             }
         }
         & .nav-item:hover{
-            padding-bottom: 100px;
-            & button{
+            height: fit-content;
+            & .item-button{
                 background: complement($nav-lblue);
             }
         }
     }
     & .navigation:hover{
-        left:0px;
+        width:210px;
         & .profilepic{
             width: 178px;
             height: 128px;
             border-radius: 12px;    
-            & .nav-item{
-               & button{
-                width: 0;
-                }
+        }
+        & .nav-item{
+            display: block;
+           & .item-button{
+            width: 80%;
+            user-select: none;
+            transform: scale(1);
             }
         }
     }

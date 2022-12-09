@@ -18,13 +18,13 @@
             <div class="profilepic">
             </div>
             <div class="nav-item">
-              <%= button_to "DASHBOARD", root_path, method: :get %>
+              <%= link_to "DASHBOARD", root_path, class: "item-button" %>
             </div>
             <div class="nav-item">
-              <%= button_to "RECORDS", records_path, method: :get %>
+              <%= link_to "RECORDS", records_path, class: "item-button" %>
             </div>
             <div class="nav-item">
-              <%= button_to "SCAN", scan_path, method: :get %>
+              <%= link_to "SCAN", scan_path, class: "item-button" %>
             </div>
           </div>
       <% end %>
