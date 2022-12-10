@@ -6,12 +6,47 @@ $nav-lblue:#A4CDFF;
 	font-family: 'TheDoctor';
 	src: url('TheDoctor.ttf');
  }
+ @font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(MaterialIcons-Regular.woff2) format('woff2'),
+    url(MaterialIcons-Regular.woff) format('woff'),
+    url(MaterialIcons-Regular.ttf) format('truetype');
+}
  body{
     background-image: url("dashboardbg.png");
     background-size: auto 100%;
     background-repeat: no-repeat;
     background-position: center;
  }
+
+ .material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
  
 .dashboard{
     overflow-y: hidden;
@@ -45,23 +80,29 @@ $nav-lblue:#A4CDFF;
             transition: 300ms;
             height: auto;
             margin: 10px 0px 10px 20px;
-            
             & .item-button{
-                display: block;
+                display: flex;
+                align-items: center;
                 text-decoration: none;
-                font-size: 1.3em;
+                font-size: 1.2em;
                 background: $nav-lblue;
                 border-radius: 12px;
                 color: black;
                 margin:auto;
                 margin-left: 0;
                 padding: 10px;
-                width: 0;
-                text-align: start;
-                overflow: hidden;
-                transform: scale(0);
+                width: 168px;
+                overflow: visible;
+                transform: translateX(-200px);
                 transition: 300ms;
 
+                & .item-logo{
+                	font-size:50px;
+                	color: $nav-lblue;
+					-webkit-text-stroke: black 2px;
+                	transform: translateX(190px);
+            		transition: 300ms;
+                }
             }
             & .item-button:hover{
                 cursor: pointer;
@@ -84,9 +125,11 @@ $nav-lblue:#A4CDFF;
         & .nav-item{
             display: block;
            & .item-button{
-            width: 80%;
-            user-select: none;
-            transform: scale(1);
+                user-select: none;
+                transform: translateX(0px);
+                & .item-logo{
+                	transform: translateX(0px);
+                }
             }
         }
     }

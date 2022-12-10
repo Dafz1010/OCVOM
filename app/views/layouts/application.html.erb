@@ -18,13 +18,13 @@
             <div class="profilepic">
             </div>
             <div class="nav-item">
-              <%= link_to "DASHBOARD", root_path, class: "item-button" %>
+              <%= link_to "<div class=\"material-icons item-logo\">dashboard</div> DASHBOARD".html_safe, root_path, class: "item-button" %>
             </div>
             <div class="nav-item">
-              <%= link_to "RECORDS", records_path, class: "item-button" %>
+              <%= link_to "<div class=\"material-icons item-logo\">view_list</div> RECORDS".html_safe, records_path, class: "item-button" %>
             </div>
             <div class="nav-item">
-              <%= link_to "SCAN", scan_path, class: "item-button" %>
+              <%= link_to "<div class=\"material-icons item-logo\">flip</div> SCAN".html_safe, scan_path, class: "item-button" %>
             </div>
           </div>
       <% end %>
