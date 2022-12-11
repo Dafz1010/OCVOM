@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_06_142535) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_10_135543) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "adoptions", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.integer "dog_id", null: false
@@ -63,6 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_142535) do
     t.boolean "in_pound"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "archived"
     t.index ["breed_id"], name: "index_dogs_on_breed_id"
     t.index ["dog_state_id"], name: "index_dogs_on_dog_state_id"
   end
