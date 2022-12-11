@@ -52,12 +52,14 @@ $nav-lblue:#A4CDFF;
     overflow-y: hidden;
     height: 100%;
     position: relative;
+    & *{
+        transition: all 300ms;
+    }
     & .navigation{
         position: absolute;
         height: 100%;
         width: 70px;
         background-color: $nav-blue;
-        transition: 300ms;
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -72,14 +74,13 @@ $nav-lblue:#A4CDFF;
             border: $nav-lblue 5px solid;
             border-radius: 50%;
             margin: 10px auto;
-            transition: 300ms;
 
         }
         & .nav-item{
             width: 100%;
-            transition: 300ms;
-            height: auto;
+            max-height: 70px;
             margin: 10px 0px 10px 20px;
+            overflow: hidden;
             & .item-button{
                 display: flex;
                 align-items: center;
@@ -94,24 +95,55 @@ $nav-lblue:#A4CDFF;
                 width: 168px;
                 overflow: visible;
                 transform: translateX(-200px);
-                transition: 300ms;
 
                 & .item-logo{
                 	font-size:50px;
                 	color: $nav-lblue;
 					-webkit-text-stroke: black 2px;
                 	transform: translateX(190px);
-            		transition: 300ms;
                 }
             }
             & .item-button:hover{
                 cursor: pointer;
             }
+            & .nav-subitem-container{
+                display: flex;
+                flex-direction: column;
+                margin-top: 20px;
+                width: 100%;
+                & .nav-subitem{
+                    margin: 2px 0px;
+                    width: 100%;
+                    & .subitem-button{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 60%;
+                        color: black;
+                        text-decoration: none;
+                        font-size: 1em;
+                        background: $nav-lblue;
+                        border-radius: 12px;
+                        padding: 5px;
+                        padding-left: 20px;
+                        float: right;
+                        margin-right: 22px;
+                    }
+                }
+                & .nav-subitem:hover{
+                    & .subitem-button{
+                        background: complement($nav-lblue);
+                    }
+                }
+            }
         }
         & .nav-item:hover{
-            height: fit-content;
+            max-height: 2000px;
             & .item-button{
                 background: complement($nav-lblue);
+            }
+            & .nav-subitem-container{
+                margin: 0px
             }
         }
     }
@@ -134,3 +166,4 @@ $nav-lblue:#A4CDFF;
         }
     }
 }
+
