@@ -1,6 +1,6 @@
 @import "users";
 
-.records{
+.records-page{
 	width: calc(100% - 70px);
 	height: calc(100% - 109px);
 	float:right;
@@ -14,13 +14,63 @@
 		align-items: end;
 		& .records-list{
 			background-color: rgb(218, 169, 104);
-			width: 100px;
-			height: 100px;
+			width: 90%;
+			height: 63.1184408%;
 			margin-bottom: 45px;
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+
+			& .record-title{
+				font-family: Bebas Neue;
+				font-size: 1.5em;
+				background: white;
+				width: 100%;
+				height: 50px;
+				border-radius: 16px;
+				display: flex;
+				align-items: center;
+				margin-bottom: 11px;
+				& p{
+					display: block;
+					margin-left: 17px;
+				}
+			}
+			& .record-table{
+				font-family: Oswald;
+				overflow: scroll;
+				width: 100%;
+				flex:1;
+				position: relative;
+				& .record-header{
+					font-size: 1.5em;
+					width: 100%;
+					height: 68px;
+					border-radius: 16px;
+					display: flex;
+					align-items: center;
+					margin-bottom: 11px;
+					position: sticky;
+					top: 0;
+					justify-content: space-around;
+				}
+				& .record{
+					font-size: 1.5em;
+					background: white;
+					width: 100%;
+					height: 68px;
+					border-radius: 16px;
+					display: flex;
+					align-items: center;
+					margin-bottom: 11px;
+					justify-content: space-around;
+				}
+
+			}
 		}
 	}
 	& .graph-container{
-		flex: 0.4;
+		flex: 0.509259259;
 		background-color: rgb(77, 168, 96);
 	}
 
