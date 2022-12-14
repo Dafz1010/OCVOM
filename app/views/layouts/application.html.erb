@@ -61,20 +61,33 @@
             </div>
             <div class="nav-item">
               <%= link_to scan_path, class: "item-button" do %> 
-                <div class="material-icons item-logo">flip</div> SCAN  
+                <div class="material-icons item-logo">touch_app</div> ACTIONS  
               <% end %>
               <div class="nav-subitem-container">
                 <div class="nav-subitem">
                   <%= link_to root_path, class: "subitem-button" do %>
-                    Dog Profile
+                    Add New Dog
                     <div class="material-icons">chevron_right</div>
                   <% end %>
                 </div>
+                <div class="nav-subitem">
+                  <%= link_to root_path, class: "subitem-button" do %>
+                    Adopt a Dog
+                    <div class="material-icons">chevron_right</div>
+                  <% end %>
+                </div>
+                <div class="nav-subitem">
+                  <%= link_to root_path, class: "subitem-button" do %>
+                    Find a Dog
+                    <div class="material-icons">chevron_right</div>
+                  <% end %>
+                </div>
+                </div>
               </div>
             </div>
-          </div>
       <% end %>
       <%= yield %>
+          </div>
     </div>
   </body>
 </html>

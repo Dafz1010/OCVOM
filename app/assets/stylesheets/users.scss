@@ -57,7 +57,7 @@ $nav-lblue:#A4CDFF;
     }
     & .navigation{
         position: absolute;
-        height: 100%;
+        height: calc(100% - 109px);
         width: 70px;
         background-color: $nav-blue;
         display: flex;
@@ -145,6 +145,9 @@ $nav-lblue:#A4CDFF;
             & .nav-subitem-container{
                 margin: 0px
             }
+        }
+        & .nav-item:last-child:hover{
+            flex-grow: 1;
         }
     }
     & .navigation:hover{

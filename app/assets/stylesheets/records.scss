@@ -1,19 +1,27 @@
 @import "users";
 
-.record_categories{
+.records{
+	width: calc(100% - 70px);
+	height: calc(100% - 109px);
+	float:right;
 	display: flex;
 	flex-direction: row;
-	margin-left: 70px;
-	background-color: $nav-lblue;
-	justify-content: space-around;
-	& .category{
-		background-color: $nav-lblue;
-		font-size: 1.3em;
-		border: none;
-		width: 100%;
+	& .records-container{
+		flex: 1;
+		background-color: rgb(77, 41, 41);
+		display: flex;
+		justify-content: center;
+		align-items: end;
+		& .records-list{
+			background-color: rgb(218, 169, 104);
+			width: 100px;
+			height: 100px;
+			margin-bottom: 45px;
+		}
 	}
-	& .category:hover{
-		background-color: complement($nav-lblue);
-		cursor: pointer;
+	& .graph-container{
+		flex: 0.4;
+		background-color: rgb(77, 168, 96);
 	}
+
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_10_135543) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_13_135224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_135543) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "archived"
+    t.text "surrender_reason"
+    t.boolean "two_colored_eyes"
     t.index ["breed_id"], name: "index_dogs_on_breed_id"
     t.index ["dog_state_id"], name: "index_dogs_on_dog_state_id"
   end
