@@ -1,4 +1,5 @@
 class DogsController < ApplicationController
+  include Authentication
   before_action :set_dog, only: %i[ show edit update destroy ]
 
   # GET /dogs or /dogs.json
