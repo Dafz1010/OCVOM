@@ -2,130 +2,41 @@
 	<div class="records-container">
 		<div class="records-list">
 			<div class="record-title">
-				<p>Latest Client</p>
+				<p>Latest Clients</p>
+				<p>[Search button]</p>
 			</div>
 			<div class="record-table">
-				<div class="record-header">
-					<div class="h-checkbox material-icons">check_box_outline_blank</div>
-					<div class="h-id">ID</div>
-					<div class="h-breed">KIND/BREED</div>
-					<div class="h-name">NAME</div>
-					<div class="h-owner">OWNER</div>
-					<div class="h-address">ADDRESS</div>
-					<div class="h-date">DATE</div>
-					<div class="h-status">STATUS</div>
-					<div class="h-actions"></div>
-				</div>
-				<div class="record">
-					<div class="r-checkbox material-icons">check_box_outline_blank</div>
-					<div class="r-id">001</div>
-					<div class="r-breed">ASPIN</div>
-					<div class="r-name">CHUCHU</div>
-					<div class="r-owner">DAFFY</div>
-					<div class="r-address">Linao</div>
-					<div class="r-date"><%= Date.today %></div>
-					<div class="r-status">Adopted</div>
-					<div class="r-actions"></div>
-				</div>
-				<div class="record">
-					<div class="r-checkbox material-icons">check_box_outline_blank</div>
-					<div class="r-id">001</div>
-					<div class="r-breed">ASPIN</div>
-					<div class="r-name">CHUCHU</div>
-					<div class="r-owner">DAFFY</div>
-					<div class="r-address">Linao</div>
-					<div class="r-date"><%= Date.today %></div>
-					<div class="r-status">Adopted</div>
-					<div class="r-actions"></div>
-				</div>
-				<div class="record">
-					<div class="r-checkbox material-icons">check_box_outline_blank</div>
-					<div class="r-id">001</div>
-					<div class="r-breed">ASPIN</div>
-					<div class="r-name">CHUCHU</div>
-					<div class="r-owner">DAFFY</div>
-					<div class="r-address">Linao</div>
-					<div class="r-date"><%= Date.today %></div>
-					<div class="r-status">Adopted</div>
-					<div class="r-actions"></div>
-				</div>
-				<div class="record">
-					<div class="r-checkbox material-icons">check_box_outline_blank</div>
-					<div class="r-id">001</div>
-					<div class="r-breed">ASPIN</div>
-					<div class="r-name">CHUCHU</div>
-					<div class="r-owner">DAFFY</div>
-					<div class="r-address">Linao</div>
-					<div class="r-date"><%= Date.today %></div>
-					<div class="r-status">Adopted</div>
-					<div class="r-actions"></div>
-				</div>
-				<div class="record">
-					<div class="r-checkbox material-icons">check_box_outline_blank</div>
-					<div class="r-id">001</div>
-					<div class="r-breed">ASPIN</div>
-					<div class="r-name">CHUCHU</div>
-					<div class="r-owner">DAFFY</div>
-					<div class="r-address">Linao</div>
-					<div class="r-date"><%= Date.today %></div>
-					<div class="r-status">Adopted</div>
-					<div class="r-actions"></div>
-				</div>
-				<div class="record">
-					<div class="r-checkbox material-icons">check_box_outline_blank</div>
-					<div class="r-id">001</div>
-					<div class="r-breed">ASPIN</div>
-					<div class="r-name">CHUCHU</div>
-					<div class="r-owner">DAFFY</div>
-					<div class="r-address">Linao</div>
-					<div class="r-date"><%= Date.today %></div>
-					<div class="r-status">Adopted</div>
-					<div class="r-actions"></div>
-				</div>
-				<div class="record">
-					<div class="r-checkbox material-icons">check_box_outline_blank</div>
-					<div class="r-id">001</div>
-					<div class="r-breed">ASPIN</div>
-					<div class="r-name">CHUCHU</div>
-					<div class="r-owner">DAFFY</div>
-					<div class="r-address">Linao</div>
-					<div class="r-date"><%= Date.today %></div>
-					<div class="r-status">Adopted</div>
-					<div class="r-actions"></div>
-				</div>
-				<div class="record">
-					<div class="r-checkbox material-icons">check_box_outline_blank</div>
-					<div class="r-id">001</div>
-					<div class="r-breed">ASPIN</div>
-					<div class="r-name">CHUCHU</div>
-					<div class="r-owner">DAFFY</div>
-					<div class="r-address">Linao</div>
-					<div class="r-date"><%= Date.today %></div>
-					<div class="r-status">Adopted</div>
-					<div class="r-actions"></div>
-				</div>
-				<div class="record">
-					<div class="r-checkbox material-icons">check_box_outline_blank</div>
-					<div class="r-id">001</div>
-					<div class="r-breed">ASPIN</div>
-					<div class="r-name">CHUCHU</div>
-					<div class="r-owner">DAFFY</div>
-					<div class="r-address">Linao</div>
-					<div class="r-date"><%= Date.today %></div>
-					<div class="r-status">Adopted</div>
-					<div class="r-actions"></div>
-				</div>
-				<div class="record">
-					<div class="r-checkbox material-icons">check_box_outline_blank</div>
-					<div class="r-id">001</div>
-					<div class="r-breed">ASPIN</div>
-					<div class="r-name">CHUCHU</div>
-					<div class="r-owner">DAFFY</div>
-					<div class="r-address">Linao</div>
-					<div class="r-date"><%= Date.today %></div>
-					<div class="r-status">Adopted</div>
-					<div class="r-actions"></div>
-				</div>
+				<table>
+					<thead>
+						<tr>
+							<th class="record-header"><div class="h-checkbox material-icons">check_box_outline_blank</div></th>
+							<th class="record-header">ID</th>
+							<th class="record-header">KIND/BREED</th>
+							<th class="record-header">NAME</th>
+							<th class="record-header">OWNER</th>
+							<th class="record-header">ADDRESS</th>
+							<th class="record-header">DATE</th>
+							<th class="record-header">STATUS</th>
+							<th class="record-header"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<% 25.times do |i| %>
+							<tr>
+								<td><div class="h-checkbox material-icons">check_box_outline_blank</div></td>
+								<td><%= i+1 %></td>
+								<td><%= Breed.pluck(:name).sample %></td>
+								<td><%= fakedogname %></td>
+								<td><%= fakename %></td>
+								<td><%= Place.pluck(:name).sample %></td>
+								<td><%= Date.today %></td>
+								<td><%= DogState.pluck(:name).sample %></td>
+								<td>DEMO</td>
+							</tr>
+						<% end %>
+
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
