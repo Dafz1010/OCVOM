@@ -19,12 +19,12 @@
             </div>
             <div class="nav-item">
               <%= link_to root_path, class: "item-button" do %>
-                <div class="material-icons item-logo">dashboard</div> DASHBOARD  
+                <div class="material-icons item-logo">dashboard</div> DASHBOARD
               <% end %>
             </div>
             <div class="nav-item">
               <%= link_to records_path, class: "item-button" do %>
-                <div class="material-icons item-logo">view_list</div> RECORDS  
+                <div class="material-icons item-logo">view_list</div> RECORDS
               <% end %>
               <div class="nav-subitem-container">
                 <div class="nav-subitem">
@@ -61,7 +61,7 @@
             </div>
             <div class="nav-item">
               <%= link_to scan_path, class: "item-button" do %> 
-                <div class="material-icons item-logo">touch_app</div> ACTIONS  
+                <div class="material-icons item-logo">touch_app</div> ACTIONS
               <% end %>
               <div class="nav-subitem-container">
                 <div class="nav-subitem">
@@ -84,10 +84,16 @@
                 </div>
                 </div>
               </div>
+              <div class="nav-item">
+                <%= link_to session_path, class: "item-button", data: { "turbo-method": :delete } do %> 
+                  <div class="material-icons item-logo">logout</div> LOGOUT
+                <% end %>
+              </div>
             </div>
       <% end %>
       <%= yield %>
           </div>
+
     </div>
   </body>
 </html>

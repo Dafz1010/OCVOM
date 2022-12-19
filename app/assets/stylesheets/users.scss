@@ -147,8 +147,11 @@ $nav-lblue:#A4CDFF;
                 margin: 0px
             }
         }
-        & .nav-item:last-child:hover{
+        & .nav-item:nth-last-child(2):hover{
             flex-grow: 1;
+        }
+        & .nav-item:last-child{
+            margin-top: auto;
         }
     }
     & .navigation:hover{
