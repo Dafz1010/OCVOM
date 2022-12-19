@@ -9,14 +9,14 @@ class SessionsController < ApplicationController
     user = User.find_by(username: params[:username])
     if user && user.authenticate(params[:password])
       log_in user
-      redirect_to session[:intended_url] || users_path
+      redirect_to (session[:intended_url] || users_path), flash: { notice: "Successully Logged In" }
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity, flash: { alert: "Invalid Username or Password" }
     end
   end
 
   def destroy
     log_out
-    redirect_to root_path
+    redirect_to root_path, flash: { notice: "Successully Logged Out" }
   end
 end

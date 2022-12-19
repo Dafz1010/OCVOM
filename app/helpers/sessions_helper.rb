@@ -5,6 +5,7 @@ module SessionsHelper
     end
 
     def log_out
+        session[:intended_url] = nil
         session.delete(:user_id)
     end
 end

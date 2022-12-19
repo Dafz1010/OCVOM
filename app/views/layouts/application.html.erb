@@ -93,7 +93,11 @@
       <% end %>
       <%= yield %>
           </div>
-
+      <% if flash.present? %>
+        <div class="flash <%= flash.keys[0] %>">
+          <%= flash[flash.keys[0]] %>
+        </div>
+      <% end %>
     </div>
   </body>
 </html>
