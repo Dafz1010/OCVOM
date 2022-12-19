@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+include SessionsHelper
 private
 
   def current_user
@@ -18,11 +19,4 @@ private
   end
 
   helper_method :current_user_admin?
-
-  def require_signin
-    unless current_user
-      session[:intended_url] = request.url
-      redirect_to new_session_path, alert: "Please sign in first"
-    end
-  end
 end
