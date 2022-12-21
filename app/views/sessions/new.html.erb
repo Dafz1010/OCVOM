@@ -1,7 +1,7 @@
 <div class="login">
 	<%= render "home/logo" %>
 	<div class="login-c">
-		<%= form_with(url: session_path,local: true) do |f| %>
+		<%= form_with(url: session_path, remore: true) do |f| %>
 			<h1>LOGIN</h1>
 			<label class="icon-user">
 				<%= f.text_field :username, placeholder: "Username", autocomplete: 'off', required: true %>
@@ -10,6 +10,11 @@
 				<%= f.password_field :password, placeholder: "Password", autocomplete: 'off', required: true %>
 			</label>
 			<%= f.submit "Log In" %>
+			<% if flash.present? && flash[flash.keys[0]] == "Invalid Username/Password" %>
+				<div class="flash <%= flash.keys[0] %> login-form">
+					<%= flash[flash.keys[0]] %>
+				</div>
+			<% end %>
 		<% end %>
 	</div>	
 </div>
