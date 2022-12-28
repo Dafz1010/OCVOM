@@ -79,3 +79,5 @@ end
 
 gem "tailwindcss-rails", "~> 2.0"
 gem "paper_trail"
+
+gem "pundit", "~> 2.3"
