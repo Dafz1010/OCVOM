@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_paper_trail
+  belongs_to :role, optional: true
   has_secure_password
 
   validates :name, presence: true
