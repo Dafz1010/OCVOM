@@ -6,7 +6,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  resource :session , only: [:new, :create, :destroy]
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
+  get '/register', to: 'users#new'
   get '/records', to: 'records#index', as: 'records'
   get '/scan', to: 'scan#index', as: 'scan'
 end
