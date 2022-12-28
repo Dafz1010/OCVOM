@@ -14,7 +14,11 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    if !current_user
+      @user = User.new
+    else
+      redirect_to users_path, flash: {alert: "You are already Logged In"}
+    end
   end
 
   # GET /users/1/edit
