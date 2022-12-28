@@ -1,4 +1,4 @@
 class User < ApplicationRecord
-  belongs_to :role
+  has_paper_trail
   has_secure_password
 end
