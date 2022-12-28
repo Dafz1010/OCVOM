@@ -5,7 +5,8 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    all_logs = PaperTrail::Version.where.not(whodunnit: nil).order(created_at: :desc)
+    @logs = sort_logs(all_logs)
   end
 
   # GET /users/1 or /users/1.json
@@ -70,5 +71,20 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:name, :username, :password, :password_confirmation, :role_id)
+    end
+
+    def sort_logs(unsorted_logs)
+      unsorted_logs.map do |record|
+        case record[:event]
+          when 'Login User'
+            {log_text: "#{record.whodunnit} Logged In at #{record.created_at.strftime('%b %d, %Y %I:%M %p')}"}
+          when 'Logout User'
+            {log_text: "#{record.whodunnit} Logged Out at #{record.created_at.strftime('%b %d, %Y %I:%M %p')}"}
+          when 'Register User'
+            {log_text: "User #{record.whodunnit} was Registered at #{record.created_at.strftime('%b %d, %Y %I:%M %p')}"}
+          else 
+            {log_text: "Event: #{record[:event]}"}
+        end
+      end
     end
 end
