@@ -30,6 +30,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.valid? && @user.save
       session[:user_id] = @user.id
+      @user.versions.create!(event: "Register User", whodunnit: "#{@user.username}")
+      @user.versions.create!(event: "Login User", whodunnit: "#{@user.username}")
       redirect_to users_path , notice: "Registered Successfully"
     else
       render :new, status: :unprocessable_entity
