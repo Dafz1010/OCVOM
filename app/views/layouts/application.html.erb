@@ -93,7 +93,7 @@
       <% end %>
       <%= yield %>
           </div>
-      <% if flash.present? && !flash[flash.keys[0]] == "Invalid Username/Password" %>
+      <% if flash.present? && flash[flash.keys[0]] != "Invalid Username/Password" %>
         <div class="flash <%= flash.keys[0] %>">
           <%= flash[flash.keys[0]] %>
         </div>
