@@ -7,18 +7,19 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(username: params[:username].downcase)
     if @user && @user.authenticate(params[:password])
       log_in @user
       redirect_to (session[:intended_url] || users_path), flash: { notice: "Successully Logged In" }
     else
-      flash.now[:alert]= "Invalid Username/Password"
+      flash.now[:alert] = "Invalid Username/Password"
       render :new, status: :unprocessable_entity
     end
   end
 
   def destroy
-    log_out
+    @user = User.find(session[:user_id])
+    log_out(@user)
     redirect_to root_path, flash: { notice: "Successully Logged Out" }
   end
 end
