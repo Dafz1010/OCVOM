@@ -77,11 +77,11 @@ class UsersController < ApplicationController
       unsorted_logs.map do |record|
         case record[:event]
           when 'Login User'
-            {log_text: "#{record.whodunnit} Logged In at #{record.created_at.strftime('%b %d, %Y %I:%M %p')}"}
+            {log_text: "#{record.created_at.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} Logged In"}
           when 'Logout User'
-            {log_text: "#{record.whodunnit} Logged Out at #{record.created_at.strftime('%b %d, %Y %I:%M %p')}"}
+            {log_text: "#{record.created_at.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} Logged Out"}
           when 'Register User'
-            {log_text: "User #{record.whodunnit} was Registered at #{record.created_at.strftime('%b %d, %Y %I:%M %p')}"}
+            {log_text: "#{record.created_at.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} was Registered"}
           else 
             {log_text: "Event: #{record[:event]}"}
         end
