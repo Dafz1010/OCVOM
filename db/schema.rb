@@ -10,14 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_26_122304) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_28_064501) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "activities", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "adoptions", force: :cascade do |t|
     t.integer "customer_id", null: false
@@ -25,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_122304) do
     t.date "date_adopted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "archived_at"
     t.index ["customer_id"], name: "index_adoptions_on_customer_id"
     t.index ["dog_id"], name: "index_adoptions_on_dog_id"
   end
@@ -36,6 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_122304) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.datetime "archived_at"
     t.index ["customer_id"], name: "index_appointments_on_customer_id"
     t.index ["dog_id"], name: "index_appointments_on_dog_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
@@ -45,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_122304) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "archived_at"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -52,17 +50,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_122304) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "archived_at"
   end
 
   create_table "dog_states", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "archived_at"
   end
 
   create_table "dogs", force: :cascade do |t|
     t.integer "breed_id", null: false
-    t.string "location"
     t.boolean "has_colar"
     t.integer "dog_state_id", null: false
     t.string "image_file_name"
@@ -74,25 +73,31 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_122304) do
     t.boolean "archived"
     t.text "surrender_reason"
     t.boolean "two_colored_eyes"
+    t.datetime "archived_at"
+    t.bigint "place_id", null: false
     t.index ["breed_id"], name: "index_dogs_on_breed_id"
     t.index ["dog_state_id"], name: "index_dogs_on_dog_state_id"
+    t.index ["place_id"], name: "index_dogs_on_place_id"
   end
 
   create_table "places", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "archived_at"
   end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "archived_at"
   end
 
   create_table "user_policies", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "archived_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -102,6 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_122304) do
     t.integer "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "archived_at"
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
@@ -121,5 +127,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_122304) do
   add_foreign_key "appointments", "dogs"
   add_foreign_key "dogs", "breeds"
   add_foreign_key "dogs", "dog_states"
+  add_foreign_key "dogs", "places"
   add_foreign_key "users", "roles"
 end
