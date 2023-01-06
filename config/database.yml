@@ -7,8 +7,6 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: daffy
-  password: capstone0906
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
@@ -16,6 +14,10 @@ development:
   <<: *default
   database: ocvom_development
   #database: db/development.sqlite3
+
+staging:
+  <<: *default
+  database: ocvom_staging
 
 test:
   <<: *default
