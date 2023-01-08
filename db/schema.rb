@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_02_101933) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_06_090712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
   create_table "adoptions", force: :cascade do |t|
-    t.integer "customer_id", null: false
-    t.integer "dog_id", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "dog_id", null: false
     t.date "date_adopted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -28,12 +28,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_02_101933) do
   end
 
   create_table "appointments", force: :cascade do |t|
-    t.integer "customer_id", null: false
-    t.integer "dog_id", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "dog_id", null: false
     t.date "booked_appointment_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "archived_at"
     t.index ["customer_id"], name: "index_appointments_on_customer_id"
     t.index ["dog_id"], name: "index_appointments_on_dog_id"
@@ -72,9 +72,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_02_101933) do
   end
 
   create_table "dogs", force: :cascade do |t|
-    t.integer "breed_id", null: false
+    t.bigint "breed_id", null: false
     t.boolean "has_colar"
-    t.integer "dog_state_id", null: false
+    t.bigint "dog_state_id", null: false
     t.string "image_file_name"
     t.integer "age"
     t.boolean "gender"
@@ -114,14 +114,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_02_101933) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "username"
+    t.string "username", null: false
     t.string "password_digest"
-    t.integer "role_id"
+    t.bigint "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "archived_at"
     t.string "profile_image"
     t.index ["role_id"], name: "index_users_on_role_id"
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   create_table "versions", force: :cascade do |t|

@@ -75,7 +75,22 @@ $nav-lblue:#A4CDFF;
             border: $nav-lblue 5px solid;
             border-radius: 50%;
             margin: 10px auto;
-
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            & .profile-edit{
+                font-size: 1.7em;
+                opacity: 0;
+                font-size:50px;
+                color: black
+            }
+        }
+        & .profilepic:hover{
+            opacity: 0.5;
+            & .profile-edit{
+                opacity: 1;
+                color: black
+            }
         }
         & .nav-item{
             width: 100%;
@@ -158,7 +173,7 @@ $nav-lblue:#A4CDFF;
         width:210px;
         & .profilepic{
             width: 178px;
-            height: 128px;
+            height: 178px;
             border-radius: 12px;    
         }
         & .nav-item{
@@ -248,7 +263,8 @@ $nav-lblue:#A4CDFF;
 	    top: 50%;
     	transform: translate(-50%, -50%);
 		width: 30%;
-		height: 40%;
+		height: auto;
+		min-height: 40%;
 		background-color: transparentize(white, 0.4);
 		border: $blue solid;
 		border-radius: 40px;
@@ -280,7 +296,15 @@ $nav-lblue:#A4CDFF;
 				border-radius: 12px;
 				padding: 5px;
 			}
+            & p{
+                width: fit-content;
+                padding: 10px 20px;
+                font-size: 1em;
+                border-radius: 16px;
+                background-color: rgb(244, 128, 128);
+            }
         }
     }
+    
 }
 

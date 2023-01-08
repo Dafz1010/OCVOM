@@ -8,6 +8,7 @@
 
     <%= controller_stylesheet_link_tag %>
     <%= javascript_importmap_tags %>
+      
   </head>
 
   <body>
@@ -15,7 +16,21 @@
       <div class="dashboard">
         <%= render "home/logo" %>
           <div class="navigation">
-            <div class="profilepic">
+            <div class="profilepic" id="profile-upload-button" <%= has_profile_image %>>
+              <p>
+                <div class="material-icons profile-edit">add_a_photo</div>
+                <%= form_for current_user, html: { id: 'profile-upload-form' } do |f| %>
+                  <%= f.file_field :profile_image, id: 'hidden-profile-file-field',accept: 'image/jpeg, image/png', onchange: 'submitForm()', style: 'display: none;' %>
+                <% end %>
+                <script>
+                  document.getElementById('profile-upload-button').addEventListener('click', function() {
+                  document.getElementById('hidden-profile-file-field').click();
+                  });
+                  function submitForm() {
+                    document.getElementById('profile-upload-form').submit();
+                  }
+                </script>
+              </p>
             </div>
             <div class="nav-item">
               <%= link_to root_path, class: "item-button" do %>

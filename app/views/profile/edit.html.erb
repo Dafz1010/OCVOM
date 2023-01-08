@@ -1,0 +1,9 @@
+<div class="profile-page">
+    <%= form_for @user, url: profile_path do |form| %>
+        <%= form.label :name%>
+        <%= form.text_field :name %>
+        <%= form.label :password%>
+        <%= form.password_field :password %>
+        <%= form.submit %>
+    <% end %>
+</div>
