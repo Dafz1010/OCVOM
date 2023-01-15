@@ -83,3 +83,4 @@ gem "pundit", "~> 2.3"
 gem 'uuid'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'foreman'
