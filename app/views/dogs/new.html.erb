@@ -1,9 +1,89 @@
-<h1>New dog</h1>
+<div class="dog-new-page">
+  <div class="form-container">
+    <div class="form-title">
+      <h1>Register New Dog</h1>
+    </div>
+    <div class="dog-form">
+      <h2>Enter Dog Details:</h2>
+      <%= form_with(model: @dog,:html => { :multipart => true }) do |form| %>
+        <% if @dog.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(@dog.errors.count, "error") %> prohibited this dog from being saved:</h2>
 
-<%= render "form", dog: @dog %>
+            <ul>
+              <% @dog.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-<br>
+        <div>
+          <%= form.label "Breed", style: "display: inline"%>
+          <%= form.select :breed_id, @breeds,{prompt: "=== SELECT BREED ==="},{required: 'true', autocomplete: 'off'} %>
+        </div>
 
-<div>
-  <%= link_to "Back to dogs", dogs_path %>
+        <div>
+          <%= form.label "Location", style: "display: inline" %>
+          <%= form.select :place_id, @places,{prompt: "=== SELECT LOCATION ==="},{required: 'true', autocomplete: 'off'} %>
+        </div>
+
+        <div>
+          <%= form.label "Status", style: "display: inline" %>
+          <%= form.select :dog_state_id , @dog_states,{prompt: "=== SELECT STATUS ==="},{required: 'true', autocomplete: 'off'} %>
+        </div>
+
+        <div>
+          <%= form.label "Age", style: "display: inline" %> <p id="slider-value">1</p>
+          <%= form.range_field :age, in: 1..13,:default => 1 , :oninput => "document.getElementById('slider-value').innerHTML=this.value",required: true  %>
+        </div>
+
+        <div>
+          <%= form.label "Gender", style: "display: inline" %>
+          <%= form.collection_radio_buttons :gender, [[1,'Male'], [0,'Female']], :first, :last , {checked: 1  }%>
+        </div>
+
+        <div>
+          <%= form.label "Neutered/Spayed", style: "display: inline" %>
+          <%= form.collection_radio_buttons :neutered, [[1,'Yes'], [0,'No']], :first, :last, {checked: 0}  %>
+        </div>
+
+        <div>
+          <%= form.fields_for :dog_images do |p| %>
+            <%= p.label :image %><br>
+            <%= p.file_field :image, multiple: true, required: true, accept: "image/jpeg, image/png", id: "images", name:"dog_images[image][]", autocomplete: 'off' %>
+          <% end %>
+          <div id="image-list"></div>
+          <script>
+            document.getElementById("images").addEventListener("change", function(event) {
+              var imageList = document.getElementById("image-list");
+              if (imageList.hasChildNodes()) {
+                imageList.innerHTML = "";
+              }
+              var files = event.target.files;
+              for (var i = 0; i < files.length; i++) {
+                  var file = files[i];
+                  var reader = new FileReader();
+                  reader.addEventListener("load", function(event) {
+                      var img = document.createElement("img");
+                      img.style.height = "200px";
+                      img.src = event.target.result;
+                      document.getElementById("image-list").appendChild(img);
+                  });
+                  reader.readAsDataURL(file);
+              }
+            });
+          </script>
+        </div>
+        <div>
+          <%= form.submit %>
+        </div>
+        <script>
+        </script>
+      <% end %>
+    </div>
+    <div class="dog-pictures-form">
+      
+    </div>
+  </div>
 </div>

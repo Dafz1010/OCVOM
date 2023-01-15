@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   include Authentication
+  include ActionView::Helpers::UrlHelper
   skip_before_action :authenticate_user!, only: %i[ new create ]
   before_action :set_user, only: %i[ show edit update destroy ]
 
@@ -79,6 +80,8 @@ class UsersController < ApplicationController
             {log_text: "#{record.created_at.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} Logged Out"}
           when 'Register User'
             {log_text: "#{record.created_at.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} was Registered"}
+          when 'Create Dog'
+            {log_text: "#{record.created_at.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} created Dog data ID: #{link_to Dog.find(record.item_id).uuid, dog_path(Dog.find(record.item_id).uuid)}"}
           else 
             {log_text: "Event: #{record[:event]}"}
         end

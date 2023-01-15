@@ -14,6 +14,10 @@ class DogsController < ApplicationController
   # GET /dogs/new
   def new
     @dog = Dog.new
+    @dog_images = @dog.dog_pictures.build
+    @places = Place.pluck(:name,:id).sort
+    @dog_states = DogState.pluck(:name,:id).sort
+    @breeds = Breed.pluck(:name,:id).sort
   end
 
   # GET /dogs/1/edit
@@ -23,15 +27,14 @@ class DogsController < ApplicationController
   # POST /dogs or /dogs.json
   def create
     @dog = Dog.new(dog_params)
-
-    respond_to do |format|
-      if @dog.save
-        format.html { redirect_to dog_url(@dog), notice: "Dog was successfully created." }
-        format.json { render :show, status: :created, location: @dog }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @dog.errors, status: :unprocessable_entity }
+    if @dog.valid? && @dog.save
+      params[:dog_images]['image'].each do |a|
+        @dog_image = @dog.dog_pictures.create!(:image_file_location => a,:dog_id => @dog.id)
       end
+      @dog.versions.create!(event: params[:commit], whodunnit: "#{current_user.username}")
+      redirect_to users_path, flash: { notice: "Successully Added Dog Data" }
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -61,11 +64,12 @@ class DogsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_dog
-      @dog = Dog.find(params[:id])
+      @dog = Dog.find_by(uuid: params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def dog_params
-      params.require(:dog).permit(:breed_id, :location, :has_color, :dog_state_id, :image_file_name, :age, :gender, :in_pound)
+      params.require(:dog).permit(:breed_id, :place_id, :dog_state_id, :age, :gender, :neutered, dog_images_attributes: 
+        [:id, :dog_id, :image])
     end
 end

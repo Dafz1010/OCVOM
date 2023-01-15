@@ -11,7 +11,7 @@
                     <tbody>
                         <% @logs.each do |log| %>
                             <tr>
-                                <td><%= log[:log_text] %></td>
+                                <td><%= log[:log_text].html_safe %></td>
                             </tr>
                         <% end %>
                     </tbody>

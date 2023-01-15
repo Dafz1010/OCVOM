@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_06_090712) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_15_152002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -73,20 +73,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_06_090712) do
 
   create_table "dogs", force: :cascade do |t|
     t.bigint "breed_id", null: false
-    t.boolean "has_colar"
     t.bigint "dog_state_id", null: false
-    t.string "image_file_name"
+    t.string "images"
     t.integer "age"
     t.boolean "gender"
-    t.boolean "in_pound"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "archived"
-    t.text "surrender_reason"
-    t.boolean "two_colored_eyes"
     t.datetime "archived_at"
     t.bigint "place_id", null: false
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }
+    t.boolean "neutered", default: false
     t.index ["breed_id"], name: "index_dogs_on_breed_id"
     t.index ["dog_state_id"], name: "index_dogs_on_dog_state_id"
     t.index ["place_id"], name: "index_dogs_on_place_id"
