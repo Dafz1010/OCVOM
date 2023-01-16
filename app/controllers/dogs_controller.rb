@@ -29,7 +29,7 @@ class DogsController < ApplicationController
     @dog = Dog.new(dog_params)
     if @dog.valid? && @dog.save
       params[:dog_images]['image'].each do |a|
-        @dog_image = @dog.dog_pictures.create!(:image_file_location => a,:dog_id => @dog.id)
+        @dog_image = @dog.dog_pictures.create!(:image => a,:dog_id => @dog.id)
       end
       @dog.versions.create!(event: params[:commit], whodunnit: "#{current_user.username}")
       redirect_to users_path, flash: { notice: "Successully Added Dog Data" }

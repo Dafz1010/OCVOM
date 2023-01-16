@@ -2,10 +2,10 @@
 
 one:
   dog: one
-  image_file_location: MyString
+  image: MyString
   archived_at: 2023-01-02 18:07:05
 
 two:
   dog: two
-  image_file_location: MyString
+  image: MyString
   archived_at: 2023-01-02 18:07:05
