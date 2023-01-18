@@ -40,7 +40,26 @@
         }
         & .dog-pictures-form{
             grid-area: right;
-            background-color: red;
+            background-color: rgb(179, 123, 123);
         }
+    }
+}
+.dog-show-page{
+	width: calc(100% - 70px);
+	height: calc(100% - 109px);
+	float:right;
+    display:flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    & .title-container{
+        height: fit-content;
+        & .dog-title{
+            background-color: $nav-blue;
+            width: fit-content;
+            color: white;
+        }
+    }
+    & .show-container{
+        height: fit-content;
     }
 }

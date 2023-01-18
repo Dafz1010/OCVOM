@@ -1,10 +1,31 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @dog %>
-
-<div>
-  <%= link_to "Edit this dog", edit_dog_path(@dog) %> |
-  <%= link_to "Back to dogs", dogs_path %>
-
-  <%= button_to "Destroy this dog", @dog, method: :delete %>
+<div class="dog-show-page">
+  <div class="row w-100 h-100" style="border: 1px solid black;">
+    <div class="title-container col-12 col-md-12" style="border: 1px solid black;">
+      <div class="dog-title p-3 mx-3 rounded-pill ">
+        <h1>Pet Profile</h1>
+      </div>
+    </div>
+    <div class="show-container col-8 col-md-8 h-90 d-flex justify-content-center" style="border: 1px solid black;">
+      <div class="col-11 my-4 rounded-3">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://picsum.photos/200/300?random=1">
+          </div>
+          <div class="carousel-item">
+            <img src="https://picsum.photos/200/300?random=2">
+          </div>
+          <div class="carousel-item">
+            <img src="https://picsum.photos/200/300?random=3">
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="col-4 col-md-4 h-100 *" style="border: 1px solid black;">
+      <!-- content here -->
+    </div>
+  </div>
 </div>
+
+
