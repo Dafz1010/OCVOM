@@ -44,9 +44,9 @@ class UsersController < ApplicationController
   def update
     @user.skip_password_validation = true
     if @user.update(user_params)
-      redirect_to users_path, notice: "Profile Image Updated"
+      redirect_to (request.referrer || users_path), notice: "Profile Image Updated"
     else
-      redirect_to users_path, alert: "Image must be a JPEG or PNG"
+      redirect_to (request.referrer || users_path), alert: "Image must be a JPEG or PNG"
     end
   end
 
