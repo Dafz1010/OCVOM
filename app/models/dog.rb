@@ -5,4 +5,21 @@ class Dog < ApplicationRecord
   belongs_to :place
   has_many :dog_pictures, dependent: :destroy
   accepts_nested_attributes_for :dog_pictures, :allow_destroy => true
+
+  def breed_name
+    breed.name
+  end
+
+  def status
+    dog_state.name
+  end
+
+  def location
+    place.name
+  end
+
+  def sex
+    gender ? "Male" : "Female"
+  end
+
 end
