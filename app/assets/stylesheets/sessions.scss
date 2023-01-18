@@ -9,7 +9,7 @@
 	height: 100%;
 	display:flex;
 	position:relative;
-	&-c{
+	& &-c{
 		position: absolute; 
 	    left: 50%;
 	    top: 50%;
@@ -19,16 +19,16 @@
 		background-color: transparentize(white, 0.4);
 		border: $blue solid;
 		border-radius: 40px;
-		form{
+		& form{
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
 			height: 100%;
-			.icon-user, .icon-lock{
+			& .icon-user, .icon-lock{
 				position: relative;
 			}
-			.icon-user::before{
+			& .icon-user::before{
 				content: "";
 				position: absolute;
 				left: 15px;
@@ -37,7 +37,7 @@
 				width: 30px;
 				background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z' /%3E%3C/svg%3E") center / contain no-repeat;
 			}
-			.icon-lock::before{
+			& .icon-lock::before{
 				content: "";
 				position: absolute;
 				left: 15px;
@@ -46,10 +46,10 @@
 				width: 30px;
 				background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z' /%3E%3C/svg%3E") center / contain no-repeat;
 			}
-			h1{
+			& h1{
 				font-family: sans-serif;
 			}
-			input{
+			& input{
 				margin: 20px;
 				background: none;
 				border-top: none;
@@ -60,9 +60,9 @@
 				font-size: 1em;
 				padding: 5px;
 				padding-left: 30px;
-				width: calc(100% - 100px);
+				width: calc(100% - 50px);
 			}
-			input[type=submit]{
+			& input[type=submit]{
 				width: 40%;
 				border: $blue solid;
 				border-radius: 12px;
