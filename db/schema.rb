@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_16_150619) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_20_123603) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_16_150619) do
     t.bigint "place_id", null: false
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }
     t.boolean "neutered", default: false
+    t.string "public_id"
     t.index ["breed_id"], name: "index_dogs_on_breed_id"
     t.index ["dog_state_id"], name: "index_dogs_on_dog_state_id"
     t.index ["place_id"], name: "index_dogs_on_place_id"

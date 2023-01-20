@@ -22,4 +22,5 @@ class Dog < ApplicationRecord
     gender ? "Male" : "Female"
   end
 
+
 end

@@ -1,29 +1,86 @@
 <div class="dog-show-page">
-  <div class="row w-100 h-100" style="border: 1px solid black;">
-    <div class="title-container col-12 col-md-12" style="border: 1px solid black;">
-      <div class="dog-title p-3 mx-3 rounded-pill ">
-        <h1>Pet Profile</h1>
+  <div class="row d-flex flex-column flex-nowrap w-100 h-100" style="border: 1px solid black;">
+    <div class="title-container row">
+      <div class="col-12 col-md-12" style="border: 1px solid black;">
+        <div class="dog-title p-3 mx-3 rounded-pill ">
+          <h1>Pet Profile</h1>
+        </div>
       </div>
     </div>
-    <div class="show-container col-8 col-md-8 h-90 d-flex justify-content-center" style="border: 1px solid black;">
-      <div class="col-11 my-4 rounded-3">
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="https://picsum.photos/200/300?random=1">
+    <div class="show-container row flex-grow-1">
+      <div class="col-8 col-md-8 h-90 d-flex justify-content-center" style="border: 1px solid black;">
+        <div class="dog-data col-11 mt-4 d-flex flex-column">
+          <div id="DogImagesCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <% @dog_images.count.times do |n|%>
+                <% if n.zero? %>
+                  <%= button_tag("", type: "button", data: { bs_target: "#DogImagesCarousel", bs_slide_to: n.to_s }, "aria-label": "Slide #{(n+1).to_s}") %>
+                <% else %>
+                  <%= button_tag("", type: "button", data: { bs_target: "#DogImagesCarousel", bs_slide_to: n.to_s }, class: "active", "aria-current": "true", "aria-label": "Slide #{(n+1).to_s}") %>  
+                <% end %>
+              <% end %>
+            </div>
+            <div class="carousel-inner h-100">
+              <% @dog_images.each_with_index do |pic, idx| %>
+                <div class="carousel-item h-100 <%= "active" if idx.zero? %>">
+                  <div class="d-flex justify-content-center h-100">
+                    <%= dog_pic(pic.image)%>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <button class="dog-carousel-controller carousel-control-prev" type="button" data-bs-target="#DogImagesCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="dog-carousel-controller carousel-control-next" type="button" data-bs-target="#DogImagesCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
-          <div class="carousel-item">
-            <img src="https://picsum.photos/200/300?random=2">
-          </div>
-          <div class="carousel-item">
-            <img src="https://picsum.photos/200/300?random=3">
+          <div class="dog-details flex-grow-1 d-flex flex-column align-items-center mx-5">
+            <div class="row w-100 h-25 mt-3">
+              <div class="col-6">
+                <p class="fs-1 fw-bold">
+                  ID: <%= @dog.public_id%> <%= @dog.sex %>
+                </p>
+              </div>
+              <div class="col-6">
+                <p class="float-end fs-2">
+                  <%= convert_to_years_months(@dog.age) %> 
+                </p>
+              </div>
+            </div>
+            <div class="row w-100 h-25">
+              <div class="col-6">
+                <p class="fs-2">
+                  <%= @dog.breed_name %>
+                </p>
+              </div>
+              <div class="col-6">
+                <p class="float-end fs-2">
+                  <%= @dog.location %>, Ormoc City
+                </p>
+              </div>
+            </div>
+            <div class="row w-100 h-50 fs-3">
+              <div class="col-4">
+              <p>Size: (SIZE)</p>
+              <p>Owner: (CUSTOMER FIRST NAME)</p>
+              </div>
+              <div class="col-4">
+              <p>Date: <%= @dog.created_at.strftime("%b %d, %Y %I:%M %p") %></p>
+              <p>Status: <%= @dog.status %></p></div>
+              <div class="col-4">
+              <p>CONDITION: (CONDITION)</p>
+              <p>veterinarian: (VET NAME)</p></div>
+            </div>
           </div>
         </div>
       </div>
+      <div class="col-4 col-md-4 h-100 *" style="border: 1px solid black;">
+        <!-- content here -->
       </div>
-    </div>
-    <div class="col-4 col-md-4 h-100 *" style="border: 1px solid black;">
-      <!-- content here -->
     </div>
   </div>
 </div>

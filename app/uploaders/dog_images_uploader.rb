@@ -1,7 +1,9 @@
 class DogImagesUploader < CarrierWave::Uploader::Base
+  require 'digest'
+
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -41,7 +43,7 @@ class DogImagesUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    "#{Digest::SHA256.hexdigest(file.read)}.#{file.extension}" if original_filename
+  end
 end

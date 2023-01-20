@@ -9,6 +9,7 @@ class DogsController < ApplicationController
 
   # GET /dogs/1 or /dogs/1.json
   def show
+    @dog_images = @dog.dog_pictures
   end
 
   # GET /dogs/new
@@ -27,9 +28,10 @@ class DogsController < ApplicationController
   # POST /dogs or /dogs.json
   def create
     @dog = Dog.new(dog_params)
+    @dog.public_id = generate_public_id
     if @dog.valid? && @dog.save
       params[:dog_images]['image'].each do |a|
-        @dog_image = @dog.dog_pictures.create!(:image => a,:dog_id => @dog.id)
+        @dog_image = @dog.dog_pictures.create!(:image => a,:dog_id => @dog.id) unless a.blank?
       end
       @dog.versions.create!(event: params[:commit], whodunnit: "#{current_user.username}")
       redirect_to users_path, flash: { notice: "Successully Added Dog Data" }
@@ -71,5 +73,9 @@ class DogsController < ApplicationController
     def dog_params
       params.require(:dog).permit(:breed_id, :place_id, :dog_state_id, :age, :gender, :neutered, dog_images_attributes: 
         [:id, :dog_id, :image])
+    end
+
+    def generate_public_id
+      @dog.created_at.strftime("%b%d%y") + "_" + ((SecureRandom.random_number(9e2) + 1e2).to_i).to_s
     end
 end

@@ -34,8 +34,8 @@
         </div>
 
         <div>
-          <%= form.label "Age", style: "display: inline" %> <p id="slider-value">1</p>
-          <%= form.range_field :age, in: 1..13,:default => 1 , :oninput => "document.getElementById('slider-value').innerHTML=this.value",required: true  %>
+          <%= form.label "Age", style: "display: inline" %> <p id="slider-value">1 month old</p>
+          <%= form.range_field :age, in: 1..156,:default => "1" , :oninput => "function fn(e){var n=Math.floor(e/12),l=e%12;return n>0?l>0?n+' year, '+l+' month old':n+' year old':l+' month old'}document.getElementById('slider-value').innerHTML=fn(this.value);",required: true  %>
         </div>
 
         <div>
