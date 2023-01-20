@@ -76,6 +76,6 @@ class DogsController < ApplicationController
     end
 
     def generate_public_id
-      @dog.created_at.strftime("%b%d%y") + "_" + ((SecureRandom.random_number(9e2) + 1e2).to_i).to_s
+      Time.now.strftime("%b%d%y") + "_" + ((SecureRandom.random_number(9e2) + 1e2).to_i).to_s
     end
 end
