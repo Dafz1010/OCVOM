@@ -34,7 +34,8 @@ class DogsController < ApplicationController
         @dog_image = @dog.dog_pictures.create!(:image => a,:dog_id => @dog.id) unless a.blank?
       end
       @dog.versions.create!(event: params[:commit], whodunnit: "#{current_user.username}")
-      redirect_to users_path, flash: { notice: "Successully Added Dog Data" }
+      @dog.reload
+      redirect_to dog_path(@dog.uuid), flash: { notice: "Successully Added Dog Data" }
     else
       render :new, status: :unprocessable_entity
     end
