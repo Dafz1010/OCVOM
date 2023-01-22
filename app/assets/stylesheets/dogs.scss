@@ -8,40 +8,35 @@
     display:flex;
     justify-content: flex-start;
     align-items: flex-start;
-    & .form-container{
-        width: 100%;
-        height: 100%;
-        display: grid;
-        grid-template-rows: min-content 1fr;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas: 
-          "header header"
-          "left right";
+    & .title-container{
+        height: fit-content;
         & .form-title{
-            grid-area: header;
-            color: white;
             background-color: $nav-blue;
-            border-radius: 20px;
-            padding: 0px 25px;
-            margin-left: 50px;
             width: fit-content;
+            color: white;
         }
-        & .dog-form{
-            background-color: transparentize(white, 0.4);
+    }
+    & .dog-form{
+        & .the-form{
+            background-color: white;
             border: $blue solid;
-            border-radius: 40px;
-            grid-area: left;
-            margin: 25px 25px 25px 50px;
-            padding:25px;
-            padding-bottom: 50px;
-            height: fit-content;
-            font-size: 1.5em;
-
+            border-radius: 16px;
+            height: fit-content ;
+            & .image-uploader{
+                width: 95.833333333%;
+                border: $blue dashed 5px;
+                color: $blue;
+                background-color: lighten($nav-lblue, 10%);
+                height: 40vh;
+                & .upload-icon{
+                    font-size: 6em;
+                }
+            }
         }
-        & .dog-pictures-form{
-            grid-area: right;
-            background-color: rgb(179, 123, 123);
-        }
+    }
+    & .dog-pictures-form{
+        grid-area: right;
+        background-color: rgb(179, 123, 123);
     }
 }
 .dog-show-page{
@@ -64,9 +59,8 @@
             background-color: white;
             border: $blue solid;
             border-radius: 16px;
-            height: fit-content;
             & #DogImagesCarousel{
-                height: 40vh;
+                height: 50vh;
                 & .dog-carousel-controller{
                     background-color: transparentize(white, 0.2);
                     width: 10%;
