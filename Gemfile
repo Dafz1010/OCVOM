@@ -61,6 +61,7 @@ group :development do
   gem "web-console"
   gem "rails-erd"
   gem 'solargraph'
+  gem "erb_lint"
   
 
 
