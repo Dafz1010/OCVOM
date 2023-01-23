@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_20_123603) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_23_080022) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -45,6 +45,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_20_123603) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "archived_at"
+  end
+
+  create_table "conditions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "customers", force: :cascade do |t|
@@ -84,7 +91,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_20_123603) do
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }
     t.boolean "neutered", default: false
     t.string "public_id"
+    t.bigint "condition_id", null: false
     t.index ["breed_id"], name: "index_dogs_on_breed_id"
+    t.index ["condition_id"], name: "index_dogs_on_condition_id"
     t.index ["dog_state_id"], name: "index_dogs_on_dog_state_id"
     t.index ["place_id"], name: "index_dogs_on_place_id"
   end
@@ -138,6 +147,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_20_123603) do
   add_foreign_key "appointments", "dogs"
   add_foreign_key "dog_pictures", "dogs"
   add_foreign_key "dogs", "breeds"
+  add_foreign_key "dogs", "conditions"
   add_foreign_key "dogs", "dog_states"
   add_foreign_key "dogs", "places"
   add_foreign_key "users", "roles"
