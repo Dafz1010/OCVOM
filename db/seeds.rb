@@ -10,7 +10,7 @@ Role.create!({name: "Doctor"})
 Role.create!({name: "Frontliner"})
 Role.create!({name: "Encoder"})
 
-u = User.create!([{name: "Administrator", username: "admin", password: "admin", password_confirmation: "admin", role_id: 1}])
+u = User.create!([{name: "Administrator", username: "admin", password: "admin123", password_confirmation: "admin123", role_id: 1}])
 
 DogState.create!(name: "Healthy")
 DogState.create!(name: "Adopted")
