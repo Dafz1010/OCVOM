@@ -91,7 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_080022) do
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }
     t.boolean "neutered", default: false
     t.string "public_id"
-    t.bigint "condition_id", null: false
+    t.bigint "condition_id"
     t.index ["breed_id"], name: "index_dogs_on_breed_id"
     t.index ["condition_id"], name: "index_dogs_on_condition_id"
     t.index ["dog_state_id"], name: "index_dogs_on_dog_state_id"
