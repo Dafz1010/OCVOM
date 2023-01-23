@@ -1,18 +1,19 @@
 <div class="dog-show-page">
-  <div class="row d-flex flex-column flex-nowrap w-100 h-100" style="border: 1px solid black;">
-    <div class="title-container row">
+  <div class="row w-100 h-100 g-0 d-flex flex-column flex-nowrap" style="border: 1px solid black;">
+    <div class="title-container row g-0 flex-shrink-1">
       <div class="col-12 col-md-12" style="border: 1px solid black;">
         <div class="dog-title p-1 mx-3 rounded-pill ">
-          <p class="fs-3 m-1">Pet Profile</p>
+          <p class="fs-3 m-1">Dog Profile</p>
         </div>
       </div>
     </div>
-    <div class="show-container row ">
-      <div class="col-8 " style="border: 1px solid black;">
-        <%= render @dog %>
-      </div>
-      <div class="col-4 col-md-4 h-100 *" style="border: 1px solid black;">
-        <!-- content here -->
+    <div class="dog-form row g-0 h-100" style="border: 1px solid black;">
+      <div class="col-8 overflow-scroll h-100" style="border: 1px solid black;">
+        <div class=" col-12" style="padding-bottom: 10vh">
+          <div class="show-container col-11 mt-2 mx-auto">
+            <%= render @dog %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

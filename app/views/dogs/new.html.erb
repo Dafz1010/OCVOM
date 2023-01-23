@@ -1,20 +1,19 @@
 <div class="dog-new-page">
-  <div class="row d-flex flex-column flex-nowrap w-100 h-100" style="border: 1px solid black;">
-    <div class="title-container row">
+  <div class="row w-100 h-100 g-0 d-flex flex-column flex-nowrap" style="border: 1px solid black;">
+    <div class="title-container row g-0 flex-shrink-1">
       <div class="col-12 col-md-12" style="border: 1px solid black;">
         <div class="form-title p-1 mx-3 rounded-pill ">
           <p class="fs-3 m-1">Register New Dog</p>
         </div>
       </div>
     </div>
-    <div class="dog-form row flex-grow-1">
-      <div class="col-8 col-md-8 h-90 d-flex justify-content-center overflow-auto" style="border: 1px solid black;">
-        <div class="the-form col-11 my-4">
-          <%= render 'form' %>
+    <div class="dog-form row g-0 h-100" style="border: 1px solid black;">
+      <div class="col-8 overflow-scroll h-100" style="border: 1px solid black;">
+        <div class=" col-12" style="padding-bottom: 10vh">
+          <div class="the-form col-11 mt-2 mx-auto">
+            <%= render 'form' %>
+          </div>
         </div>
-      </div>
-      <div class="col-4 col-md-4 h-100 *" style="border: 1px solid black;">
-        <!-- content here -->
       </div>
     </div>
   </div>
