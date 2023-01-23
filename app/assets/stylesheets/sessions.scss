@@ -15,7 +15,7 @@
 	    top: 50%;
     	transform: translate(-50%, -50%);
 		width: 30%;
-		height: 40%;
+		height: fit-content;
 		background-color: transparentize(white, 0.4);
 		border: $blue solid;
 		border-radius: 40px;
