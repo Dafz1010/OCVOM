@@ -5,33 +5,20 @@
   </h3>  
 </div>
 <div class="col-12 m-3">
-  <h2>Enter Dog Details:</h2>
   <%= form_with(model: @dog,:html => { :multipart => true }) do |form| %>
-    <% if @dog.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(@dog.errors.count, "error") %> prohibited this dog from being saved:</h2>
-
-        <ul>
-          <% @dog.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
+    <div class="row w-100">
+      <div class="form-floating col-6 py-4" style="border: black solid 1px">
+        <%= form.select :breed_id, @breeds,{prompt: "Select Breed"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
+        <%= form.label "Breed"%> 
       </div>
-    <% end %>
-
-    <div>
-      <%= form.label "Breed", style: "display: inline"%>
-      <%= form.select :breed_id, @breeds,{prompt: "=== SELECT BREED ==="},{required: 'true', autocomplete: 'off'} %>
-    </div>
-
-    <div>
-      <%= form.label "Location", style: "display: inline" %>
-      <%= form.select :place_id, @places,{prompt: "=== SELECT LOCATION ==="},{required: 'true', autocomplete: 'off'} %>
-    </div>
-
-    <div>
-      <%= form.label "Status", style: "display: inline" %>
-      <%= form.select :dog_state_id , @dog_states,{prompt: "=== SELECT STATUS ==="},{required: 'true', autocomplete: 'off'} %>
+      <div class="form-floating col-6 py-4" style="border: black solid 1px">
+        <%= form.select :place_id, @places,{prompt: "Select Location"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
+        <%= form.label "Location"%> 
+      </div>
+      <div class="form-floating col-6 py-4" style="border: black solid 1px">
+        <%= form.select :dog_state_id,  @dog_states,{prompt: "Select Location"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
+        <%= form.label "Status"%> 
+      </div>
     </div>
 
     <div>
@@ -40,7 +27,7 @@
     </div>
 
     <div>
-      <%= form.label "Gender", style: "display: inline" %>
+      <%= form. %>
       <%= form.collection_radio_buttons :gender, [[1,'Male'], [0,'Female']], :first, :last , {checked: 1  }%>
     </div>
 
@@ -79,8 +66,17 @@
     <div>
       <%= form.submit %>
     </div>
-    <script>
-    </script>
+    <% if @dog.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@dog.errors.count, "error") %> prohibited this dog from being saved:</h2>
+
+        <ul>
+          <% @dog.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   <% end %>
 
 </div>
