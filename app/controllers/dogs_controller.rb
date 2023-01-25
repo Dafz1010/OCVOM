@@ -19,6 +19,7 @@ class DogsController < ApplicationController
     @places = Place.pluck(:name,:id).sort
     @dog_states = DogState.pluck(:name,:id).sort
     @breeds = Breed.pluck(:name,:id).sort
+    @conditions = Condition.pluck(:name,:id).sort
   end
 
   # GET /dogs/1/edit
@@ -72,7 +73,7 @@ class DogsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dog_params
-      params.require(:dog).permit(:breed_id, :place_id, :dog_state_id, :age, :gender, :neutered, dog_images_attributes: 
+      params.require(:dog).permit(:breed_id, :place_id, :dog_state_id, :condition_id, :age, :gender, :neutered, dog_images_attributes: 
         [:id, :dog_id, :image])
     end
 

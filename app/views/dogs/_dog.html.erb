@@ -61,7 +61,7 @@
       <p>Date: <%= @dog.created_at.strftime("%b %d, %Y %I:%M %p") %></p>
       <p>Status: <%= @dog.status %></p></div>
       <div class="col-4">
-      <p>CONDITION: (CONDITION)</p>
+      <p>CONDITION: <%= @dog.condition_name %> </p>
       <p>veterinarian: (VET NAME)</p></div>
     </div>
   </div>

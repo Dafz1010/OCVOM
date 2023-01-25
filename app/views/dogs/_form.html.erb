@@ -19,6 +19,10 @@
         <%= form.select :dog_state_id,  @dog_states,{prompt: "Select Location"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
         <%= form.label "Status"%> 
       </div>
+      <div class="form-floating col-6 py-4" style="border: black solid 1px">
+        <%= form.select :condition_id,  @conditions,{prompt: "Select Condition"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
+        <%= form.label "Condition"%> 
+      </div>
       <div class="col-6 py-4" style="border: black solid 1px">
         <%= form.label "Gender :", style: "display: inline" %>
         <%= form.check_box :gender, class: "switch pt-3",checked: true, data: { toggle: "switch", on_color: "male", on_text: "Male", off_color: "female", off_text: "Female" }%>
@@ -31,12 +35,7 @@
     </div>
 
     <div>
-      <%= form. %>
-      <%= form.collection_radio_buttons :gender, [[1,'Male'], [0,'Female']], :first, :last , {checked: 1  }%>
-    </div>
-
-    <div>
-      <%= form.label "Neutered/Spayed", style: "display: inline" %>
+      <%= form.label "Neutered:", style: "display: inline" %>
       <%= form.collection_radio_buttons :neutered, [[1,'Yes'], [0,'No']], :first, :last, {checked: 0}  %>
     </div>
 

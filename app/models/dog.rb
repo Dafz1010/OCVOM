@@ -24,5 +24,7 @@ class Dog < ApplicationRecord
     gender ? "Male" : "Female"
   end
 
-
+  def condition_name
+    condition.name
+  end
 end
