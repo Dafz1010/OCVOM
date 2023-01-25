@@ -1,70 +1,59 @@
-<div class="col-11 image-uploader position-relative mx-auto my-3">
-  <div class="material-icons upload-icon position-absolute top-50 start-50 translate-middle ">add_a_photo</div>
-  <h3 class="w-100 text-center position-absolute bottom-0 start-50 translate-middle-x">
+
+<script>
+  var files = [];
+  function handleDrop(event) {
+    event.preventDefault();
+    var newFiles = event.dataTransfer.files;
+    for (var i = 0; i < newFiles.length; i++) {
+      var file = newFiles[i];
+      files.push(file);
+    }
+  }
+</script>
+<div id="drop-area" ondrop="handleDrop(event)" class="col-11 image-uploader position-relative mx-auto my-3">
+  <div id="image-list" class="row m-3 pb-4 flex-nowrap"></div>
+  <div class=" material-icons upload-icon position-absolute top-50 start-50 translate-middle ">add_a_photo</div>
+  <h3 class=" w-100 text-center position-absolute bottom-0 start-50 translate-middle-x">
     Drag and drop images here
-  </h3>  
+  </h3>
 </div>
 <div class="col-12 m-3 " data-controller="dog-form">
   <%= form_with(model: @dog,:html => { :multipart => true }) do |form| %>
     <div class="row w-100">
-      <div class="form-floating col-6 py-4" style="border: black solid 1px">
+      <div class="form-floating col-6 py-4">
         <%= form.select :breed_id, @breeds,{prompt: "Select Breed"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
         <%= form.label "Breed"%> 
       </div>
-      <div class="form-floating col-6 py-4" style="border: black solid 1px">
+      <div class="form-floating col-6 py-4">
         <%= form.select :place_id, @places,{prompt: "Select Location"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
         <%= form.label "Location"%> 
       </div>
-      <div class="form-floating col-6 py-4" style="border: black solid 1px">
+      <div class="form-floating col-6 py-4">
         <%= form.select :dog_state_id,  @dog_states,{prompt: "Select Location"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
         <%= form.label "Status"%> 
       </div>
-      <div class="form-floating col-6 py-4" style="border: black solid 1px">
+      <div class="form-floating col-6 py-4">
         <%= form.select :condition_id,  @conditions,{prompt: "Select Condition"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
         <%= form.label "Condition"%> 
       </div>
-      <div class="col-6 py-4" style="border: black solid 1px">
+      <div class="col-4 myauto">
         <%= form.label "Gender :", style: "display: inline" %>
         <%= form.check_box :gender, class: "switch pt-3",checked: true, data: { toggle: "switch", on_color: "male", on_text: "Male", off_color: "female", off_text: "Female" }%>
       </div>
-    </div>
-
-    <div>
-      <%= form.label "Age", style: "display: inline" %> <p id="slider-value">1 month old</p>
-      <%= form.range_field :age, in: 0..156,:default => "1" , :oninput => "function fn(e){if(e <= 0) return 'Unknown'; var n=Math.floor(e/12),l=e%12;return n>0?l>0?n+' year, '+l+' month old':n+' year old':l+' month old'}document.getElementById('slider-value').innerHTML=fn(this.value);",required: true  %>
-    </div>
-
-    <div>
-      <%= form.label "Neutered:", style: "display: inline" %>
-      <%= form.collection_radio_buttons :neutered, [[1,'Yes'], [0,'No']], :first, :last, {checked: 0}  %>
+      <div class="col-4 myauto">
+        <%= form.label "Neutered :", style: "display: inline" %>
+        <%= form.check_box :neutered, class: "switch pt-3",checked: false, data: { toggle: "switch", on_color: "success", on_text: "Yes", off_color: "danger", off_text: "No" }%>
+      </div>
+      <div class="col-4 myauto">
+        <%= form.label "Age :", style: "display: inline" %>
+        <%= form.number_field :age, min: 0, max: 156, step: 1, value: 1, style: "width: 50px" %> (in months)
+      </div>
     </div>
 
     <div>
       <%= form.fields_for :dog_images do |p| %>
         <%= p.label :image %><br>
         <%= p.file_field :image, multiple: true, required: true, accept: "image/jpeg, image/png", id: "images", name:"dog_images[image][]", autocomplete: 'off' %>
-      <% end %>
-      <div id="image-list"></div>
-      <script>
-        document.getElementById("images").addEventListener("change", function(event) {
-          var imageList = document.getElementById("image-list");
-          if (imageList.hasChildNodes()) {
-            imageList.innerHTML = "";
-          }
-          var files = event.target.files;
-          for (var i = 0; i < files.length; i++) {
-              var file = files[i];
-              var reader = new FileReader();
-              reader.addEventListener("load", function(event) {
-                  var img = document.createElement("img");
-                  img.style.height = "200px";
-                  img.src = event.target.result;
-                  document.getElementById("image-list").appendChild(img);
-              });
-              reader.readAsDataURL(file);
-          }
-        });
-      </script>
     </div>
     <div>
       <%= form.submit %>
@@ -83,3 +72,4 @@
   <% end %>
 
 </div>
+      <% end %>
