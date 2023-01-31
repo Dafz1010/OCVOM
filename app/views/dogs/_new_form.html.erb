@@ -89,12 +89,12 @@
       </div>
     </div>
 
-    <div>
+    <div class='d-none'>
       <%= form.fields_for :dog_images do |p| %>
         <%= p.label :image %><br>
         <%= p.file_field :image, multiple: true, required: true, accept: "image/jpeg, image/png", id: "images", name:"dog_images[image][]", autocomplete: 'off' %>
     </div>
-    <div class='d-none'>
+    <div>
       <button id="dog-form-presubmit" type="button" class="btn btn-primary mt-2">Submit</button>
       <%= form.submit "Submit" , id: "dog-form-submit",class: "d-none"%>
     </div>
