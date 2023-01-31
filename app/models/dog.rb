@@ -66,14 +66,14 @@ class Dog < ApplicationRecord
 
   def self.export(date_range = "")
     list = self.all.where(archived_at: nil)
-    Prawn::Document.generate('implicit.pdf',page_size: 'LEGAL',page_layout: :landscape) do
-      data = [ 
-        ["Public ID", "Breed","Sex","Age","Neutered","Owner","Location", "Status", "Condition", "Date"] 
-      ]
-      list.each do |d|
-        data += [[d.public_id,d.breed_name,d.exp_sex,d.exp_age(d.age),d.exp_neutered,"N/A",d.location,d.status,d.condition_name,d.exp_date]]
-      end
-      table data, :position => :center
+    pdf = Prawn::Document.new(page_layout: :landscape, page_size: "LEGAL")
+    data = [ 
+      ["Public ID", "Breed","Sex","Age","Neutered","Owner","Location", "Status", "Condition", "Date"] 
+    ]
+    list.each do |d|
+      data += [[d.public_id,d.breed_name,d.exp_sex,d.exp_age(d.age),d.exp_neutered,"N/A",d.location,d.status,d.condition_name,d.exp_date]]
     end
+    pdf.table data, :position => :center
+    pdf
   end
 end

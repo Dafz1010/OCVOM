@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'  
   get '/scan', to: 'scan#index', as: 'scan'
   get '/data_export', to: 'data_export#index'
-  get 'data_export/show'
+  get 'data_export/download_report'
 end

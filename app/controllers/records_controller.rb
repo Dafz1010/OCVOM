@@ -1,7 +1,7 @@
 class RecordsController < ApplicationController
     include Authentication
     def show
-        @total_records = Dog.all.count
+        @total_records = Dog.all.where(archived_at: nil).count
         status = DogState.pluck(:name)
         if params[:name].present?
             if status.include?(params[:name])
