@@ -81,7 +81,26 @@ class UsersController < ApplicationController
           when 'Register User'
             {log_text: "#{record.created_at.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} was Registered"}
           when 'Create Dog'
-            {log_text: "#{record.created_at.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} created Dog data ID: #{link_to Dog.find(record.item_id).uuid, dog_path(Dog.find(record.item_id).uuid)}"}
+            dog_data = Dog.find(record.item_id)
+            log_string = ""
+            if dog_data.archived?
+              log_string = "<div class='d-inline-block'>#{dog_data.uuid}</div>"
+            else
+              log_string = "<div class='d-inline-block'>#{link_to dog_data.uuid, dog_path(dog_data.uuid)}</div>"
+            end
+            {log_text: "#{record.created_at.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} created Dog Profile ID: #{log_string}"}
+          when 'Archive Dog'
+            dog_data = Dog.find(record.item_id)
+            {log_text: "#{record.created_at.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} archived Dog Profile ID: <div class='d-inline-block'>#{dog_data.uuid}</div>"}
+          when 'Update Dog'
+            dog_data = Dog.find(record.item_id)
+            log_string = ""
+            if dog_data.archived?
+              log_string = "<div class='d-inline-block'>#{dog_data.uuid}</div>"
+            else
+              log_string = "<div class='d-inline-block'>#{link_to dog_data.uuid, dog_path(dog_data.uuid)}</div>"
+            end
+            {log_text: "#{record.created_at.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} updated Dog Profile ID: #{log_string}"}
           else 
             {log_text: "Event: #{record[:event]}"}
         end

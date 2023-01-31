@@ -4,12 +4,16 @@ class DogsController < ApplicationController
 
   # GET /dogs or /dogs.json
   def index
-    @dogs = Dog.all
-  end
+    redirect_to records_path
+  end 
 
   # GET /dogs/1 or /dogs/1.json
   def show
-    @dog_images = @dog.dog_pictures
+    if @dog.archived?
+      redirect_back fallback_location: records_path, flash: { alert: "Dog Profile was archived" }
+    else
+      @dog_images = @dog.dog_pictures.where(archived_at: nil) 
+    end
   end
 
   # GET /dogs/new
@@ -24,6 +28,11 @@ class DogsController < ApplicationController
 
   # GET /dogs/1/edit
   def edit
+    @dog_images = @dog.dog_pictures.where(archived_at: nil)
+    @places = Place.pluck(:name,:id).sort
+    @dog_states = DogState.pluck(:name,:id).sort
+    @breeds = Breed.pluck(:name,:id).sort
+    @conditions = Condition.pluck(:name,:id).sort
   end
 
   # POST /dogs or /dogs.json
@@ -34,9 +43,9 @@ class DogsController < ApplicationController
       params[:dog_images]['image'].each do |a|
         @dog_image = @dog.dog_pictures.create!(:image => a,:dog_id => @dog.id) unless a.blank?
       end
-      @dog.versions.create!(event: params[:commit], whodunnit: "#{current_user.username}")
+      @dog.versions.create!(event: "Create Dog", whodunnit: "#{current_user.username}")
       @dog.reload
-      redirect_to dog_path(@dog.uuid), flash: { notice: "Successully Added Dog Data" }
+      redirect_to dog_path(@dog.uuid), flash: { notice: "Successully Added Dog Profile" }
     else
       render :new, status: :unprocessable_entity
     end
@@ -44,25 +53,26 @@ class DogsController < ApplicationController
 
   # PATCH/PUT /dogs/1 or /dogs/1.json
   def update
-    respond_to do |format|
-      if @dog.update(dog_params)
-        format.html { redirect_to dog_url(@dog), notice: "Dog was successfully updated." }
-        format.json { render :show, status: :ok, location: @dog }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @dog.errors, status: :unprocessable_entity }
+    if @dog.update(dog_params)
+      dog_image = @dog.dog_pictures
+      dog_image.each do |img|
+        img.archive
       end
+      params[:dog_images]['image'].each do |a|
+        @dog_image = @dog.dog_pictures.create!(:image => a,:dog_id => @dog.id) unless a.blank?
+      end
+      @dog.versions.create!(event: "Update Dog", whodunnit: "#{current_user.username}")
+      redirect_to dog_path(@dog.uuid), flash: { notice: "Successully Update Dog Profile" }
+    else
+      render :new, status: :unprocessable_entity
     end
-  end
+  end 
 
   # DELETE /dogs/1 or /dogs/1.json
   def destroy
-    @dog.destroy
-
-    respond_to do |format|
-      format.html { redirect_to dogs_url, notice: "Dog was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @dog.archive
+    @dog.versions.create!(event: "Archive Dog", whodunnit: "#{current_user.username}")
+    redirect_to records_path, flash: { notice: "Successully Archive Dog Profile" }
   end
 
   private

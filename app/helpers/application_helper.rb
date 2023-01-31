@@ -23,6 +23,5 @@ module ApplicationHelper
 		else
 		  "#{remaining_months} month old"
 		end
-	  end
-	  
+	end
 end

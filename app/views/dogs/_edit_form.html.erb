@@ -1,0 +1,79 @@
+<script>
+</script>
+<div id="drop-area" ondrop="handleDrop(event)" class="col-11 image-uploader position-relative mx-auto my-3" style="border-style: solid;">
+  <div id="image-list" class="row mx-2 my-2 pb-4 flex-wrap">
+    <% @dog_images.each do |pic|%>
+      <div class="position-relative col-3 d-flex justify-content-center py-3" style="height:25vh;">
+        <%= dog_pic(pic.image,"my-auto","object-fit: contain")%>
+        <button class="position-absolute top-0 end-0 btn btn-danger" onclick="this.parentNode.remove()">X</button>
+      </div>
+    <% end %>
+      <div class="col-3 d-flex align-items-center justify-content-center py-3" style="height:25vh;">
+        <div class="add-new-photo col-10 h-75 d-flex justify-content-center align-items-center">
+            <div class="material-icons fs-1">add_a_photo</div>
+        </div>
+      </div>
+    
+  </div>
+  <div class="d-none material-icons upload-icon position-absolute top-50 start-50 translate-middle ">add_a_photo</div>
+  <h3 class="d-none w-100 text-center position-absolute bottom-0 start-50 translate-middle-x">
+    Drag and drop images here
+  </h3>
+</div>
+<div class="col-12 m-3 " data-controller="dog-form">
+  <%= form_with(model: @dog,url: dog_path(@dog.uuid),:html => { :multipart => true, :id => "id-dog-form"}) do |form| %>
+    <div class="row w-100">
+      <div class="form-floating col-6 py-4">
+        <%= form.select :breed_id, @breeds,{prompt: "Select Breed"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'}  %>
+        <%= form.label "Breed"  %>
+      </div>
+      <div class="form-floating col-6 py-4">
+        <%= form.select :place_id, @places,{prompt: "Select Location"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'}  %>
+        <%= form.label "Location"  %>
+      </div>
+      <div class="form-floating col-6 py-4">
+        <%= form.select :dog_state_id,  @dog_states,{prompt: "Select Status"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'}  %>
+        <%= form.label "Status"  %>
+      </div>
+      <div class="form-floating col-6 py-4">
+        <%= form.select :condition_id,  @conditions,{prompt: "Select Condition"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
+        <%= form.label "Condition" %>
+      </div>
+      <div class="col-4 myauto">
+        <%= form.label "Gender :", style: "display: inline" %>
+        <%= form.check_box :gender, class: "switch pt-3",checked: @dog.gender, data: { toggle: "switch", on_color: "male", on_text: "Male", off_color: "female", off_text: "Female" } %>
+      </div>
+      <div class="col-4 myauto">
+        <%= form.label "Neutered :", style: "display: inline" %>
+        <%= form.check_box :neutered, class: "switch pt-3",checked: @dog.neutered, data: { toggle: "switch", on_color: "success", on_text: "Yes", off_color: "danger", off_text: "No" } %>
+      </div>
+      <div class="col-4 myauto">
+        <%= form.label "Age :", style: "display: inline" %>
+        <%= form.number_field :age, min: 0, max: 156, step: 1, value: @dog.age, style: "width: 50px" %> (in months)
+      </div>
+    </div>
+
+    <div class='d-none'>
+      <%= form.fields_for :dog_images do |p| %>
+        <%= p.label :image %><br>
+        <%= p.file_field :image, multiple: true, required: true, accept: "image/jpeg, image/png", id: "images", name:"dog_images[image][]", autocomplete: 'off'%>
+    </div>
+    <div>
+      <button id="dog-form-presubmit" type="button" class="btn btn-primary mt-2">Submit</button>
+      <%= form.submit "Submit" , id: "dog-form-submit",class: "d-none"%>
+    </div>
+    <% if @dog.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@dog.errors.count, "error") %> prohibited this dog from being saved:</h2>
+
+        <ul>
+          <% @dog.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
+
+</div>
+      <% end %>

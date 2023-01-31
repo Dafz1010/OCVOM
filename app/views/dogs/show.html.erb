@@ -1,16 +1,20 @@
 <div class="dog-show-page">
-  <div class="row w-100 h-100 g-0 d-flex flex-column flex-nowrap" style="border: 1px solid black;">
+  <div class="row w-100 h-100 g-0 d-flex flex-column flex-nowrap">
     <div class="title-container row g-0 flex-shrink-1">
-      <div class="col-12 col-md-12" style="border: 1px solid black;">
-        <div class="dog-title p-1 mx-3 rounded-pill ">
+      <div class="col-12 col-md-12 d-flex px-3 justify-content-between">
+        <div class="dog-title p-1 rounded-pill ">
           <p class="fs-3 m-1">Dog Profile</p>
+        </div>
+        <div class="d-flex">
+        <%= button_to "Edit Profile", edit_dog_path(@dog.uuid),method: :get, class: "btn btn-primary me-2" %>
+        <%= button_to "Archive Profile", dog_path(@dog.uuid),method: :delete, data: {turbo_confirm: 'Are you sure you want to archive this record?'}, class: "btn btn-danger"  %>
         </div>
       </div>
     </div>
     <div class="dog-form row g-0 h-100" style="border: 1px solid black;">
       <div class="col-8 overflow-scroll h-100" style="border: 1px solid black;">
         <div class=" col-12" style="padding-bottom: 10vh">
-          <div class="show-container col-11 mt-2 mx-auto">
+          <div class="show-container col-12 mt-2  mx-auto">
             <%= render @dog %>
           </div>
         </div>
