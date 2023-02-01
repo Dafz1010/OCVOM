@@ -33,7 +33,7 @@
 								<td><%= record.location %></td>
 								<td><%= record.status %></td>
 								<td><%= record.condition_name %></td>
-								<td><%= record.created_at.strftime("%b %d, %Y") %></td>
+								<td><%= record.created_at.localtime.strftime("%b %d, %Y") %></td>
 								<td>
 									<div class="d-flex flex-row  justify-content-center">
 										<%= button_to "Show", dog_path(record.uuid),method: :get, class: "btn btn-info me-1" %>

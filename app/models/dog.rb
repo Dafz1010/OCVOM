@@ -46,7 +46,7 @@ class Dog < ApplicationRecord
   end
 
   def exp_date
-    created_at.strftime("%b %d, %Y %I:%M %p")
+    created_at.localtime.strftime("%b %d, %Y %I:%M %p")
   end
 
   def exp_age(age)

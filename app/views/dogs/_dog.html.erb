@@ -58,7 +58,7 @@
       <p>Owner: (CUSTOMER FIRST NAME)</p>
       </div>
       <div class="col-4">
-      <p>Date: <%= @dog.created_at.strftime("%b %d, %Y %I:%M %p") %></p>
+      <p>Date: <%= @dog.created_at.localtime.strftime("%b %d, %Y %I:%M %p") %></p>
       <p>Status: <%= @dog.status %></p></div>
       <div class="col-4">
       <p>CONDITION: <%= @dog.condition_name %> </p>
