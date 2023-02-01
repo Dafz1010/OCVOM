@@ -1,11 +1,11 @@
 <div class="records-page g-0 d-flex flex-column" >
 	<div class="col-12 d-flex flex-wrap h-25">
 		<div class="col-12" >
-			<div class="col-3 h-100 d-flex justify-content-center align-items-center fs-3 border border-primary ms-2 rounded" >Total Records: <%= @total_records %></div>
+			<div class="col-3 h-100 d-flex justify-content-center align-items-center fs-3 border border-primary ms-2 rounded" >Total Records: <%= @records.count %></div>
 		</div>
 	</div>
 	<div class="col-12 row g-0 h-75">
-		<div class="records-container col-8 h-100 px-2" >
+		<div class="records-container col-12 h-100 px-2" >
 			<div class="col-12 p-2 d-flex justify-content-between">
 				<div>Latest Records</div>
 				<div>[Search button]</div>
@@ -45,9 +45,6 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-		<div class="graph-container col-4 p-4 h-100">
-			<div class="col-12 h-100" ></div>
 		</div>
 	</div>
 </div>
