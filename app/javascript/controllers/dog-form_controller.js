@@ -3,6 +3,13 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="dog-form"
 export default class extends Controller {
   connect() {
+    $('select').each(function() {
+      $(this).select2({
+        placeholder: function(){
+          $(this).data('placeholder');
+        }
+      });
+    });
     if ($("#dog_gender").parent('.bootstrap-switch-container').length == 0) {
       $("#dog_gender").bootstrapSwitch();
     }

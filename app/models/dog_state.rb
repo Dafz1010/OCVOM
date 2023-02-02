@@ -1,4 +1,4 @@
 class DogState < ApplicationRecord
-    has_many :dogs
+    has_and_belongs_to_many :dogs
     has_paper_trail
 end

@@ -1,4 +1,12 @@
 <script>
+  $(document).on('select2:open', () => {
+    let allFound = document.querySelectorAll('.select2-container--open .select2-search__field');
+    $(this).one('mouseup keyup',()=>{
+      setTimeout(()=>{
+        allFound[allFound.length - 1].focus();
+      },0);
+   });
+});
 </script>
 <div id="drop-area" ondrop="handleDrop(event)" class="col-11 image-uploader position-relative mx-auto my-3" style="border-style: solid;">
   <div id="image-list" class="row mx-2 my-2 pb-4 flex-wrap">
@@ -13,7 +21,6 @@
             <div class="material-icons fs-1">add_a_photo</div>
         </div>
       </div>
-    
   </div>
   <div class="d-none material-icons upload-icon position-absolute top-50 start-50 translate-middle ">add_a_photo</div>
   <h3 class="d-none w-100 text-center position-absolute bottom-0 start-50 translate-middle-x">
@@ -32,12 +39,12 @@
         <%= form.label "Location"  %>
       </div>
       <div class="form-floating col-6 py-4">
-        <%= form.select :dog_state_id,  @dog_states,{prompt: "Select Status"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'}  %>
-        <%= form.label "Status"  %>
+        <%= form.select :dog_state_ids,  @dog_states,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0 w-100', multiple: true, data: { placeholder: "Select Statuses"}} %>
+        <%= form.label "Status"%> 
       </div>
       <div class="form-floating col-6 py-4">
-        <%= form.select :condition_id,  @conditions,{prompt: "Select Condition"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
-        <%= form.label "Condition" %>
+        <%= form.select :condition_ids,  @conditions,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0 w-100', multiple: true, data: { placeholder: "Select Conditions"}} %>
+        <%= form.label "Conditions"%> 
       </div>
       <div class="col-4 myauto">
         <%= form.label "Gender :", style: "display: inline" %>

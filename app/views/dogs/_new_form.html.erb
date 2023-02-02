@@ -1,46 +1,12 @@
-
 <script>
-  function getImageType(base64String) {
-      var type = base64String.split(";")[0].split(":")[1];
-      return type;
-  }
-  function fixBinary(bin) {
-    var length = bin.length;
-    var buf = new ArrayBuffer(length);
-    var arr = new Uint8Array(buf);
-    for (var i = 0; i < length; i++) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return buf;
-  }
-  function getBase64Images() {
-    var input = document.getElementById("images");
-    var parent = document.getElementById("image-list");
-    var imgElements = parent.querySelectorAll("img");
-    var files = [];
-    if (imgElements.length) {
-      for (var i = 0; i < imgElements.length; i++) {
-        var base64String = imgElements[i].src;
-        var imageType = getImageType(base64String);
-        base64String = base64String.split(",")[1];
-        var binaryString = fixBinary(atob(base64String));
-        var extension = "";
-        if(imageType == "image/png"){
-            extension = "png";
-        }else if(imageType == "image/jpeg"){
-            extension = "jpeg";
-        }
-        var file = new Blob([binaryString], { type: imageType });
-        var fileWithName = new File([file], "file"+i+"."+extension, {type: imageType});
-        files.push(fileWithName);
-      }
-      const dT = new DataTransfer();
-      files.forEach(file => {
-        dT.items.add(file)
-      });
-      input.files = dT.files;
-    }
-  }
+  $(document).on('select2:open', () => {
+    let allFound = document.querySelectorAll('.select2-container--open .select2-search__field');
+    $(this).one('mouseup keyup',()=>{
+      setTimeout(()=>{
+        allFound[allFound.length - 1].focus();
+      },0);
+   });
+});
 </script>
 <div id="drop-area" class="col-11 image-uploader position-relative mx-auto my-3">
   <div id="image-list" class="row m-3 pb-4 flex-wrap">
@@ -68,12 +34,12 @@
         <%= form.label "Location"%> 
       </div>
       <div class="form-floating col-6 py-4">
-        <%= form.select :dog_state_id,  @dog_states,{prompt: "Select Status"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
+        <%= form.select :dog_state_ids,  @dog_states,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0 w-100', multiple: true, data: { placeholder: "Select Statuses"}} %>
         <%= form.label "Status"%> 
       </div>
       <div class="form-floating col-6 py-4">
-        <%= form.select :condition_id,  @conditions,{prompt: "Select Condition"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
-        <%= form.label "Condition"%> 
+        <%= form.select :condition_ids,  @conditions,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0 w-100', multiple: true, data: { placeholder: "Select Conditions"}} %>
+        <%= form.label "Conditions"%> 
       </div>
       <div class="col-4 myauto">
         <%= form.label "Gender :", style: "display: inline" %>

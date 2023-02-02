@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_23_080022) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_02_105132) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -54,6 +54,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_080022) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "conditions_dogs", id: false, force: :cascade do |t|
+    t.bigint "dog_id", null: false
+    t.bigint "condition_id", null: false
+    t.index ["condition_id", "dog_id"], name: "index_conditions_dogs_on_condition_id_and_dog_id"
+    t.index ["dog_id", "condition_id"], name: "index_conditions_dogs_on_dog_id_and_condition_id"
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.string "location"
@@ -78,9 +85,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_080022) do
     t.datetime "archived_at"
   end
 
+  create_table "dog_states_dogs", id: false, force: :cascade do |t|
+    t.bigint "dog_id", null: false
+    t.bigint "dog_state_id", null: false
+    t.index ["dog_id", "dog_state_id"], name: "index_dog_states_dogs_on_dog_id_and_dog_state_id"
+    t.index ["dog_state_id", "dog_id"], name: "index_dog_states_dogs_on_dog_state_id_and_dog_id"
+  end
+
   create_table "dogs", force: :cascade do |t|
     t.bigint "breed_id", null: false
-    t.bigint "dog_state_id", null: false
     t.string "images"
     t.integer "age"
     t.boolean "gender"
@@ -91,10 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_080022) do
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }
     t.boolean "neutered", default: false
     t.string "public_id"
-    t.bigint "condition_id"
     t.index ["breed_id"], name: "index_dogs_on_breed_id"
-    t.index ["condition_id"], name: "index_dogs_on_condition_id"
-    t.index ["dog_state_id"], name: "index_dogs_on_dog_state_id"
     t.index ["place_id"], name: "index_dogs_on_place_id"
   end
 
@@ -147,8 +157,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_080022) do
   add_foreign_key "appointments", "dogs"
   add_foreign_key "dog_pictures", "dogs"
   add_foreign_key "dogs", "breeds"
-  add_foreign_key "dogs", "conditions"
-  add_foreign_key "dogs", "dog_states"
   add_foreign_key "dogs", "places"
   add_foreign_key "users", "roles"
 end
