@@ -31,12 +31,12 @@
   <%= form_with(model: @dog,url: dog_path(@dog.uuid),:html => { :multipart => true, :id => "id-dog-form"}) do |form| %>
     <div class="row w-100">
       <div class="form-floating col-6 py-4">
-        <%= form.select :breed_id, @breeds,{prompt: "Select Breed"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'}  %>
-        <%= form.label "Breed"  %>
+        <%= form.select :breed_id, @breeds,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0', data: { placeholder: "Select Breed"}} %>
+        <%= form.label "Breed"%> 
       </div>
       <div class="form-floating col-6 py-4">
-        <%= form.select :place_id, @places,{prompt: "Select Location"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'}  %>
-        <%= form.label "Location"  %>
+        <%= form.select :place_id, @places,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0', data: { placeholder: "Select Location"}} %>
+        <%= form.label "Location"%> 
       </div>
       <div class="form-floating col-6 py-4">
         <%= form.select :dog_state_ids,  @dog_states,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0 w-100', multiple: true, data: { placeholder: "Select Statuses"}} %>
