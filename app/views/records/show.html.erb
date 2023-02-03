@@ -31,8 +31,20 @@
 								<td><%= record.breed_name %></td>
 								<%# <td>[Owner_Name]</td> %>
 								<td><%= record.location %></td>
-								<td><%= record.status %></td>
-								<td><%= record.condition_name %></td>
+								<td>
+									<div class="d-flex flex-column align-items-center justify-content-center w-100 h-100">
+										<% record.status.each do |stat| %>
+											<div><%= stat %></div>
+										<% end %>
+									</div>
+								</td>
+								<td>
+									<div class="d-flex flex-column align-items-center justify-content-center w-100 h-100">
+										<% record.condition_names.each do |cond| %>
+											<div><%= cond %></div>
+										<% end %>
+									</div>
+								</td>
 								<td><%= record.created_at.localtime.strftime("%b %d, %Y") %></td>
 								<td>
 									<div class="d-flex flex-row  justify-content-center">
