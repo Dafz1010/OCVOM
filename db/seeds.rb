@@ -9,7 +9,7 @@ Role.create!({name: "admin"})
 Role.create!({name: "Frontliner"})
 Role.create!({name: "Encoder"})
 
-User.create!([{name: "Administrator", username: "admin", password: "admin123", password_confirmation: "admin123", role_id: 1}])
+User.create!([{name: "Administrator", username: "admin", password: "admin123", password_confirmation: "admin123", role_id: 1, approved_at: Time.now}])
 
 Condition.create!(name: "Healthy")
 Condition.create!(name: "Adopted")
