@@ -41,15 +41,19 @@
         <%= form.select :condition_ids,  @conditions,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0 w-100', multiple: true, data: { placeholder: "Select Conditions"}} %>
         <%= form.label "Conditions"%> 
       </div>
-      <div class="col-4 myauto">
+      <div class="col-3 myauto">
         <%= form.label "Gender :", style: "display: inline" %>
         <%= form.check_box :gender, class: "switch pt-3",checked: true, data: { toggle: "switch", on_color: "male", on_text: "Male", off_color: "female", off_text: "Female" }%>
       </div>
-      <div class="col-4 myauto">
+      <div class="col-3 myauto">
+        <%= form.label "Size :", style: "display: inline" %>
+        <%= form.check_box :size, class: "switch pt-3",checked: true, data: { toggle: "switch", on_color: "puppy", on_text: "Puppy", off_color: "adult", off_text: "Adult" }%>
+      </div>
+      <div class="col-3 myauto">
         <%= form.label "Neutered :", style: "display: inline" %>
         <%= form.check_box :neutered, class: "switch pt-3",checked: false, data: { toggle: "switch", on_color: "success", on_text: "Yes", off_color: "danger", off_text: "No" }%>
       </div>
-      <div class="col-4 myauto">
+      <div class="col-3 myauto">
         <%= form.label "Age :", style: "display: inline" %>
         <%= form.number_field :age, min: 0, max: 156, step: 1, value: 1, style: "width: 50px" %> (in months)
       </div>

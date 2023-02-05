@@ -23,6 +23,10 @@ class Dog < ApplicationRecord
   def sex
     gender ? "Male" : "Female"
   end
+  
+  def size_name
+    size ? "Puppy" : "Adult"
+  end
 
   def condition_name
     condition.name

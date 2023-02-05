@@ -13,6 +13,9 @@ export default class extends Controller {
     if ($("#dog_gender").parent('.bootstrap-switch-container').length == 0) {
       $("#dog_gender").bootstrapSwitch();
     }
+    if ($("#dog_size").parent('.bootstrap-switch-container').length == 0) {
+      $("#dog_size").bootstrapSwitch();
+    }
     if ($("#dog_neutered").parent('.bootstrap-switch-container').length == 0) {
       $("#dog_neutered").bootstrapSwitch();
     }

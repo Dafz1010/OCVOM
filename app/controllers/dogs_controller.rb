@@ -83,7 +83,7 @@ class DogsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dog_params
-      params.require(:dog).permit(:breed_id, :place_id, :age, :gender, :neutered, dog_images_attributes: [:id, :dog_id, :image], condition_ids: [], dog_state_ids: [])
+      params.require(:dog).permit(:breed_id, :place_id, :age, :gender, :size, :neutered, dog_images_attributes: [:id, :dog_id, :image], condition_ids: [], dog_state_ids: [])
     end
 
     def generate_public_id

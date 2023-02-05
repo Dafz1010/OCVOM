@@ -98,6 +98,16 @@
   background: #ec49a6;
   color: #fff;
 }
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-puppy,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-puppy {
+  background: #00fffb;
+  color: #000;
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-adult,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-adult {
+  background: #80c032;
+  color: #000;
+}
 .bootstrap-switch .bootstrap-switch-label {
   text-align: center;
   margin-top: -1px;
