@@ -24,4 +24,19 @@ module ApplicationHelper
 		  "#{remaining_months} month old"
 		end
 	end
+
+    def status_condition_tags(name)
+        case name
+        when "Healthy"
+            content_tag :div, "Healthy", class: "m-1 bg-success text-white border border-dark rounded-pill px-2", style: "width:fit-content"
+        when "Adopted"
+            content_tag :div, "Adopted", class: "m-1 bg-info border border-dark rounded-pill px-2", style: "width:fit-content"
+        when "Unhealthy or Injured"
+            content_tag :div, "Unhealthy or Injured", class: "m-1 bg-danger text-white border border-dark rounded-pill px-2", style: "width:fit-content"
+        when "Recovery"
+            content_tag :div, "Recovery", class: "m-1 bg-warning border border-dark rounded-pill px-2", style: "width:fit-content"
+        when "Lost"
+            content_tag :div, "Lost", class: "m-1 bg-light border border-dark rounded-pill px-2", style: "width:fit-content"
+        end
+    end
 end

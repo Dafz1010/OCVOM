@@ -13,7 +13,7 @@
       <% @dog_images.each_with_index do |pic, idx| %>
         <div class="carousel-item h-100 <%= "active" if idx.zero? %>">
           <div class="d-flex justify-content-center h-100">
-            <%= dog_pic(pic.image)%>
+            <%= dog_pic(pic.image,"","#{"filter: grayscale(100%)" if @dog.disposed?}")%>
           </div>
         </div>
       <% end %>
@@ -28,10 +28,24 @@
     </button>
   </div>
   <div class="dog-details flex-grow-1 d-flex flex-column align-items-center mx-5">
+    <div class="col-12 d-flex justify-content-between">
+      <div class="bg-secondary text-white border border-dark rounded-pill m-1 px-2" style="width:fit-content">ID: <%= @dog.public_id%></div>
+      <div class="d-flex">
+        <% if @dog.disposed? %>
+          <div class="bg-black text-white rounded-pill m-1 px-2" style="width:fit-content">Disposed</div>
+        <% else %>
+          <% @dog.condition_names.each do |name|%>
+            <%= status_condition_tags(name)%>
+          <% end %>
+        <% end %>
+        
+      </div>
+    </div>
     <div class="row w-100 h-25 mt-3">
       <div class="col-6">
+
         <p class="fs-1 fw-bold">
-          ID: <%= @dog.public_id%> <%= @dog.sex %>
+          ID:  <%= @dog.sex %>
         </p>
       </div>
       <div class="col-6">
@@ -59,9 +73,9 @@
       </div>
       <div class="col-4">
       <p>Date: <%= @dog.created_at.localtime.strftime("%b %d, %Y %I:%M %p") %></p>
-      <p>Status: <%= @dog.status %></p></div>
+      <p>Status: </p></div>
       <div class="col-4">
-      <p>CONDITION: <%= @dog.condition_name %> </p>
+      <p>CONDITION:  </p>
       <p>veterinarian: (VET NAME)</p></div>
     </div>
   </div>

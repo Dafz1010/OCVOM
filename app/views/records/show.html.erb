@@ -7,10 +7,15 @@
 	<div class="col-12 row g-0 h-75">
 		<div class="records-container col-12 h-100 px-2" >
 			<div class="col-12 p-2 d-flex justify-content-between">
-				<div>Latest Records</div>
-				<div>[Search button]</div>
+				<div class="my-auto">Latest Records</div>
+				<div>
+					<%= form_with url: records_path, method: :get do |f|%>
+						<%= f.text_field :name, value: params[:name], onkeydown: "if (event.keyCode == 13) { this.form.submit(); return false; }" %>
+						<%= f.submit "Search"%>
+					<% end %>
+				</div>
 			</div>
-			<div class="col-12 h-100 overflow-scroll" >
+			<div class="col-12 h-100 pb-5 overflow-scroll" >
 				<table class="table">
 					<thead>
 						<tr>
@@ -40,8 +45,12 @@
 								</td>
 								<td>
 									<div class="d-flex flex-column align-items-center justify-content-center w-100 h-100">
-										<% record.condition_names.each do |cond| %>
-											<div><%= cond %></div>
+										<% if record.disposed? %>
+										<div class="bg-black text-white rounded-pill m-1 px-2" style="width:fit-content">Disposed</div>
+										<% else %>
+										<% record.condition_names.each do |name|%>
+											<%= status_condition_tags(name)%>
+										<% end %>
 										<% end %>
 									</div>
 								</td>

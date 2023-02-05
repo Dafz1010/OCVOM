@@ -13,7 +13,7 @@ class Dog < ApplicationRecord
   end
 
   def status
-    dog_state.name
+    dog_states.pluck(:name)
   end
 
   def location
@@ -28,8 +28,12 @@ class Dog < ApplicationRecord
     size ? "Puppy" : "Adult"
   end
 
-  def condition_name
-    condition.name
+  def condition_names
+    conditions.pluck(:name)
+  end
+
+  def disposed?
+    condition_names.include?("Disposed")
   end
 
   def archive
@@ -67,6 +71,14 @@ class Dog < ApplicationRecord
 
   end
 
+  def exp_status
+    status.map { |x| [{ content: x, borders: [] }] }
+  end
+
+  def exp_conditions
+    condition_names.map { |x| [{ content: x, borders: [] }] }
+  end
+
   def self.export(date_range = "")
     list = self.all.where(archived_at: nil)
     pdf = Prawn::Document.new(page_layout: :landscape, page_size: "LEGAL")
@@ -74,9 +86,9 @@ class Dog < ApplicationRecord
       ["Public ID", "Breed","Sex","Age","Neutered","Owner","Location", "Status", "Condition", "Date"] 
     ]
     list.each do |d|
-      data += [[d.public_id,d.breed_name,d.exp_sex,d.exp_age(d.age),d.exp_neutered,"N/A",d.location,d.status,d.condition_name,d.exp_date]]
+      data += [[d.public_id,d.breed_name,d.exp_sex,d.exp_age(d.age),d.exp_neutered,"N/A",d.location,d.exp_status,d.exp_conditions,d.exp_date]]
     end
-    pdf.table data, :position => :center
+    pdf.table data, :position => :center, :header => true
     pdf
   end
 end

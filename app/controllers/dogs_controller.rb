@@ -1,6 +1,7 @@
 class DogsController < ApplicationController
   include Authentication
   before_action :set_dog, only: %i[ show edit update destroy ]
+  before_action :check_dop_presence, only: %i[ show edit update destroy ]
 
   # GET /dogs or /dogs.json
   def index
@@ -79,6 +80,10 @@ class DogsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_dog
       @dog = Dog.find_by(uuid: params[:id])
+    end
+
+    def check_dop_presence
+      redirect_to records_path, flash: {alert: "Dog Profile not found"} unless @dog.present?
     end
 
     # Only allow a list of trusted parameters through.
