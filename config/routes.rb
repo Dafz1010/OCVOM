@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   get '/scan', to: 'scan#index', as: 'scan'
   get '/data_export', to: 'data_export#index'
   get 'data_export/download_report'
+  get '/dashboard', to: 'dashboard#index' 
 end

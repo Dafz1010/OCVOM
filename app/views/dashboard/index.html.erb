@@ -1,0 +1,25 @@
+<div class="main-dashboard">
+    <div class="logs-container">
+        <div class="logs-list">
+            <div class="logs-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Latest Logs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @logs.each do |log| %>
+                            <tr>
+                                <td><%= log[:log_text].html_safe %></td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-calendar">
+        
+    </div>
+</div>

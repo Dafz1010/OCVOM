@@ -1,0 +1,62 @@
+@import "users";
+
+.main-dashboard{
+    width: calc(100% - 70px);
+    height: calc(100% - 109px);
+    float:right;
+    display: flex;
+    flex-direction: row;
+    & .logs-container{
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: end;
+        & .logs-list{
+            width: 90%;
+            height: 63.1184408%;
+            margin-bottom: 45px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            & .logs-table{
+                font-family: monospace;
+                overflow-y: scroll;
+                width: 100%;
+                & table{
+                    width: 100%;
+                    border-collapse: separate; 
+                    border-spacing: 0 11px;
+                    & td,th{
+                        font-size:17px;
+                        overflow:hidden;
+                        padding:0px 5px;
+                        word-break:normal;
+                        line-height: 30px;
+                        text-align:start;
+                    }
+                    & td:first-child,th:first-child{
+                        border-top-left-radius: 16px;
+                        border-bottom-left-radius: 16px;
+                    }
+                    & td:last-child,th:last-child{
+                        border-top-right-radius: 16px;
+                        border-bottom-right-radius: 16px;
+                    }
+                    & th{
+                        background-color: $nav-lblue;
+                        position: sticky;
+                        top: 0
+                    }
+                    & td{
+                        background-color: white;
+                    }
+                    
+                }
+            }
+        }
+    }
+    & .dashboard-calendar{
+        flex: 0.509259259;
+        background-color: rgb(77, 168, 96);
+    }
+}
