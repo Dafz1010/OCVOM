@@ -1,1 +1,53 @@
+<div class="users-page g-0 d-flex flex-column" >
+	<div class="col-12 row g-0 h-75">
+		<div class="users-container col-12 h-100 px-2" >
+			<div class="col-12 p-2 d-flex justify-content-between">
+				<div>All Users</div>
+			</div>
+			<div class="col-12 h-100 overflow-scroll" >
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">USERNAME</th>
+							<th scope="col">TOTAL LOGS</th>
+							<%# <th scope="col">OWNER</th> %>
+							<th scope="col">USER TYPE</th>
+							<th scope="col">DATE CREATED</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @unapproved_users.each do |user|%>
+							<tr>
+								<td colspan="5" class="bg-warning" style="--bs-bg-opacity: .5;">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="my-auto">
+                                            User:  <%= user.username %> Approve user ? 
+                                        </div>
+                                        <%= button_to "Yes", user_path(user),method: :delete, class: "d-inline btn btn-primary mx-3"  %>
+                                        <%= button_to "No", user_path(user),method: :delete, class: "d-inline btn btn-danger"  %>
+                                    </div>
+                                </td>
+							</tr>
+						<% end %>
+						<% @approved_users.each do |user|%>
+							<tr>
+								<td><%= user.username %></td>
+								<td></td>
+								<%# <td>[Owner_Name]</td> %>
+								<td><%= user.type.capitalize %></td>
+								<td><%= user.created_at.localtime.strftime("%b %d, %Y") %></td>
+								<td>
+									<div class="d-flex flex-row me-2 justify-content-center">
+										<%# <%= button_to "Show", dog_path(record.uuid),method: :get, class: "btn btn-info me-1" %>
+										<%= button_to "Archive User", user_path(user),method: :delete,data: {turbo_confirm: 'Are you sure you want to archive this user?'}, class: "btn btn-danger"  %>
+									</div>
+								</td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>

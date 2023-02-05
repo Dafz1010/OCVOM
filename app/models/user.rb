@@ -3,15 +3,58 @@ class User < ApplicationRecord
   belongs_to :role, optional: true
   has_secure_password
   mount_uploader :profile_image, ProfileImageUploader
-  attr_accessor :skip_password_validation
 
 
   validates :name, presence: true, format: { with: /\A[ A-Za-z\.]+\z/i }
   validates :username, presence: true, :uniqueness => { case_sensitive: false }, format: { with: /\A[a-z0-9_\.]+\z/i }
-  validates :password, presence: true, confirmation: true, length: { minimum: 8, maximum: 30}, unless: :skip_password_validation
-  validates :role_id, presence: true, allow_blank: true
+  validates :password, presence: true, confirmation: true, length: { minimum: 8, maximum: 30},  unless: proc { |x| x.password.blank? }
   validate  :validate_image_type
   
+  def approved_user?
+    approved_at?
+  end
+
+  def approved_user!
+    self.update(approved_at: Time.now)
+  end
+
+  def admin?
+    type == "admin"
+  end
+
+  def admin!
+    self.update(role_id: Role.find_by(name: "admin").id)
+  end
+
+  def type
+    role.name
+  end
+
+  def encoder?
+    type == "Encoder"
+  end
+
+  def encoder!
+    self.update(role_id: Role.find_by(name: "Encoder").id)
+  end
+
+  def frontliner?
+    type == "Frontliner"
+  end
+
+  def frontliner!
+    self.update(role_id: Role.find_by(name: "Frontliner").id)
+  end
+
+  def archive
+    self.update(archived_at: Time.now)
+  end
+
+  def archived?
+    archived_at?
+  end
+
+
   private
 
   def validate_image_type

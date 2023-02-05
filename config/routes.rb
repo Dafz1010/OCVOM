@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :users
   resource :records, only: [:show]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
+  
   # Defines the root path route ("/")
   # root "articles#index"
   get '/login', to: 'sessions#new'
@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   get '/scan', to: 'scan#index', as: 'scan'
   get '/data_export', to: 'data_export#index'
   get 'data_export/download_report'
+  get '/admin_approval', to: 'admin_approval#index'
   get '/dashboard', to: 'dashboard#index' 
 end

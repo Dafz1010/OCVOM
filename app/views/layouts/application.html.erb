@@ -16,7 +16,8 @@
     <% if current_user %>
       <div class="dashboard">
         <%= render "home/logo" %>
-          <div class="navigation">
+        <div class="navigation">
+          <% if current_user.role%>
             <div class="profilepic" id="profile-upload-button" <%= has_profile_image %>>
               <p>
                 <div class="material-icons profile-edit">add_a_photo</div>
@@ -37,6 +38,16 @@
               <%= link_to dashboard_path, class: "item-button" do %>
                 <div class="material-icons item-logo">dashboard</div> DASHBOARD
               <% end %>
+              <div class="nav-subitem-container">
+                <% if current_user.admin? %>
+                  <div class="nav-subitem">
+                    <%= link_to users_path, class: "subitem-button" do %>
+                      Users   
+                      <div class="material-icons">chevron_right</div>
+                    <% end %>
+                  </div>
+                <% end %>  
+              </div>
             </div>
             <div class="nav-item">
               <%= link_to records_path, class: "item-button" do %>
@@ -74,26 +85,39 @@
                 <div class="material-icons item-logo">touch_app</div> ACTIONS
               <% end %>
               <div class="nav-subitem-container">
-                <div class="nav-subitem">
-                  <%= link_to new_dog_path, class: "subitem-button" do %>
-                    Add New Dog
-                    <div class="material-icons">chevron_right</div>
-                  <% end %>
-                </div>
-                <div class="nav-subitem">
-                  <%= link_to data_export_path, class: "subitem-button" do %>
-                    Export Data
-                    <div class="material-icons">chevron_right</div>
-                  <% end %>
-                </div>
-                </div>
-              </div>
-              <div class="nav-item">
-                <%= link_to logout_path, class: "item-button", data: { "turbo-method": :delete } do %> 
-                  <div class="material-icons item-logo">logout</div> LOGOUT
+                <% if (current_user.admin? || current_user.encoder?)  %>
+                  <div class="nav-subitem">
+                    <%= link_to new_dog_path, class: "subitem-button" do %>
+                      Add New Dog
+                      <div class="material-icons">chevron_right</div>
+                    <% end %>
+                  </div>
                 <% end %>
+                <% if (current_user.admin? || current_user.frontliner?)  %>
+                  <div class="nav-subitem">
+                    <%= link_to "#", class: "subitem-button" do %>
+                      Add New Client
+                      <div class="material-icons">chevron_right</div>
+                    <% end %>
+                  </div>
+                <% end %>
+                <% if current_user.admin? %>
+                  <div class="nav-subitem">
+                    <%= link_to data_export_path, class: "subitem-button" do %>
+                      Export Data
+                      <div class="material-icons">chevron_right</div>
+                    <% end %>
+                  </div>
+                <% end %>
+                </div>
               </div>
+            <% end %> 
+            <div class="nav-item">
+              <%= link_to logout_path, class: "item-button", data: { "turbo-method": :delete } do %> 
+                <div class="material-icons item-logo">logout</div> LOGOUT
+              <% end %>
             </div>
+          </div>
       <% end %>
       <%= yield %>
           </div>
