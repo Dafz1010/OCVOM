@@ -61,19 +61,19 @@
                   <% end %>
                 </div>
                 <div class="nav-subitem">
-                  <%= link_to root_path, class: "subitem-button" do %>
-                    Vaccinated
+                  <%= link_to records_path(name: "Operation"), class: "subitem-button" do %>
+                    Captured Dogs
                     <div class="material-icons">chevron_right</div>
                   <% end %>
                 </div>
                 <div class="nav-subitem">
-                  <%= link_to records_path(name: "Operation"), class: "subitem-button" do %>
+                  <%= link_to records_path(name: "Unhealthy"), class: "subitem-button" do %>
                     Sick Dogs
                     <div class="material-icons">chevron_right</div>
                   <% end %>
                 </div>
                 <div class="nav-subitem">
-                  <%= link_to root_path, class: "subitem-button" do %>
+                  <%= link_to records_path(name: "disposed"), class: "subitem-button" do %>
                     Disposed
                     <div class="material-icons">chevron_right</div>
                   <% end %>
