@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(username: params[:username].downcase)
-    if @user && @user.authenticate(params[:password])
+    if @user && @user.authenticate(params[:password]) && !@user.archived?
       log_in @user
       redirect_to (session[:intended_url] || dashboard_path), flash: { notice: "Successully Logged In" }
     else

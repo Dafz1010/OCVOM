@@ -54,6 +54,10 @@ class User < ApplicationRecord
     archived_at?
   end
 
+  def setrole(id)
+    self.update(role_id: id)
+  end
+
 
   private
 

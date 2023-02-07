@@ -17,6 +17,16 @@ class DashboardController < ApplicationController
           {log_text: "#{record.created_at.localtime.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} Logged Out"}
         when 'Register User'
           {log_text: "#{record.created_at.localtime.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} was Registered"}
+        when 'Archive User'
+          user_data = User.find(record.item_id)
+          {log_text: "#{record.created_at.localtime.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} archived User \"#{user_data.username}\""}
+        when 'Approve User'
+          user_data = User.find(record.item_id)
+          {log_text: "#{record.created_at.localtime.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} approve User \"#{user_data.username}\""}
+        when -> (tmp) { tmp.starts_with?("Set User Role") }
+          user_data = User.find(record.item_id)
+          role = record[:event].split(",",2).last
+          {log_text: "#{record.created_at.localtime.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} set User \"#{user_data.username}\" role to \"#{role}\""}
         when 'Create Dog'
           dog_data = Dog.find(record.item_id)
           log_string = ""

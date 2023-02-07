@@ -2,11 +2,12 @@ class UsersController < ApplicationController
   include Authentication
   skip_before_action :authenticate_user!, only: %i[ new create ]
   skip_before_action :approved_user!, only: %i[ new create ]
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ show edit update destroy approval set_role]
 
   # GET /users or /users.json
   def index
     @users = User.all
+    @roles = Role.pluck(:name,:id).sort
     @approved_users = @users.where(archived_at: nil).where.not(approved_at: nil)
     @unapproved_users = @users.where(archived_at: nil).where(approved_at: nil)
   end
@@ -40,7 +41,6 @@ class UsersController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
   # PATCH/PUT /users/1 or /users/1.json
   def update
     if @user.update(user_params)
@@ -61,6 +61,26 @@ class UsersController < ApplicationController
     end
   end
 
+  def approval
+    if current_user.admin?
+      @user.approved_user!
+      @user.versions.create!(event: "Approve User", whodunnit: "#{current_user.username}")
+      redirect_to users_path, flash: { notice: "User Approved" }
+    else
+      redirect_to users_path, flash: { alert: "Unauthorized Action" }
+    end
+  end
+
+  def set_role
+    if current_user.admin?
+      @user.setrole(params[:user][:role_id])
+      @user.versions.create!(event: "Set User Role,#{@user.type}", whodunnit: "#{current_user.username}")
+      redirect_to users_path, flash: { notice: "Changed User Role" }
+    else
+      redirect_to users_path, flash: { alert: "Unauthorized Action" }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -69,6 +89,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :username, :password, :password_confirmation, :profile_image, :role_id)
+      params.require(:user).permit(:name, :username, :password, :password_confirmation, :profile_image, :role_id, :approve_user)
     end
 end

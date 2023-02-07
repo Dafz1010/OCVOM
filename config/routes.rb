@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   root "home#index"
   resources :dogs
-  resources :users
+  resources :users do
+    patch 'approval', on: :member, as: :approval
+    patch 'set_role', on: :member, as: :set_role
+  end
   resource :records, only: [:show]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   

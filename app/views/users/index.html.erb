@@ -19,12 +19,15 @@
 					<tbody>
 						<% @unapproved_users.each do |user|%>
 							<tr>
-								<td colspan="5" class="bg-warning" style="--bs-bg-opacity: .5;">
+                                <td class="bg-warning" style="--bs-bg-opacity: .5;">
+                                    <%= user.username %>
+                                </td>
+								<td colspan="4" class="bg-warning" style="--bs-bg-opacity: .5;">
                                     <div class="d-flex justify-content-center">
                                         <div class="my-auto">
-                                            User:  <%= user.username %> Approve user ? 
+                                            Approve user ? 
                                         </div>
-                                        <%= button_to "Yes", user_path(user),method: :delete, class: "d-inline btn btn-primary mx-3"  %>
+                                        <%= button_to "Yes", approval_user_path(user),method: :patch, class: "d-inline btn btn-primary mx-3"  %>
                                         <%= button_to "No", user_path(user),method: :delete, class: "d-inline btn btn-danger"  %>
                                     </div>
                                 </td>
@@ -34,13 +37,21 @@
 							<tr>
 								<td><%= user.username %></td>
 								<td></td>
-								<%# <td>[Owner_Name]</td> %>
-								<td><%= user.type.capitalize %></td>
+								<td>
+                                    <% unless current_user?(user)%>
+                                        <%= form_with model: user, url: set_role_user_path(user), method: :patch do |form| %>
+                                            <%= form.select :role_id, @roles,{prompt: "Unset"},{required: 'true', autocomplete: 'off',onchange: "this.form.submit()"}%>
+                                        <% end %>
+                                    <% else %>
+                                        <%= user.type.capitalize%>
+                                    <% end %>
+                                </td>
+								<%# <td><%= user.type.capitalize</td> %>
 								<td><%= user.created_at.localtime.strftime("%b %d, %Y") %></td>
 								<td>
 									<div class="d-flex flex-row me-2 justify-content-center">
 										<%# <%= button_to "Show", dog_path(record.uuid),method: :get, class: "btn btn-info me-1" %>
-										<%= button_to "Archive User", user_path(user),method: :delete,data: {turbo_confirm: 'Are you sure you want to archive this user?'}, class: "btn btn-danger"  %>
+										<%= button_to "Archive User", user_path(user),method: :delete,data: {turbo_confirm: 'Are you sure you want to archive this user?'}, class: "btn btn-danger" unless current_user?(user) %>
 									</div>
 								</td>
 							</tr>
