@@ -85,22 +85,12 @@
                 <div class="material-icons item-logo">touch_app</div> ACTIONS
               <% end %>
               <div class="nav-subitem-container">
-                <% if (current_user.admin? || current_user.encoder?)  %>
-                  <div class="nav-subitem">
-                    <%= link_to new_dog_path, class: "subitem-button" do %>
-                      Add New Dog
-                      <div class="material-icons">chevron_right</div>
-                    <% end %>
-                  </div>
-                <% end %>
-                <% if (current_user.admin? || current_user.frontliner?)  %>
-                  <div class="nav-subitem">
-                    <%= link_to "#", class: "subitem-button" do %>
-                      Add New Client
-                      <div class="material-icons">chevron_right</div>
-                    <% end %>
-                  </div>
-                <% end %>
+                <div class="nav-subitem">
+                  <%= link_to new_dog_path, class: "subitem-button" do %>
+                    Add New Dog
+                    <div class="material-icons">chevron_right</div>
+                  <% end %>
+                </div>
                 <% if current_user.admin? %>
                   <div class="nav-subitem">
                     <%= link_to data_export_path, class: "subitem-button" do %>

@@ -38,14 +38,22 @@
         <%= form.select :place_id, @places,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0', data: { placeholder: "Select Location"}} %>
         <%= form.label "Location"%> 
       </div>
-      <div class="form-floating col-6 py-4">
+
+      <div class="form-floating <%= ( current_user.admin? || current_user.frontliner? ) ? "col-4" : "col-6" %> py-4">
         <%= form.select :dog_state_ids,  @dog_states,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0 w-100', multiple: true, data: { placeholder: "Select Statuses"}} %>
         <%= form.label "Status"%> 
       </div>
-      <div class="form-floating col-6 py-4">
+      <div class="form-floating <%= ( current_user.admin? || current_user.frontliner? ) ? "col-4" : "col-6" %> py-4">
         <%= form.select :condition_ids,  @conditions,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0 w-100', multiple: true, data: { placeholder: "Select Conditions"}} %>
         <%= form.label "Conditions"%> 
       </div>
+      <% if (current_user.admin? || current_user.frontliner?)%>
+        <div class="form-floating col-4 py-4">
+          <%= form.select :vaccine_ids,  @vaccines,{prompt: ""},{autocomplete: 'off', class: 'form-select py-0 w-100', multiple: true, data: { placeholder: "Select Vaccines"}} %>
+          <%= form.label "Vaccines"%> 
+        </div>
+      <% end %>
+      
       <div class="col-3 myauto">
         <%= form.label "Gender :", style: "display: inline" %>
         <%= form.check_box :gender, class: "switch pt-3",checked: @dog.gender, data: { toggle: "switch", on_color: "male", on_text: "Male", off_color: "female", off_text: "Female" } %>

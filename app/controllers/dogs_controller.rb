@@ -25,6 +25,7 @@ class DogsController < ApplicationController
     @dog_states = DogState.pluck(:name,:id).sort
     @breeds = Breed.pluck(:name,:id).sort
     @conditions = Condition.pluck(:name,:id).sort
+    @vaccines = Vaccine.pluck(:name,:id).sort
   end
 
   # GET /dogs/1/edit
@@ -34,12 +35,14 @@ class DogsController < ApplicationController
     @dog_states = DogState.pluck(:name,:id).sort
     @breeds = Breed.pluck(:name,:id).sort
     @conditions = Condition.pluck(:name,:id).sort
+    @vaccines = Vaccine.pluck(:name,:id).sort
   end
 
   # POST /dogs or /dogs.json
   def create
     @dog = Dog.new(dog_params)
     @dog.public_id = generate_public_id
+    @dog.user = current_user
     if @dog.valid? && @dog.save
       params[:dog_images]['image'].each do |a|
         @dog_image = @dog.dog_pictures.create!(:image => a,:dog_id => @dog.id) unless a.blank?
@@ -88,7 +91,7 @@ class DogsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dog_params
-      params.require(:dog).permit(:breed_id, :place_id, :age, :gender, :size, :neutered, dog_images_attributes: [:id, :dog_id, :image], condition_ids: [], dog_state_ids: [])
+      params.require(:dog).permit(:breed_id, :place_id, :age, :gender, :size, :neutered, dog_images_attributes: [:id, :dog_id, :image], condition_ids: [], dog_state_ids: [],vaccine_ids: [])
     end
 
     def generate_public_id

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_05_172009) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_07_160340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -105,8 +105,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_05_172009) do
     t.boolean "neutered", default: false
     t.string "public_id"
     t.boolean "size", default: true
+    t.bigint "user_id", null: false
     t.index ["breed_id"], name: "index_dogs_on_breed_id"
     t.index ["place_id"], name: "index_dogs_on_place_id"
+    t.index ["user_id"], name: "index_dogs_on_user_id"
+  end
+
+  create_table "dogs_vaccines", id: false, force: :cascade do |t|
+    t.bigint "dog_id", null: false
+    t.bigint "vaccine_id", null: false
+    t.index ["dog_id", "vaccine_id"], name: "index_dogs_vaccines_on_dog_id_and_vaccine_id"
+    t.index ["vaccine_id", "dog_id"], name: "index_dogs_vaccines_on_vaccine_id_and_dog_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -143,6 +152,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_05_172009) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "vaccines", force: :cascade do |t|
+    t.string "name"
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "versions", force: :cascade do |t|
     t.string "item_type", null: false
     t.bigint "item_id", null: false
@@ -160,5 +176,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_05_172009) do
   add_foreign_key "dog_pictures", "dogs"
   add_foreign_key "dogs", "breeds"
   add_foreign_key "dogs", "places"
+  add_foreign_key "dogs", "users"
   add_foreign_key "users", "roles"
 end

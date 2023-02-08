@@ -170,3 +170,7 @@ DogState.create!(name: "Open for Adoption")
 DogState.create!(name: "Lost Dog")
 DogState.create!(name: "In hold")
 DogState.create!(name: "Operation")
+
+Vaccine.create!(name: "Anti Rabies")
+Vaccine.create!(name: "Deworm")
+Vaccine.create!(name: "Parvo shots")
