@@ -81,13 +81,26 @@ class Dog < ApplicationRecord
     condition_names.map { |x| [{ content: x, borders: [] }] }
   end
 
-  def self.export(date_range = "")
-    list = self.all.where(archived_at: nil)
+  def self.export(date_range: "", type: nil)
+    dr = nil
+    case date_range
+    when "Today"
+      dr = Time.now.beginning_of_day..Time.now
+    when "Yesterday"
+      dr = Date.yesterday.beginning_of_day..Date.yesterday.end_of_day
+    when "Last 3 days"
+      dr = 3.days.ago..Time.now
+    when "Last Week"
+      dr = 1.week.ago..Time.now
+    when "Last Month"
+      dr = 1.month.ago..Time.now
+    end
+    list = Dog.where(created_at: dr ,archived_at: nil)
     pdf = Prawn::Document.new(page_layout: :landscape, page_size: "LEGAL")
     data = [ 
       ["Public ID", "Breed","Sex","Age","Neutered","Owner","Location", "Status", "Condition", "Date"] 
     ]
-    list.each do |d|
+    list.each do |d|  
       data += [[d.public_id,d.breed_name,d.exp_sex,d.exp_age(d.age),d.exp_neutered,"N/A",d.location,d.exp_status,d.exp_conditions,d.exp_date]]
     end
     pdf.table data, :position => :center, :header => true

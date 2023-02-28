@@ -1,5 +1,17 @@
 <div class="dataexport-page">
-    <div class="col-12 d-flex justify-content-center align-items-center h-100">
-        <%= link_to "Download Dog Report PDF", data_export_download_report_path, target: "_blank", class: "btn btn-primary" %>
+    <div class="col-12 d-flex justify-content-center align-items-center h-100" data-controller="download-form">
+        <%= form_with url: data_export_download_report_path,method: :get,:html => { class: "w-50", id: "dform" },data: { url: data_export_download_report_path } do |form| %>
+            <div class="row">
+                <div class="form-floating col-6 py-4">
+                    <%= form.select :export_type, @exportable_list,{prompt: "Select Data"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
+                    <%= form.label "Data"%> 
+                </div>
+                <div class="form-floating col-6 py-4">
+                    <%= form.select :range_type, @date_range,{prompt: "Select Range"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
+                    <%= form.label "Range"%> 
+                </div>
+            </div>
+            <%= form.submit "Get Printed Data", class: "w-100 btn btn-primary" %>
+        <% end %>
     </div>
 </div>

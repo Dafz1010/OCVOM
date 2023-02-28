@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
   include Authentication
-  skip_before_action :authenticate_user!, only: %i[ new create ]
-  skip_before_action :approved_user!, only: %i[ new create ]
   before_action :set_user, only: %i[ show edit update destroy approval set_role]
 
   # GET /users or /users.json
@@ -18,11 +16,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    if !current_user
       @user = User.new
-    else
-      redirect_to dashboard_path, flash: {alert: "You are already Logged In"}
-    end
   end
 
   # GET /users/1/edit

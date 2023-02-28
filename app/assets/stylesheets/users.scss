@@ -226,23 +226,11 @@ $nav-lblue:#A4CDFF;
 	}
 }
 
-.register{
-	background-image: url("loginpagebg.png");
-   	background-size: cover;
-   	background-repeat: no-repeat;
-   	background-position: center center;
-   	overflow-y: hidden;
-	height: 100%;
-	display:flex;
-	position:relative;
+.register-page{
+	width: calc(100% - 70px);
+	height: calc(100% - 109px);
+	float:right;
     & .register-container{
-		position: absolute; 
-	    left: 50%;
-	    top: 50%;
-    	transform: translate(-50%, -50%);
-		width: 30%;
-		height: auto;
-		min-height: 40%;
 		background-color: transparentize(white, 0.4);
 		border: $blue solid;
 		border-radius: 40px;
