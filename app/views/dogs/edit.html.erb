@@ -1,10 +1,16 @@
 <div class="dog-new-page">
   <div class="row w-100 h-100 g-0 d-flex flex-column flex-nowrap" style="border: 1px solid black;">
     <div class="title-container row g-0 flex-shrink-1">
-      <div class="col-12 col-md-12" style="border: 1px solid black;">
-        <div class="form-title p-1 mx-3 rounded-pill ">
-          <p class="fs-3 m-1">Edit Dog Profile</p>
+      <div class="col-12 col-md-12 d-flex justify-content-between px-3 align-items-center" style="border: 1px solid black;">
+        <div class="form-title p-1 rounded-pill ">
+          <p class="fs-3 m-1 ">Edit Dog Profile</p>
         </div>
+        <% if request.referrer %>
+          <%= link_to "Back", :back, class: "btn btn-secondary" %>
+        <% else %>
+          <%= link_to "Back", records_path, class: "btn btn-secondary" %>
+        <% end %>
+
       </div>
     </div>
     <div class="dog-form row g-0 h-100" style="border: 1px solid black;">

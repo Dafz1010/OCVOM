@@ -27,7 +27,7 @@
                 border: $blue dashed 5px;
                 color: $blue;
                 background-color: lighten($nav-lblue, 10%);
-                min-height: 20vh;
+                min-height: 25vh;
                 height: fit-content;
                 & #image-list{
                     overflow-x: scroll;
