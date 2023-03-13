@@ -7,7 +7,6 @@ class UsersController < ApplicationController
     @users = User.all
     @roles = Role.pluck(:name,:id).sort
     @approved_users = @users.where(archived_at: nil).where.not(approved_at: nil)
-    @unapproved_users = @users.where(archived_at: nil).where(approved_at: nil)
   end
 
   # GET /users/1 or /users/1.json
@@ -17,6 +16,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
       @user = User.new
+      @roles = Role.pluck(:name,:id).sort
   end
 
   # GET /users/1/edit
@@ -26,11 +26,12 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
+    @user.password = "Ormocanon"
     if @user.valid? && @user.save
-      session[:user_id] = @user.id
-      @user.versions.create!(event: "Register User", whodunnit: "#{@user.username}")
-      @user.versions.create!(event: "Login User", whodunnit: "#{@user.username}")
-      redirect_to admin_approval_path , notice: "Registered Successfully"
+      @user.approved_user!
+      @user.versions.create!(event: "Create User", whodunnit: "#{@user.username}")
+
+      redirect_to users_path , notice: "User Created Successully"
     else
       render :new, status: :unprocessable_entity
     end
@@ -55,16 +56,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def approval
-    if current_user.admin?
-      @user.approved_user!
-      @user.versions.create!(event: "Approve User", whodunnit: "#{current_user.username}")
-      redirect_to users_path, flash: { notice: "User Approved" }
-    else
-      redirect_to users_path, flash: { alert: "Unauthorized Action" }
-    end
-  end
-
   def set_role
     if current_user.admin?
       @user.setrole(params[:user][:role_id])
@@ -83,6 +74,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :username, :password, :password_confirmation, :profile_image, :role_id, :approve_user)
+      params.require(:user).permit(:name, :username, :password, :password_confirmation, :profile_image, :role_id)
     end
 end

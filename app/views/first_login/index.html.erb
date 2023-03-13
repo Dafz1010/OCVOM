@@ -1,0 +1,21 @@
+<div class="admin-approval-page d-flex justify-content-center align-items-center">
+	<%= form_for current_user, url: first_login_path(current_user) do |f| %>,
+        <div class="form-container w-100 d-flex justify-content-center align-items-center  flex-column p-3">
+            <h2>
+                Change Password
+            </h2>
+            <%= f.password_field :old_password, placeholder: "Old Password", autocomplete: 'off', required: true, class: "my-2" %>
+
+            <%= f.password_field :new_password, placeholder: "New Password", autocomplete: 'off', required: true, class: "my-2" %>
+
+            <%= f.password_field :new_password_confirmation, placeholder: "Password Confirmation", autocomplete: 'off', required: true, class: "my-2" %>
+
+            <%= f.submit "Submit", class: "my-2"%>
+            <% if current_user.errors.any? %>
+                <% current_user.errors.full_messages.each do |message| %>
+                    <p><%= message %></p>
+                <% end %>
+            <% end %>
+        </div>
+    <% end %>
+</div>

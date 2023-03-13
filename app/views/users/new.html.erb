@@ -7,11 +7,15 @@
 
 			<%= f.text_field :username, placeholder: "Username", autocomplete: 'off', required: true %>
 
-			<%= f.password_field :password, placeholder: "Password", autocomplete: 'off', required: true %>
+			<%= f.select :role_id, @roles,{prompt: "Select Type"},{required: 'true', autocomplete: 'off', class: ""}%>
 
-      		<%= f.password_field :password_confirmation, placeholder: "Retype Password", autocomplete: 'off', required: true  %>
+			<div>Default password is "Ormocanon".	</div>
+			<div>User can change the password after first login.</div>
+			<%# f.password_field :password, placeholder: "Password", autocomplete: 'off', required: true %>
 
-			<%= f.submit "Register" %>
+      		<%# f.password_field :password_confirmation, placeholder: "Retype Password", autocomplete: 'off', required: true  %>
+
+			<%= f.submit "Submit" %>
 			<% if @user.errors.any? %>
 				<% @user.errors.full_messages.each do |message| %>
 					<p><%= message %></p>

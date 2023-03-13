@@ -2,10 +2,11 @@ Rails.application.routes.draw do
   root "home#index"
   resources :dogs
   resources :users do
-    patch 'approval', on: :member, as: :approval
     patch 'set_role', on: :member, as: :set_role
   end
   resource :records, only: [:show]
+  resources :first_login, only: [:index, :update]
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   
   # Defines the root path route ("/")
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   get '/scan', to: 'scan#index', as: 'scan'
   get '/data_export', to: 'data_export#index'
   get 'data_export/download_report'
-  get '/admin_approval', to: 'admin_approval#index'
+  # get '/first_login', to: 'admin_approval#index', as: "first_login"
+  # patch '/admin_approval/:id', to: 'admin_approval#update', as: 'first_login'
   get '/dashboard', to: 'dashboard#index' 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_07_160340) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_06_033425) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -148,6 +148,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_07_160340) do
     t.datetime "archived_at"
     t.string "profile_image"
     t.datetime "approved_at"
+    t.datetime "first_login_at"
     t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["username"], name: "index_users_on_username", unique: true
   end

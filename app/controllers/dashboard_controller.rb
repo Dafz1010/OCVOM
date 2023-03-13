@@ -15,8 +15,8 @@ class DashboardController < ApplicationController
           {log_text: "#{record.created_at.localtime.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} Logged In"}
         when 'Logout User'
           {log_text: "#{record.created_at.localtime.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} Logged Out"}
-        when 'Register User'
-          {log_text: "#{record.created_at.localtime.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} was Registered"}
+        when 'Create User'
+          {log_text: "#{record.created_at.localtime.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} was Created by Admin"}
         when 'Archive User'
           user_data = User.find(record.item_id)
           {log_text: "#{record.created_at.localtime.strftime('%b %d, %Y %I:%M %p')}: User #{record.whodunnit} archived User \"#{user_data.username}\""}

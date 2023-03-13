@@ -3,7 +3,7 @@ module Authentication
   
     included do
       before_action :authenticate_user!
-      before_action :approved_user!
+      before_action :changed_password_user!
     end
   
     def authenticate_user!
@@ -13,9 +13,10 @@ module Authentication
         end
     end
 
-    def approved_user!
-        unless current_user.role
-            redirect_to admin_approval_path, alert: "Restricted Access"
+    def changed_password_user!
+        unless current_user.first_loggedin?
+            redirect_to first_login_index_path, alert: "Change your password first"
         end
     end
+
 end

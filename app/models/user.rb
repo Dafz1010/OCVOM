@@ -58,6 +58,13 @@ class User < ApplicationRecord
     self.update(role_id: id)
   end
 
+  def total_logs
+    versions.where(whodunnit: username).count
+  end
+
+  def first_loggedin?
+    first_login_at?
+  end
 
   private
 

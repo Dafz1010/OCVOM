@@ -16,7 +16,7 @@
       <div class="dashboard">
         <%= render "home/logo" %>
         <div class="navigation">
-          <% if current_user.role%>
+          <% if current_user.first_loggedin?%>
             <div class="profilepic" id="profile-upload-button" <%= has_profile_image %>>
               <p>
                 <div class="material-icons profile-edit">add_a_photo</div>
@@ -36,7 +36,7 @@
             <div class="nav-item">
               <%= link_to dashboard_path, class: "item-button" do %>
                 <div class="material-icons item-logo">dashboard</div> DASHBOARD
-              <% end %>
+              <% end %> 
               <div class="nav-subitem-container">
                 <% if current_user.admin? %>
                   <div class="nav-subitem">

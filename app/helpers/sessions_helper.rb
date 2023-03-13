@@ -1,7 +1,7 @@
 module SessionsHelper
     
     def log_in(user)
-        user.versions.create!(event: "Login User", whodunnit: "#{user.username}")
+        user.versions.create!(event: "Login User", whodunnit: "#{user.username}") if user.first_loggedin?
         session[:user_id] = user.id
     end
 
