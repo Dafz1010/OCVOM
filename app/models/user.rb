@@ -65,6 +65,24 @@ class User < ApplicationRecord
   def first_loggedin?
     first_login_at?
   end
+  
+  def reset_user
+    self.update(password: "Ormocanon", first_login_at: nil)
+  end
+
+  def restore_user
+    self.update(archived_at: nil)
+    self.reset_user
+  end
+
+  def doctor?
+    type == "Doctor"
+  end
+
+  def doctor!
+    self.update(role_id: Role.find_by(name: "Doctor").id)
+  end
+
 
   private
 

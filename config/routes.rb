@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :dogs
   resources :users do
     patch 'set_role', on: :member, as: :set_role
+    patch 'restore', on: :member, as: :restore
   end
   resource :records, only: [:show]
   resources :first_login, only: [:index, :update]
