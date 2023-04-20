@@ -2,10 +2,6 @@
 
 one:
   name: MyString
-  group: MyString
-  origin: MyString
 
 two:
   name: MyString
-  group: MyString
-  origin: MyString

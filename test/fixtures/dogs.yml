@@ -2,20 +2,13 @@
 
 one:
   breed: one
-  location: MyString
-  has_color: false
-  dog_state: one
-  image_file_name: MyString
   age: 1
   gender: false
-  in_pound: false
-
+  place: one
+  user: one
 two:
   breed: two
-  location: MyString
-  has_color: false
-  dog_state: two
-  image_file_name: MyString
   age: 1
   gender: false
-  in_pound: false
+  place: two
+  user: two
