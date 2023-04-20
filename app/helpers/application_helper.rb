@@ -3,8 +3,13 @@ module ApplicationHelper
 		stylesheet_link_tag params[:controller]
 	end
 
-	def has_profile_image
-		"style=background-image:url(data:#{current_user.profile_image.content_type};base64,#{to_base64(current_user.profile_image.read)})" if current_user.profile_image.present?
+	def has_profile_image(element)
+		case element
+		when "div"
+			"style=background-image:url(data:#{current_user.profile_image.content_type};base64,#{to_base64(current_user.profile_image.read)})" if current_user.profile_image.present?
+		when "img"
+			"src=data:#{current_user.profile_image.content_type};base64,#{to_base64(current_user.profile_image.read)}" if current_user.profile_image.present?
+		end
 	end
 
 	def to_base64(data)

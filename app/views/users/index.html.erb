@@ -1,9 +1,8 @@
-<div class="users-page g-0 d-flex flex-column" >
+<div class="users-page" >
 	<div class="col-12 row g-0 h-75">
 		<div class="users-container col-12 h-100 px-2" >
 			<div class="col-12 p-2 d-flex justify-content-between">
 				<div>All Users</div>
-				<%= button_to "Create User", register_path,method: :get, class: "btn btn-primary" %>
 			</div>
 			<div class="col-12 h-100 overflow-scroll" >
 				<table class="table">
@@ -18,12 +17,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<% @approved_users.each do |user|%>
+						<% @approved_users.each do |user|
+							
+						%>
 							<tr>
-								<td><%= user.username %></td>
-								<td><%= user.total_logs %></td>
-								<td>
-                                    <% unless current_user?(user)%>
+								<td class="normal-user"><%= user.username %></td>
+								<td class="normal-user"><%= user.total_logs %></td>
+								<td class="normal-user">
+                                    <% unless user.admin? || current_user?(user)%>
                                         <%= form_with model: user, url: set_role_user_path(user), method: :patch do |form| %>
                                             <%= form.select :role_id, @roles,{prompt: "Unset"},{required: 'true', autocomplete: 'off',onchange: "this.form.submit()"}%>
                                         <% end %>
@@ -31,19 +32,50 @@
                                         <%= user.type.capitalize%>
                                     <% end %>
                                 </td>
-								<%# <td><%= user.type.capitalize</td> %>
-								<td><%= user.created_at.localtime.strftime("%b %d, %Y") %></td>
-								<td>
+								<%# <td class="normal-user"><%= user.type.capitalize</td> %>
+								<td class="normal-user"><%= user.created_at.localtime.strftime("%b %d, %Y") %></td>
+								<td class="normal-user">
 									<div class="d-flex flex-row me-2 justify-content-center">
 										<%= button_to "Show", user_path(user),method: :get, class: "btn btn-info me-1" %>
-										<%= button_to "Archive User", user_path(user),method: :delete,data: {turbo_confirm: 'Are you sure you want to archive this user?'}, class: "btn btn-danger" unless current_user?(user) %>
+										<%= button_to "Archive User", user_path(user),method: :delete,data: {turbo_confirm: 'Are you sure you want to archive this user?'}, class: "btn btn-danger" unless  user.admin? || current_user?(user) %>
 									</div>
 								</td>
 							</tr>
 						<% end %>
+						<% unless @archived_users.blank? %>
+							<tr>
+								<td colspan="5" class="fs-5 archive-subheaders">
+									Archived Users
+								</td>
+							</tr>
+						<% end %>
+						<% @archived_users.each do |user|%>
+							<tr>
+								<td class="archived-user"><%= user.username %></td>
+								<td class="archived-user"><%= user.total_logs %></td>
+								<td class="archived-user"><%= user.type %></td>
+								<%# <td class="archived-user"><%= user.type.capitalize</td> %>
+								<td class="archived-user"><%= user.created_at.localtime.strftime("%b %d, %Y") %></td>
+								<td class="archived-user">
+									<div class="d-flex flex-row me-2 justify-content-center">
+										<%= button_to "Show", user_path(user),method: :get, class: "btn btn-info me-1" %>
+										<%= button_to "Restore User", restore_user_path(user),method: :patch,data: {turbo_confirm: 'Are you sure you want to restore this user?'}, class: "btn btn-primary" unless current_user?(user) %>
+									</div>
+								</td>
+							</tr>
+						<% end %>
+						<tr>
+							<td colspan="5" ></td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
+		</div>
+	</div>
+	<div class="new-user p-3 me-4 mb-4	" onclick="location.href='<%= register_path %>'">
+		<div class="d-flex justify-content-center">
+			<div class="material-icons">add</div>
+			ADD NEW USER
 		</div>
 	</div>
 </div>

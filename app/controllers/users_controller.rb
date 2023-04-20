@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 include Authentication
 
   before_action :set_user, only: %i[ show edit update destroy set_role restore]
-  before_action :DoctorAccessable!, only: [:new, :create, :index]
+  before_action :DoctorAccessable!, only: [:new, :create, :index, :destroy, :set_role, :restore]
 
   # GET /users or /users.json
   def index
@@ -39,7 +39,6 @@ include Authentication
     if @user.valid? && @user.save
       @user.approved_user!
       @user.versions.create!(event: "Create User", whodunnit: "#{current_user.username}")
-
       redirect_to users_path , notice: "User Created Successully"
     else
       render :new, status: :unprocessable_entity
@@ -56,7 +55,7 @@ include Authentication
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    unless @user.admin? || current_user?(@user)
+    unless current_user?(@user)
       @user.archive
       @user.versions.create!(event: "Archive User", whodunnit: "#{current_user.username}")
       redirect_to users_path, flash: { notice: "Successully Archive User" }
@@ -66,23 +65,15 @@ include Authentication
   end
 
   def set_role
-    if current_user.admin?
-      @user.setrole(params[:user][:role_id])
-      @user.versions.create!(event: "Set User Role,#{@user.type}", whodunnit: "#{current_user.username}")
-      redirect_to users_path, flash: { notice: "Changed User Role" }
-    else
-      redirect_to users_path, flash: { alert: "Unauthorized Action" }
-    end
+    @user.setrole(params[:user][:role_id])
+    @user.versions.create!(event: "Set User Role,#{@user.type}", whodunnit: "#{current_user.username}")
+    redirect_to users_path, flash: { notice: "Changed User Role" }
   end
 
   def restore
-    if current_user.admin?
-      @user.restore_user
-      @user.versions.create!(event: "User Restore", whodunnit: "#{current_user.username}")
-      redirect_to users_path, flash: { notice: "User Restored and Set to Default Password" }
-    else
-      redirect_to users_path, flash: { alert: "Unauthorized Action" }
-    end
+    @user.restore_user
+    @user.versions.create!(event: "User Restore", whodunnit: "#{current_user.username}")
+    redirect_to users_path, flash: { notice: "User Restored and Set to Default Password" }
   end
 
   private
