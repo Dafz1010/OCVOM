@@ -47,8 +47,11 @@
                         position: sticky;
                         top: 0
                     }
-                    & td{
-                        background-color: white;
+                    // get all the rows that are not headers or last row
+                    & tr{
+                        & td{
+                            background-color: white;
+                        }
                     }
                     
                 }

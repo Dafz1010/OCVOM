@@ -2,8 +2,9 @@
 
 .records-page{
 	width: calc(100% - 70px);
-	height: calc(100% - 109px);
+	height: calc(100% - 140px);
 	float:right;
+	position: relative;
 	& .records-container{
 		& table{
 			font-family: Oswald;
@@ -30,10 +31,38 @@
 				position: sticky;
 				top: 0
 			}
-			& td{
-				background-color: white;
+			& tr:last-child{
+				& .spacing{
+					background-color: transparent;
+					padding-bottom: 3em;
+					border-color: transparent;
+				}
+			}
+			& tr:not(:last-child){
+				& td{
+					background-color: white;
+				}
+			}
+			& tr:not(:last-child):hover{
+				& td{
+					background-color: #d0d0d0;
+				}
 			}
 		}
+	}
+	& .new-record{
+		background-color: lime;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		border-radius: 16px;
+		border-bottom: 2px black solid;
+		border-right: 2px black solid;
+	}
+	& .new-record:hover{
+		background-color: limegreen;
+		cursor: pointer;
+		border: 0px;
 	}
 	& .graph-container{
 	}

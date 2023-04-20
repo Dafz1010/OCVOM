@@ -16,7 +16,7 @@ $nav-lblue:#A4CDFF;
 }
  body{
     background-image: url("dashboardbg.png");
-    background-size: auto 100%;
+    background-size: 100% auto;
     background-repeat: no-repeat;
     background-position: center;
  }
@@ -63,37 +63,45 @@ $nav-lblue:#A4CDFF;
         justify-content: flex-start;
         flex-direction: column;
         z-index: 99;
-        & .profilepic{
-            width: 50px;
-            height: 50px;
-            background-image: url("placeholder_profile.jpeg");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: top;
-            border: $nav-lblue 5px solid;
-            border-radius: 50%;
-            margin: 10px auto;
+        & .profile{
             display: flex;
-            justify-content: center;
             align-items: center;
-            & .profile-edit{
-                font-size: 1.7em;
-                opacity: 0;
-                font-size:50px;
-                color: black
+            text-decoration: none;
+            font-size: 1.2em;
+            background: $nav-lblue;
+            border-radius: 50%;
+            color: black;
+            overflow: visible;
+            margin: 1em 0;
+            position: relative;
+            overflow: hidden;
+            & .profilepic{
+                width: 60px;
+                height: 60px;
+                background-image: url("placeholder_profile.jpeg");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: top;
+                border: $nav-lblue 5px solid;
+                border-radius: 50%;
+
+            }
+            & .user-greet{
+                position: absolute;
+                transform: translate(-500px, 0);
+                
             }
         }
-        & .profilepic:hover{
-            opacity: 0.5;
-            & .profile-edit{
-                opacity: 1;
-                color: black
+        & .profile:hover{
+            background: complement($nav-lblue);
+            & .profilepic{
+                border: complement($nav-lblue) 5px solid;
             }
         }
         & .nav-item{
             width: 100%;
             max-height: 70px;
-            margin: 10px 0px 10px 20px;
+            margin: 10px 0px 10px 0px;
             overflow: hidden;
             & .item-button{
                 display: flex;
@@ -104,7 +112,6 @@ $nav-lblue:#A4CDFF;
                 border-radius: 12px;
                 color: black;
                 margin:auto;
-                margin-left: 0;
                 padding: 10px;
                 width: 90%;
                 overflow: visible;
@@ -126,7 +133,7 @@ $nav-lblue:#A4CDFF;
                 margin-top: 20px;
                 width: 100%;
                 & .nav-subitem{
-                    margin: 2px 0px;
+                    // margin: 2px 0px;
                     width: 100%;
                     & .subitem-button{
                         display: flex;
@@ -141,7 +148,7 @@ $nav-lblue:#A4CDFF;
                         padding: 5px;
                         padding-left: 20px;
                         float: right;
-                        margin-right: 22px;
+                        margin-right: 10px;
                     }
                 }
                 & .nav-subitem:hover{
@@ -169,10 +176,20 @@ $nav-lblue:#A4CDFF;
     }
     & .navigation:hover{
         width:210px;
-        & .profilepic{
-            width: 178px;
-            height: 178px;
-            border-radius: 12px;    
+        // & .profilepic{
+        //     width: 178px;
+        //     height: 178px;
+        //     border-radius: 12px;    
+        // }
+        & .profile{
+            border-radius: 12px;
+            padding: 5px 0;
+            width: 90%;
+            //padding: 1em 0px;
+            & .user-greet{
+                position: absolute;
+                transform: translate(60px, 0);
+            }
         }
         & .nav-item{
             display: block;
@@ -189,7 +206,7 @@ $nav-lblue:#A4CDFF;
 
 .users-page{
 	width: calc(100% - 70px);
-	height: calc(100% - 109px);
+	height: 100%;
 	float:right;
 	& .users-container{
 		& table{
@@ -202,7 +219,6 @@ $nav-lblue:#A4CDFF;
 				word-break:normal;
 				text-align:center;
 				vertical-align: middle;
-				border-color: black;
 			}
 			& td:first-child,th:first-child{
 				border-top-left-radius: 16px;
@@ -217,18 +233,61 @@ $nav-lblue:#A4CDFF;
 			& th{
 				background-color: $nav-lblue;
 				position: sticky;
+				border-color: black;
 				top: 0
 			}
-			& td{
-				background-color: white;
+
+			& tr:last-child{
+				& .spacing{
+					background-color: transparent;
+					padding-bottom: 3em;
+                    margin: auto;
+					border-color: transparent;
+				}
 			}
+			// & tr:not(:last-child){
+			// 	& td{
+			// 	//	background-color: white;
+			// 	}
+			// }
+			// & tr:not(:last-child):hover{
+			// 	& td{
+			// 		background-color: #d0d0d0;
+			// 	}
+			// }
+            & .normal-user{
+				border-color: black;
+                background-color: white;
+            }
+            & .archive-subheaders{
+                background-color:rgb(145, 178, 215);
+                border-color: transparent;
+            }
+            & .archived-user{
+				border-color: black;
+                background-color: lightgray
+            }
 		}
+	}
+	& .new-user{
+		background-color: lime;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		border-radius: 16px;
+		border-bottom: 2px black solid;
+		border-right: 2px black solid;
+	}
+	& .new-user:hover{
+		background-color: limegreen;
+		cursor: pointer;
+		border: 0px;
 	}
 }
 
 .register-page{
 	width: calc(100% - 70px);
-	height: calc(100% - 109px);
+	height: calc(100% - 140px);
 	float:right;
     & .register-container{
 		background-color: transparentize(white, 0.4);
@@ -276,3 +335,8 @@ $nav-lblue:#A4CDFF;
     
 }
 
+.users-show-page{
+    width: calc(100% - 70px);
+	height: calc(100% - 109px);
+	float:right;
+}

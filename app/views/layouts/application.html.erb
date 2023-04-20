@@ -8,6 +8,8 @@
     <%= controller_stylesheet_link_tag %>
     <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "bootstrap-switch" %>
+    <%= javascript_include_tag "moment" %>
+    <%= javascript_include_tag "daterangepicker" %>
     <%= javascript_importmap_tags %>
     </head>
 
@@ -17,28 +19,34 @@
         <%= render "home/logo" %>
         <div class="navigation">
           <% if current_user.first_loggedin?%>
-            <div class="profilepic" id="profile-upload-button" <%= has_profile_image %>>
-              <p>
-                <div class="material-icons profile-edit">add_a_photo</div>
-                <%= form_for current_user, html: { id: 'profile-upload-form' } do |f| %>
-                  <%= f.file_field :profile_image, id: 'hidden-profile-file-field',accept: 'image/jpeg, image/png', onchange: 'submitForm()', style: 'display: none;' %>
-                <% end %>
-                <script>
+            <div class="profilepic d-flex flex-column" id="profile-upload-button" <%= has_profile_image("div") %>>
+              <div>
+                <%# <div class="material-icons profile-edit">add_a_photo</div> %>
+                <%# <%= form_for current_user, html: { id: 'profile-upload-form' } do |f| %>
+                  <%# <%= f.file_field :profile_image, id: 'hidden-profile-file-field',accept: 'image/jpeg, image/png', onchange: 'submitForm()', style: 'display: none;' %>
+                <%# <% end %>
+                <%# <script>
                   document.getElementById('profile-upload-button').addEventListener('click', function() {
                   document.getElementById('hidden-profile-file-field').click();
                   });
                   function submitForm() {
                     document.getElementById('profile-upload-form').submit();
                   }
-                </script>
-              </p>
+                </script> %>
+              </div>
             </div>
+            <%= link_to user_path(current_user), class: "profile" do %>
+              <div class="profilepic d-flex" <%= has_profile_image("div") %>></div>
+              <div class="user-greet my-auto">
+                <%= current_user.username %>
+              </div>
+            <% end %>
             <div class="nav-item">
               <%= link_to dashboard_path, class: "item-button" do %>
                 <div class="material-icons item-logo">dashboard</div> DASHBOARD
               <% end %> 
               <div class="nav-subitem-container">
-                <% if current_user.admin? %>
+                <% if current_user.admin? || current_user.doctor? %>
                   <div class="nav-subitem">
                     <%= link_to users_path, class: "subitem-button" do %>
                       Users   
@@ -77,43 +85,60 @@
                     <div class="material-icons">chevron_right</div>
                   <% end %>
                 </div>
-              </div>
-            </div>
-            <div class="nav-item">
-              <%= link_to "#", class: "item-button" do %> 
-                <div class="material-icons item-logo">touch_app</div> ACTIONS
-              <% end %>
-              <div class="nav-subitem-container">
                 <div class="nav-subitem">
-                  <%= link_to new_dog_path, class: "subitem-button" do %>
-                    Add New Dog
+                  <%= link_to records_path(name: "disposed"), class: "subitem-button" do %>
+                    Archive
                     <div class="material-icons">chevron_right</div>
                   <% end %>
                 </div>
-                <% if current_user.admin? %>
-                  <div class="nav-subitem">
-                    <%= link_to data_export_path, class: "subitem-button" do %>
-                      Export Data
-                      <div class="material-icons">chevron_right</div>
-                    <% end %>
-                  </div>
-                <% end %>
-                </div>
               </div>
-            <% end %> 
+            </div>
             <div class="nav-item">
-              <%= link_to logout_path, class: "item-button", data: { "turbo-method": :delete } do %> 
-                <div class="material-icons item-logo">logout</div> LOGOUT
+              <%= link_to inventory_index_path, class: "item-button" do %> 
+                <div class="material-icons item-logo">inventory </div> INVENTORY
               <% end %>
             </div>
+            <% if current_user.admin? || current_user.doctor? %>
+              <div class="nav-item">
+                <%= link_to data_export_path, class: "item-button" do %> 
+                  <div class="material-icons item-logo">file_download</div> Export Data
+                <% end %>
+              </div>  
+            <% end %>
+          <% end %> 
+          <div class="nav-item">
+            <%= link_to logout_path, class: "item-button", data: { "turbo-method": :delete } do %> 
+              <div class="material-icons item-logo">logout</div> LOGOUT
+            <% end %>
           </div>
+        </div>
       <% end %>
       <%= yield %>
-          </div>
+        </div>
       <% if flash.present? && flash[flash.keys[0]] != "Invalid Username/Password" %>
         <div class="flash <%= flash.keys[0] %>">
           <%= flash[flash.keys[0]] %>
         </div>
+        <script>
+          $(document).ready(function(){
+            var interval;
+            $(".flash").on("click",function(){
+              $(this).hide();
+            }).on("mouseenter",function(){
+              $(this).css({ cursor: "pointer" });
+              clearInterval(interval);
+              $(this).stop().css({ opacity: 1 });
+            }).on("mouseleave",function(){
+              $(this).css({ cursor: "pointer" });
+              interval = setInterval(function(){
+                $(".flash").fadeOut(2000);
+              }, 7000);
+            });
+            interval = setInterval(function(){
+              $(".flash").fadeOut(2000);
+            }, 7000);
+          });
+        </script>
       <% end %>
     </div>
   </body>
