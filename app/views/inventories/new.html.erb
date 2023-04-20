@@ -1,0 +1,42 @@
+<div class="inventory-new-page d-flex justify-content-center align-items-center">
+  <%= form_with url: new_inventory_path, class: "d-flex flex-column justify-content-center align-items-center p-4" do |form|%>
+    <h3>ADD NEW INVENTORY</h3>
+    <div>
+      <h5>Inventory Name</h5>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <h5>Quantity</h5>
+        <%= form.number_field :quantity, class: "form-control" %>
+      </div>
+      <div class="col-6">
+        <h5>Price</h5>
+        <%= form.number_field :price, class: "form-control" %>
+      </div>
+    </div>
+    <div>
+      <h5>Description</h5>
+      <%= form.text_area :description, class: "form-control" %>
+    </div>
+    <div>
+      <h5>SKU</h5>
+      <%= form.text_field :sku, class: "form-control" %>
+    </div>
+    <div>
+      <h5>Category</h5>
+      <%= form.text_field :category, class: "form-control" %>
+    </div>
+    <div>
+      <h5>Manufacturer</h5>
+      <%= form.text_field :manufacturer, class: "form-control" %>
+    </div>
+    <div>
+      <%= button_to "Cancel", inventory_index_path, method: :get, class: "btn btn-danger" %>
+      <%= form.submit "Add", class: "btn btn-success" %>
+    </div>
+  <% end %>
+      
+        
+
+</div>

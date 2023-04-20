@@ -1,0 +1,72 @@
+@import "users";
+
+.inventory_page {
+	width: calc(100% - 70px);
+	height: calc(100% - 140px);
+	float:right;
+	position: relative;
+    & .inventory-container{
+		& .table-container{
+			& table{
+			font-family: Oswald;
+				width: 100%;
+				border-collapse: separate; 
+				border-spacing: 0 11px;
+				& td,th{
+					overflow:hidden;	
+					word-break:normal;
+					text-align:center;
+					vertical-align: middle;
+					border-color: black;
+				}
+				& td:first-child,th:first-child{
+					border-top-left-radius: 16px;
+					border-bottom-left-radius: 16px;
+				}
+				& td:last-child,th:last-child{
+					border-top-right-radius: 16px;
+					border-bottom-right-radius: 16px;
+				}
+				& th{
+					background-color: $nav-lblue;
+					position: sticky;
+					top: 0
+				}
+				& td{
+					background-color: white;
+				}
+				& tr:last-child{
+					& .spacing{
+						background-color: transparent;
+						padding-bottom: 3em;
+						border-color: transparent;
+					}
+				}
+			}
+		}
+    }
+	& .new-item{
+		background-color: lime;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		border-radius: 16px;
+		border-bottom: 2px black solid;
+		border-right: 2px black solid;
+	}
+	& .new-item:hover{
+		background-color: limegreen;
+		cursor: pointer;
+		border: 0px;
+	}
+}
+.inventory-new-page{
+	width: calc(100% - 70px);
+	height: calc(100% - 140px);
+	float:right;
+	& form{
+		background-color: transparentize(white, 0.4);
+		border: $blue solid;
+		border-radius: 40px;
+	}
+}

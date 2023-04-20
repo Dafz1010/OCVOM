@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_06_033425) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_12_151752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -116,6 +116,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_033425) do
     t.bigint "vaccine_id", null: false
     t.index ["dog_id", "vaccine_id"], name: "index_dogs_vaccines_on_dog_id_and_vaccine_id"
     t.index ["vaccine_id", "dog_id"], name: "index_dogs_vaccines_on_vaccine_id_and_dog_id"
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.string "name"
+    t.integer "quantity"
+    t.decimal "price"
+    t.text "description"
+    t.string "sku"
+    t.string "category"
+    t.string "manufacturer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "places", force: :cascade do |t|
