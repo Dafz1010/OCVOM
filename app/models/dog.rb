@@ -73,37 +73,46 @@ class Dog < ApplicationRecord
 
   end
 
-  def exp_status
-    status.map { |x| [{ content: x, borders: [] }] }
-  end
-
-  def exp_conditions
-    condition_names.map { |x| [{ content: x, borders: [] }] }
-  end
-
-  def self.export(date_range: "", type: nil)
-    dr = nil
-    case date_range
-    when "Today"
-      dr = Time.now.beginning_of_day..Time.now
-    when "Yesterday"
-      dr = Date.yesterday.beginning_of_day..Date.yesterday.end_of_day
-    when "Last 3 days"
-      dr = 3.days.ago..Time.now
-    when "Last Week"
-      dr = 1.week.ago..Time.now
-    when "Last Month"
-      dr = 1.month.ago..Time.now
+  def exp_status(file_type)
+    case file_type
+    when "PDF"
+      status.map { |x| [{ content: x, borders: [] }] }
+    when "CSV"
+      "\"#{status.join(", ")}\""
+    when "Excel"
+      status.join(", ")
     end
-    list = Dog.where(created_at: dr ,archived_at: nil)
-    pdf = Prawn::Document.new(page_layout: :landscape, page_size: "LEGAL")
+  end
+
+  def exp_conditions(file_type)
+    case file_type
+    when "PDF"
+      condition_names.map { |x| [{ content: x, borders: [] }] }
+    when "CSV"
+      "\"#{condition_names.join(", ")}\""
+    when "Excel"
+      condition_names.join(", ")
+    end
+  end
+
+  def self.export(date_range, group, file_type)
+    list = []
+    case group
+    when "all"
+      list = self.where(created_at: date_range, archived_at: nil)
+    when "healthy"
+      list = self.where(created_at: date_range, archived_at: nil).joins(:conditions).where(conditions: { name: "Healthy" })
+    when "operation"
+      list = self.where(created_at: date_range, archived_at: nil).joins(:conditions).where(conditions: { name: "Operation" })
+    when "disposed"
+      list = self.where(created_at: date_range, archived_at: nil).joins(:conditions).where(conditions: { name: "Disposed" })
+    end
     data = [ 
       ["Public ID", "Breed","Sex","Age","Neutered","Owner","Location", "Status", "Condition", "Date"] 
     ]
     list.each do |d|  
-      data += [[d.public_id,d.breed_name,d.exp_sex,d.exp_age(d.age),d.exp_neutered,"N/A",d.location,d.exp_status,d.exp_conditions,d.exp_date]]
+      data += [[d.public_id,d.breed_name,d.exp_sex,d.exp_age(d.age),d.exp_neutered,"N/A",d.location,d.exp_status(file_type),d.exp_conditions(file_type),d.exp_date]]
     end
-    pdf.table data, :position => :center, :header => true
-    pdf
+    data
   end
 end

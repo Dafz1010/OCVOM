@@ -8,9 +8,10 @@ export default class extends Controller {
       $("#dform").on("submit", function(event) {
         event.preventDefault();
         var export_type = $("#export_type").val();
-        var range_type =  $("#range_type").val();
+        var range =  $("#range").val();
+        var file_type = $("#file_type").val();
         var url = $(this).attr("action");
-        url += "?export_type=" + export_type + "&range_type=" + range_type ;
+        url += "?export_type=" + export_type + "&range=" + range + "&file_type=" + file_type ;
         window.open(url);
       });
     });

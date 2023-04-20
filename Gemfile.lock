@@ -100,6 +100,11 @@ GEM
       marcel (~> 1.0.0)
       mini_mime (>= 0.1.3)
       ssrf_filter (~> 1.0)
+    caxlsx (3.3.0)
+      htmlentities (~> 4.3, >= 4.3.4)
+      marcel (~> 1.0)
+      nokogiri (~> 1.10, >= 1.10.4)
+      rubyzip (>= 1.3.0, < 3)
     childprocess (4.1.0)
     choice (0.2.0)
     coderay (1.1.3)
@@ -124,6 +129,7 @@ GEM
     foreman (0.87.2)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    htmlentities (4.3.4)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -341,6 +347,7 @@ DEPENDENCIES
   bootsnap
   capybara
   carrierwave
+  caxlsx
   debug
   erb_lint
   faker

@@ -91,3 +91,4 @@ gem 'foreman'
 gem 'prawn'
 gem 'prawn-table', '~> 0.2.2'
 gem "select2-rails"
+gem "caxlsx"

@@ -7,3 +7,5 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "select2" # @4.1.0
 pin "bootstrap"
+pin "moment"
+pin "daterangepicker"

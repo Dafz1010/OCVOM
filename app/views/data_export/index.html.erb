@@ -2,13 +2,52 @@
     <div class="col-12 d-flex justify-content-center align-items-center h-100" data-controller="download-form">
         <%= form_with url: data_export_download_report_path,method: :get,:html => { class: "w-50", id: "dform" },data: { url: data_export_download_report_path } do |form| %>
             <div class="row">
-                <div class="form-floating col-6 py-4">
+                <div class="form-floating col-5 py-4">
                     <%= form.select :export_type, @exportable_list,{prompt: "Select Data"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
                     <%= form.label "Data"%> 
                 </div>
-                <div class="form-floating col-6 py-4">
-                    <%= form.select :range_type, @date_range,{prompt: "Select Range"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
-                    <%= form.label "Range"%> 
+                <div class="form-floating col-5 py-4">
+                    <%# <%= form.select :range_type, @date_range,{prompt: "Select Range"}, %> 
+                   
+                    <%= form.text_field :range, value: default_date_range ,readonly: true, class: 'form-select py-0' %>
+                    <%= form.label "Range"%>
+                    <script type="text/javascript">
+						$(function() {
+
+						$('#range').daterangepicker({
+    						showDropdowns: true,
+							minDate: moment('2022-01-01'),
+							maxDate: moment().endOf('day'),
+							autoUpdateInput: false,
+							locale: {
+								cancelLabel: 'Clear',
+      							format: 'MMM DD, YYYY'
+							},
+							ranges: {
+							'Today': [moment(), moment()],
+							'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+							'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+							'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+							'This Month': [moment().startOf('month'), moment().endOf('month')],
+							'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+							},
+							singleDatePicker: true
+						});
+
+						$('#range').on('apply.daterangepicker', function(ev, picker) {
+							$(this).val(picker.startDate.format('MMM DD, YYYY') + ' - ' + picker.endDate.format('MMM DD, YYYY'));
+						});
+
+						$('#range').on('cancel.daterangepicker', function(ev, picker) {
+							$(this).val('');
+						});
+
+						});
+					</script>
+                </div>
+                <div class="form-floating col-2 py-4">
+                    <%= form.select :file_type, ["Excel", "PDF", "CSV"],{selected: "PDF"},{required: 'true', autocomplete: 'off', class: 'form-select py-0'} %>
+                    <%= form.label "File Type"%> 
                 </div>
             </div>
             <%= form.submit "Get Printed Data", class: "w-100 btn btn-primary" %>
