@@ -245,6 +245,10 @@ $nav-lblue:#A4CDFF;
 					border-color: transparent;
 				}
 			}
+            & th:last-child{
+                width: 1%;
+                white-space: nowrap;
+            }
 			// & tr:not(:last-child){
 			// 	& td{
 			// 	//	background-color: white;

@@ -48,6 +48,11 @@
 					background-color: #d0d0d0;
 				}
 			}
+			& th:last-child{
+				// this last table header's width is fit to the content
+				width: 1%;
+				white-space: nowrap;
+			}
 		}
 	}
 	& .new-record{

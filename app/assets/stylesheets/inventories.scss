@@ -42,6 +42,11 @@
 						border-color: transparent;
 					}
 				}
+				& th:last-child{
+					// this last table header's width is fit to the content
+					width: 1%;
+					white-space: nowrap;
+				}
 			}
 		}
     }
@@ -68,5 +73,30 @@
 		background-color: transparentize(white, 0.4);
 		border: $blue solid;
 		border-radius: 40px;
+		& .custom-dropdown {
+			position: relative;
+		  }
+		  
+		  & .options {
+			display: none;
+			position: absolute;
+			width: 100%;
+			max-height: 200px;
+			overflow-y: auto;
+			background-color: white;
+			border: 1px solid #ccc;
+			z-index: 1;
+		  }
+		  
+		  & .option {
+			display: block;
+			padding: 8px 12px;
+			cursor: pointer;
+		  
+			&:hover {
+			  background-color: #f1f1f1;
+			}
+		  }
+		  
 	}
 }
