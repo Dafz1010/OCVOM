@@ -2,18 +2,14 @@
 
 one:
   name: MyString
-  quantity: 1
-  price: 9.99
-  description: MyText
-  sku: MyString
+  prescription: MyText
   category: MyString
   manufacturer: MyString
 
+
 two:
   name: MyString
-  quantity: 1
-  price: 9.99
-  description: MyText
-  sku: MyString
+  prescription: MyText
   category: MyString
   manufacturer: MyString
+

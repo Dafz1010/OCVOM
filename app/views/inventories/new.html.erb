@@ -1,37 +1,86 @@
-<div class="inventory-new-page d-flex justify-content-center align-items-center">
-  <%= form_with url: new_inventory_path, class: "d-flex flex-column justify-content-center align-items-center p-4" do |form|%>
-    <h3>ADD NEW INVENTORY</h3>
-    <div>
+<div class="inventory-new-page d-flex justify-content-center align-items-center" data-controller="inventories">
+  <%= form_with model: @inventory, url: inventory_index_path, html: { class: "col-6 p-4"}  do |form| %>
+    <div class="text-center">  
+      <h3>ADD NEW INVENTORY</h3>
+    </div>
+    <div class="custom-dropdown">
       <h5>Inventory Name</h5>
-      <%= form.text_field :name, class: "form-control" %>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        <h5>Quantity</h5>
-        <%= form.number_field :quantity, class: "form-control" %>
-      </div>
-      <div class="col-6">
-        <h5>Price</h5>
-        <%= form.number_field :price, class: "form-control" %>
+      <%= form.text_field :name, class: 'form-control', id: 'inventory-name', autocomplete: 'off' %>
+      <div class="options" id="inventory-options">
+        <% @unique_names.each do |name| %>
+          <div class="option"><%= name %></div>
+        <% end %>
       </div>
     </div>
-    <div>
-      <h5>Description</h5>
-      <%= form.text_area :description, class: "form-control" %>
-    </div>
-    <div>
-      <h5>SKU</h5>
-      <%= form.text_field :sku, class: "form-control" %>
-    </div>
-    <div>
+    <div class="custom-dropdown">
       <h5>Category</h5>
-      <%= form.text_field :category, class: "form-control" %>
+      <%= form.text_field :category, class: "form-control", id: "category-name", autocomplete: 'off' %>
+      <div class="options" id="category-options">
+        <% @unique_categories.each do |category| %>
+          <div class="option"><%= category %></div>
+        <% end %>
+      </div>
     </div>
     <div>
       <h5>Manufacturer</h5>
-      <%= form.text_field :manufacturer, class: "form-control" %>
+      <%= form.text_field :manufacturer, class: "form-control", autocomplete: 'off'%>
     </div>
     <div>
+      <h5>Prescription</h5>
+      <%= form.text_area :prescription, class: "form-control", autocomplete: 'off'%>
+    </div>  
+    <div class="row">
+      <div class="col-4">
+        <h5>Quantity</h5>
+        <%= form.number_field :quantity, class: "form-control", min: 1, value: 1, required: true, autocomplete: 'off'%>
+      </div>
+      <div class="col-4">
+        <h5>Price</h5>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">PHP</span>
+          </div>
+          <%= form.number_field :price, class: "form-control", min: 0, step: 0.01, value: 10.00, required: true, autocomplete: 'off'%>
+        </div>
+      </div>
+      <div class="col-4">
+        <h5>Expiration Date</h5>
+        <%= form.text_field :expiration_date ,readonly: true , placeholder: "Select Date", class: "form-control", required: true, autocomplete: 'off'%>
+        <script type="text/javascript">
+          $(function() {
+
+          $('#inventory_expiration_date').daterangepicker({
+            showDropdowns: true,
+            // min date is set to today
+            minDate: moment(),
+            
+            autoUpdateInput: false,
+            locale: {
+              format: 'MMM DD, YYYY'
+            },
+            singleDatePicker: true,
+            // display at the center of the input
+            drops: 'up'
+            
+            
+
+          });
+
+          
+        
+          $('#inventory_expiration_date').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('MMM DD, YYYY'));
+          });
+
+          $('#inventory_expiration_date').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+          });
+
+          });
+        </script>
+      </div>
+    </div>
+    <div class="py-3">
       <%= button_to "Cancel", inventory_index_path, method: :get, class: "btn btn-danger" %>
       <%= form.submit "Add", class: "btn btn-success" %>
     </div>

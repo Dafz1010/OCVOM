@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_12_151752) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_26_084923) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -120,14 +120,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_151752) do
 
   create_table "inventories", force: :cascade do |t|
     t.string "name"
-    t.integer "quantity"
-    t.decimal "price"
-    t.text "description"
-    t.string "sku"
+    t.text "prescription"
     t.string "category"
     t.string "manufacturer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "dosage"
+  end
+
+  create_table "inventory_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.decimal "price"
+    t.date "expiration_date"
+    t.bigint "inventory_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inventory_id"], name: "index_inventory_items_on_inventory_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -182,6 +190,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_151752) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  create_table "vet_records", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.datetime "archived_at"
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }
+    t.string "species"
+    t.integer "age"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "adoptions", "customers"
   add_foreign_key "adoptions", "dogs"
   add_foreign_key "appointments", "customers"
@@ -190,5 +209,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_151752) do
   add_foreign_key "dogs", "breeds"
   add_foreign_key "dogs", "places"
   add_foreign_key "dogs", "users"
+  add_foreign_key "inventory_items", "inventories"
   add_foreign_key "users", "roles"
 end
