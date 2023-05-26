@@ -63,37 +63,40 @@
 				</div>
 			</div>
 			<div class="table-container col-12 h-100 pb-5 overflow-scroll" >
-				<table class="table ">
-					<thead>
-						<tr>
-							<th scope="col">NAME</th>
-							<th scope="col">CATEGORY</th>
-							<th scope="col">QUANTITY</th>
-							<th scope="col">MANUFACTURER</th>
-							<th scope="col">PRICE</th>
-							<th scope="col">PRESCRIPTION</th>
-							<th scope="col"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<% @inventories.each do |inventory| %>
-							<tr>
-								<td><%= inventory.name %></td>
-								<td><%= inventory.category %></td>
-								<td><%= inventory.total_quantity %></td>
-								<td><%= inventory.manufacturer %></td>
-								<td><%= inventory.last_price %></td>
-								<td><%= inventory.prescription %></td>
-								<td>
-									<div class="d-flex justify-content-end">
-										<%= link_to "Edit", edit_inventory_path(inventory), class: "btn btn-primary me-2" %>
-										<%= link_to "Delete", inventory_path(inventory), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
-									</div>
-								</td>
-							</tr>
-						<% end %>
-					</tbody>
-				</table>
+				<div class="flex-table">
+					<div class="row header-row p-2 my-1 mx-1">
+						<div class="col d-flex">
+							<div class="col-2 text-center my-auto">NAME</div>
+							<div class="col-2 text-center my-auto">CATEGORY</div>
+							<div class="col-2 text-center my-auto">QUANTITY</div>
+							<div class="col-2 text-center my-auto">MANUFACTURER</div><i class="fa fa-xing" aria-hidden="true"></i>
+							<div class="col-2 text-center my-auto">PRICE</div>
+							<div class="col-2 text-center my-auto">PRESCRIPTION</div>
+						</div>
+						<div class="col-auto header-gap"></div>
+					</div>
+					<% @inventories.each do |inventory| %>
+						<div class="row inventory-row p-2 my-1 mx-1">
+							<div class="col d-flex">
+								<div class="col-2 text-center my-auto"><%= inventory.name %></div>
+								<div class="col-2 text-center my-auto"><%= inventory.category %></div>
+								<div class="col-2 text-center my-auto"><%= inventory.total_quantity %></div>
+								<div class="col-2 text-center my-auto"><%= inventory.manufacturer %></div><i class="fa fa-xing" aria-hidden="true"></i>
+								<div class="col-2 text-center my-auto">₱<%= inventory.last_price %></div>
+								<div class="col-2 text-center my-auto"><%= inventory.prescription %></div>
+							</div>
+							<div class="col-auto text-center inventory-actions d-flex my-auto">
+								<div>
+									<%= link_to "Edit", edit_inventory_path(inventory), class: "btn btn-primary me-2" %>
+									<%= link_to "Delete", inventory_path(inventory), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+								</div>
+								<div>
+									<div class="material-icons" style="font-size: 2.5em">chevron_right</div>
+								</div>
+							</div>
+						</div>
+					<% end %>
+				</div>
 			</div>
 		</div>
 	</div>
