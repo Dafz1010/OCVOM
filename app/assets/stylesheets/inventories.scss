@@ -7,57 +7,10 @@
 	position: relative;
     & .inventory-container{
 		& .table-container{
-			& table{
-				font-family: Oswald;
-				width: 100%;
-				border-collapse: separate; 
-				border-spacing: 0 11px;
-				& td,th{
-					overflow:hidden;	
-					word-break:normal;
-					text-align:center;
-					vertical-align: middle;
-					border-color: black;
-				}
-				& td:first-child,th:first-child{
-					border-top-left-radius: 16px;
-					border-bottom-left-radius: 16px;
-				}
-				& td:last-child,th:last-child{
-					border-top-right-radius: 16px;
-					border-bottom-right-radius: 16px;
-				}
-				& th{
-					background-color: $nav-lblue;
-					position: sticky;
-					top: 0
-				}
-				& td{
-					background-color: white;
-				}
-				& tr:nth-last-child(-n+2){
-					& .spacing{
-						background-color: transparent;
-						padding-bottom: 3em;
-						border-color: transparent;
-					}
-				}
-				& th:nth-last-child(-n+2){
-					// this last table header's width is fit to the content
-					width: 1%;
-					white-space: nowrap;
-				}
-				// table row hover effect except header
-				& tr:hover{
-					& td{
-						background-color: #e1e1e1;
-					}
-				}
-			}
 			& .flex-table {
-				& *{
-					outline: auto;
-				}
+				// & *{
+				// 	outline: auto;
+				// }
 				font-family: Oswald;
 				& .inventory-row, .header-row {
 					border-bottom: 1px solid black;
@@ -81,87 +34,6 @@
 				}
 
 			}
-			& .grid-table {
-				display: grid;
-				grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr auto auto;
-				font-family: Oswald;
-				grid-auto-rows: minmax(3rem, auto);	
-				width: 100%;	
-				text-align: center;
-				overflow: hidden;
-				word-break: normal;
-				row-gap: 0.5em;
-
-				& .header,.row-data{
-					border-bottom: 1px solid black;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-				}
-				
-				& .header {
-					height: 100%;
-					background-color: $nav-lblue;
-					position: sticky;
-					top: 0;
-					&-start {
-						border-top-left-radius: 16px;
-						border-bottom-left-radius: 16px;
-					}
-					&-end {
-						border-top-right-radius: 16px;
-						border-bottom-right-radius: 16px;
-					}
-				}
-				& .row-data {
-					background-color: white;
-					height: 100%;
-					align-items: center;
-					border-bottom: 1px solid black;
-					&-start {
-						border-top-left-radius: 16px;
-						border-bottom-left-radius: 16px;
-					}
-					&-end {
-						border-top-right-radius: 16px;
-						border-bottom-right-radius: 16px;
-					}
-					&:hover {
-						background-color: #e1e1e1;
-					}
-				}
-				
-			  }
-			  
-			& .flex-table {
-				font-family: Oswald;
-				width: 100%;
-				display: flex;
-				flex-direction: column;
-				& .flex-row {
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
-					&.header {
-						background-color: $nav-lblue;
-						position: sticky;
-						top: 0;
-					}
-					&:not(.header) {
-						margin-top : 10px;
-						background-color: white;	
-						&:hover {
-							background-color: #e1e1e1;
-						}
-					}
-					& > div:not(:nth-last-child(-n+2)) {
-						flex: 1;
-						text-align: center;
-						overflow: hidden;
-						word-break: normal;
-					}
-				}
-			  }
 		}
     }
 	& .new-item{
