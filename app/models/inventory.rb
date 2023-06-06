@@ -14,4 +14,8 @@ class Inventory < ApplicationRecord
         self.inventory_items.last.price
     end
 
+    def items
+        self.inventory_items
+    end
+
 end

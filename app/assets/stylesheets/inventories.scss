@@ -8,9 +8,6 @@
     & .inventory-container{
 		& .table-container{
 			& .flex-table {
-				// & *{
-				// 	outline: auto;
-				// }
 				font-family: Oswald;
 				& .inventory-row, .header-row {
 					border-bottom: 1px solid black;
@@ -20,7 +17,29 @@
 					background-color: white;
 					&:hover {
 						background-color: #e1e1e1;
-						cursor: pointer;
+					}
+					& .items-container {
+						// flex margins of each items
+						border : 1px solid black;
+						background-color: white;
+						border-radius: 16px;
+						justify-content: space-evenly;
+						& .item {
+							border : 3px solid $nav-lblue;
+							border-radius: 16px;
+						}
+						& .new-item{
+							background-color: lime;
+							border-radius: 16px;
+							border-bottom: 2px black solid;
+							border-right: 2px black solid;
+							&:hover{
+								background-color: limegreen;
+								cursor: pointer;
+								border: 0px;
+							}
+						}
+
 					}
 				}
 				& .header-row {
@@ -36,16 +55,16 @@
 			}
 		}
     }
-	& .new-item{
+	& .new-inventory{
 		background-color: lime;
-		position: absolute;
-		bottom: 0;
-		right: 0;
 		border-radius: 16px;
 		border-bottom: 2px black solid;
 		border-right: 2px black solid;
+		position: absolute;
+		bottom: 0;
+		right: 0;
 	}
-	& .new-item:hover{
+	& .new-inventory:hover{
 		background-color: limegreen;
 		cursor: pointer;
 		border: 0px;

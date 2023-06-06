@@ -65,47 +65,117 @@
 			<div class="table-container col-12 h-100 pb-5 overflow-scroll" >
 				<div class="flex-table">
 					<div class="row header-row p-2 my-1 mx-1">
-						<div class="col d-flex">
-							<div class="col-2 text-center my-auto">NAME</div>
-							<div class="col-2 text-center my-auto">CATEGORY</div>
-							<div class="col-2 text-center my-auto">QUANTITY</div>
-							<div class="col-2 text-center my-auto">MANUFACTURER</div><i class="fa fa-xing" aria-hidden="true"></i>
-							<div class="col-2 text-center my-auto">PRICE</div>
-							<div class="col-2 text-center my-auto">PRESCRIPTION</div>
+						<div class="row">
+							<div class="col d-flex">
+								<div class="col-2 text-center my-auto">NAME</div>
+								<div class="col-2 text-center my-auto">PRESCRIPTION</div>
+								<div class="col-2 text-center my-auto">CATEGORY</div>
+								<div class="col-2 text-center my-auto">QUANTITY</div>
+								<div class="col-2 text-center my-auto">MANUFACTURER</div><i class="fa fa-xing" aria-hidden="true"></i>
+								<div class="col-2 text-center my-auto">PRICE</div>
+							</div>
+							<div class="col-auto header-gap"></div>
 						</div>
-						<div class="col-auto header-gap"></div>
 					</div>
 					<% @inventories.each do |inventory| %>
-						<div class="row inventory-row p-2 my-1 mx-1">
-							<div class="col d-flex">
-								<div class="col-2 text-center my-auto"><%= inventory.name %></div>
-								<div class="col-2 text-center my-auto"><%= inventory.category %></div>
-								<div class="col-2 text-center my-auto"><%= inventory.total_quantity %></div>
-								<div class="col-2 text-center my-auto"><%= inventory.manufacturer %></div><i class="fa fa-xing" aria-hidden="true"></i>
-								<div class="col-2 text-center my-auto">₱<%= inventory.last_price %></div>
-								<div class="col-2 text-center my-auto"><%= inventory.prescription %></div>
-							</div>
-							<div class="col-auto text-center inventory-actions d-flex my-auto">
-								<div>
-									<%= link_to "Edit", edit_inventory_path(inventory), class: "btn btn-primary me-2" %>
-									<%= link_to "Delete", inventory_path(inventory), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+						<div class="row inventory-row p-2 my-1 mx-1" id="inventory-<%= inventory.id %>">
+							<div class="row">
+								<div class="col d-flex">
+									<div class="col-2 text-center my-auto"><%= inventory.name %></div>
+									<div class="col-2 text-center my-auto"><%= inventory.prescription %></div>
+									<div class="col-2 text-center my-auto"><%= inventory.category %></div>
+									<div class="col-2 text-center my-auto"><%= inventory.total_quantity %></div>
+									<div class="col-2 text-center my-auto"><%= inventory.manufacturer %></div><i class="fa fa-xing" aria-hidden="true"></i>
+									<div class="col-2 text-center my-auto">₱<%= inventory.last_price %></div>
 								</div>
-								<div>
-									<div class="material-icons" style="font-size: 2.5em">chevron_right</div>
+								<div class="col-auto text-center inventory-actions d-flex my-auto">
+									<div>
+										<button class="btn btn-primary me-2" id="inventory-<%= inventory.id %>-edit">
+											Edit
+										</button>
+										<%= link_to "Delete", inventory_path(inventory), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+									</div>
+									<div>
+										<div class="material-icons" style="font-size: 2.5em" id="inventory-<%= inventory.id %>-icon">
+											chevron_right
+										</div>
+									</div>
+								</div>
+							</div>	
+							<div class="col row items-container d-flex mx-4 px-3" id="items-container-<%= inventory.id %>" style="transform: scale(0); max-height: 0;">
+								<% inventory.items.each do |item| %>
+									<div class="col-auto my-3 item position-relative">
+										Quantity: <%= item.quantity %>
+										<br>
+										Price: ₱<%= item.price %>
+										<br>
+										Expiry: <%= item.expiration_date %>	| <%= item.days_left %> days left
+										<div class="position-absolute top-0 start-100 translate-middle">
+											<%= link_to "X", "#", class: "btn btn-danger" %>
+										</div>
+									</div>
+								<% end %>
+								<div class="col-auto my-auto p-3 new-item">
+									<div class="material-icons">add</div>
+									ADD NEW ITEM
 								</div>
 							</div>
 						</div>
 					<% end %>
+					<script>
+						$(document).ready(function(){
+							$('.inventory-row').click(function(){
+								var id = $(this).attr('id');
+								var items_container = $('#items-container-' + id.split('-')[1]);
+								var icon_element = $('#inventory-' + id.split('-')[1] + '-icon');
+								var edit_button = $('#inventory-' + id.split('-')[1] + '-edit');
+
+								// Check if any other inventory-row is currently expanded
+								var is_any_expanded = $('.inventory-row').filter(function() {
+									return $(this).find('.items-container').css('transform') == 'matrix(1, 0, 0, 1, 0, 0)';
+								}).length > 0;
+
+								// Collapse other inventory-rows before expanding the current one
+								if (is_any_expanded) {
+									$('.inventory-row').each(function() {
+										if ($(this).attr('id') != id && $(this).find('.items-container').css('transform') == 'matrix(1, 0, 0, 1, 0, 0)') {
+											$(this).click();
+										}
+									});
+								}
+
+								if (items_container.css('transform') == 'matrix(1, 0, 0, 1, 0, 0)') {
+									items_container.css('transform', 'scale(0)');
+									items_container.css('max-height', '0');
+
+									$(this).css('background-color', '');
+									icon_element.css('transform', 'rotate(0deg)');
+									edit_button.text('Edit');
+									
+								} else {
+									items_container.css('transform', 'scale(1)');
+									items_container.css('max-height', 'fit-content');
+
+									$(this).css('background-color', '#e1e1e1');
+									icon_element.css('transform', 'rotate(90deg)');
+									edit_button.text('Close');
+								}
+							});
+							$('.inventory-row .items-container').click(function(e){
+								e.stopPropagation();
+							});
+						});
+					</script>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="blank-space">
 	</div>
-	<div class="new-item p-3 me-4" onclick="location.href='<%= new_inventory_path %>'">
+	<div class="new-inventory p-3 me-4" onclick="location.href='<%= new_inventory_path %>'">
 		<div class="d-flex justify-content-center">
 			<div class="material-icons">add</div>
-			ADD NEW ITEM
+			ADD NEW INVENTORY
 		</div>
 	</div>
 </div>
