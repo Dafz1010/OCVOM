@@ -9,6 +9,9 @@
 		& .table-container{
 			& .flex-table {
 				font-family: Oswald;
+				& * {
+					outline: auto;
+				}
 				& .inventory-row, .header-row {
 					border-bottom: 1px solid black;
 					border-radius: 16px;
@@ -49,6 +52,9 @@
 					padding-left: 12em;
 				}
 				& .inventory-actions {
+					& button {
+						height: fit-content;
+					}
 					padding: 0 1.30em;
 				}
 
@@ -70,18 +76,20 @@
 		border: 0px;
 	}
 }
+// * {
+//   outline: auto;
+// }
 .inventory-new-page{
 	width: calc(100% - 70px);
-	height: calc(100% - 140px);
 	float:right;
 	& form{
+		font-family: Oswald;
 		background-color: transparentize(white, 0.4);
 		border: $blue solid;
 		border-radius: 40px;
 		& .custom-dropdown {
 			position: relative;
 		  }
-		  
 		  & .options {
 			display: none;
 			position: absolute;
@@ -92,7 +100,6 @@
 			border: 1px solid #ccc;
 			z-index: 1;
 		  }
-		  
 		  & .option {
 			display: block;
 			padding: 8px 12px;
@@ -101,7 +108,20 @@
 			&:hover {
 			  background-color: #f1f1f1;
 			}
-		  }
+		}
+		& .prescription-container{
+			background-color: white;
+			border-radius: 16px;
+			border: 1px #ccc solid;
+			& .prescription-select{
+				display: grid;
+				grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+				grid-auto-flow: column;
+				& label{
+					padding: 0.6em 0;
+				}
+			}
+		}
 		  
 	}
 }

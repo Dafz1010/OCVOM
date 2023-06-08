@@ -13,9 +13,11 @@ class InventoriesController < ApplicationController
   # GET /inventories/new
   def new
     @inventory = Inventory.new
-    @unique_names = Inventory.select(:name).distinct.pluck(:name)
-    @unique_categories = Inventory.select(:category).distinct.pluck(:category)
-  end
+    @unique_names = Inventory.distinct.pluck(:name).compact
+    @unique_categories = Inventory.distinct.pluck(:category).compact
+    @unique_types = Inventory.distinct.pluck(:type).compact
+    @prescription_selection = Inventory::PRESCRIPTION_SELECTION
+  end  
 
   # GET /inventories/1/edit
   def edit
@@ -77,6 +79,8 @@ class InventoriesController < ApplicationController
       params.require(:inventory).permit(
         :name,
         :category,
+        :type,
+        :dosage,
         :manufacturer,
         :prescription,
         :quantity,

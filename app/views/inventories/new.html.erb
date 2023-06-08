@@ -1,41 +1,80 @@
 <div class="inventory-new-page d-flex justify-content-center align-items-center" data-controller="inventories">
-  <%= form_with model: @inventory, url: inventory_index_path, html: { class: "col-6 p-4"}  do |form| %>
+  <%= form_with model: @inventory, url: inventory_index_path, html: { class: "col-11 p-4"}  do |form| %>
     <div class="text-center">  
       <h3>ADD NEW INVENTORY</h3>
     </div>
-    <div class="custom-dropdown">
-      <h5>Inventory Name</h5>
-      <%= form.text_field :name, class: 'form-control', id: 'inventory-name', autocomplete: 'off' %>
-      <div class="options" id="inventory-options">
-        <% @unique_names.each do |name| %>
-          <div class="option"><%= name %></div>
-        <% end %>
+    <div class="row">
+      <div class="col-6">
+          <div class="custom-dropdown">
+            <h5>Inventory Name: </h5>
+            <%= form.text_field :name, class: 'form-control', id: 'inventory-name', autocomplete: 'off' %>
+            <div class="options" id="inventory-options">
+              <% @unique_names.each do |name| %>
+                <div class="option"><%= name %></div>
+              <% end %>
+            </div>
+          </div>
+        <div class="custom-dropdown">
+          <h5>Type:</h5>
+          <%= form.text_field :type, class: "form-control", id: "category-name", autocomplete: 'off', placeholder: "Parvo Shot / Anti-Rabies / Deworm (etc.)"%>
+          <div class="options" id="category-options">
+            <% @unique_types.each do |types| %>
+              <div class="option"><%= types %></div>
+            <% end %>
+          </div>
+        </div>
+        <div class="custom-dropdown">
+          <h5>Category</h5>
+          <%= form.text_field :category, class: "form-control", id: "category-name", autocomplete: 'off', placeholder: "Dog / Cat / Cow (etc.)"  %>
+          <div class="options" id="category-options">
+            <% @unique_categories.each do |category| %>
+              <div class="option"><%= category %></div>
+            <% end %>
+          </div>
+        </div>
+        <div>
+          <h5 class="mb-2">Manufacturer</h5>
+          <%= form.text_field :manufacturer, class: "form-control", autocomplete: 'off', placeholder: "Pfizer / Merck (etc.)" %>
+        </div>
+        <div>
+          <h5 class="mb-2">Dosage</h5>
+          <%= form.text_field :dosage, class: "form-control", autocomplete: 'off', placeholder: "Once a day / Twice a month (etc.)" %>
+        </div>
+      </div>
+      <div class="col-6">
+        <div>
+          <h5>Prescription (age):</h5>
+          <%# PRESCRIPTION SELECTION radio buttons %>
+          <div class="rpw d-flex prescription-container p-2 flex-column">
+            <div class="col-12 d-flex">
+              <div class="col-6">
+                <h5 class="text-center">YOUNG</h5>
+              </div>
+              <div class="col-6">
+                <h5 class="text-center">ADULT</h5>
+              </div>
+            </div>
+            <div class="col-12 prescription-select  ">
+              <%= form.collection_radio_buttons :prescription, @prescription_selection, :to_s, :to_s, required: true, autocomplete: 'off' do |b| %>
+                <div class="col">
+                  <%= b.label class: "btn btn-outline-success btn-block w-100 " do %>
+                    <%= b.radio_button%>
+                    <%= b.text %>
+                  <% end %>
+                </div>
+                <% end %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="custom-dropdown">
-      <h5>Category</h5>
-      <%= form.text_field :category, class: "form-control", id: "category-name", autocomplete: 'off' %>
-      <div class="options" id="category-options">
-        <% @unique_categories.each do |category| %>
-          <div class="option"><%= category %></div>
-        <% end %>
-      </div>
-    </div>
-    <div>
-      <h5>Manufacturer</h5>
-      <%= form.text_field :manufacturer, class: "form-control", autocomplete: 'off'%>
-    </div>
-    <div>
-      <h5>Prescription</h5>
-      <%= form.text_area :prescription, class: "form-control", autocomplete: 'off'%>
-    </div>  
     <div class="row">
       <div class="col-4">
-        <h5>Quantity</h5>
+        <h5>Quantity:</h5>
         <%= form.number_field :quantity, class: "form-control", min: 1, value: 1, required: true, autocomplete: 'off'%>
       </div>
       <div class="col-4">
-        <h5>Price</h5>
+        <h5>Price Each:</h5>
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">PHP</span>
@@ -44,7 +83,7 @@
         </div>
       </div>
       <div class="col-4">
-        <h5>Expiration Date</h5>
+        <h5>Expiration Date:</h5>
         <%= form.text_field :expiration_date ,readonly: true , placeholder: "Select Date", class: "form-control", required: true, autocomplete: 'off'%>
         <script type="text/javascript">
           $(function() {

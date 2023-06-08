@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_26_084923) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_07_121152) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -125,7 +125,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_26_084923) do
     t.string "manufacturer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "dosage"
+    t.string "type"
   end
 
   create_table "inventory_items", force: :cascade do |t|
@@ -135,6 +135,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_26_084923) do
     t.bigint "inventory_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "dosage"
     t.index ["inventory_id"], name: "index_inventory_items_on_inventory_id"
   end
 
