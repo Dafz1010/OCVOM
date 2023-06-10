@@ -9,9 +9,9 @@
 		& .table-container{
 			& .flex-table {
 				font-family: Oswald;
-				& * {
-					outline: auto;
-				}
+				// & * {
+				// 	outline: auto;
+				// }
 				& .inventory-row, .header-row {
 					border-bottom: 1px solid black;
 					border-radius: 16px;
