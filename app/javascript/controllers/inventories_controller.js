@@ -10,6 +10,10 @@ export default class extends Controller {
     var $categoryName = $('#category-name');
     var $categoryOptions = $('#category-options');
     setupDropdown($categoryName, $categoryOptions);
+
+    var $inventorytypeName = $('#inventory-type-name');
+    var $inventorytypeOptions = $('#inventory-type-options');
+    setupDropdown($inventorytypeName, $inventorytypeOptions);
   }
   
 }

@@ -64,39 +64,39 @@
 			</div>
 			<div class="table-container col-12 h-100 pb-5 overflow-scroll" >
 				<div class="flex-table">
-					<div class="row header-row p-2 my-1 mx-1">
+					<div class="row header-row m-1">
 						<div class="row">
 							<div class="col d-flex">
 								<div class="col-2 text-center my-auto">NAME</div>
+								<div class="col-2 text-center my-auto">TYPE</div>
 								<div class="col-2 text-center my-auto">PRESCRIPTION</div>
 								<div class="col-2 text-center my-auto">CATEGORY</div>
 								<div class="col-2 text-center my-auto">QUANTITY</div>
-								<div class="col-2 text-center my-auto">MANUFACTURER</div><i class="fa fa-xing" aria-hidden="true"></i>
 								<div class="col-2 text-center my-auto">PRICE</div>
 							</div>
 							<div class="col-auto header-gap"></div>
 						</div>
 					</div>
 					<% @inventories.each do |inventory| %>
-						<div class="row inventory-row p-2 my-1 mx-1" id="inventory-<%= inventory.id %>">
+						<div class="row inventory-row m-1" id="inventory-<%= inventory.id %>">
 							<div class="row">
 								<div class="col d-flex">
-									<div class="col-2 text-center my-auto"><%= inventory.name %></div>
-									<div class="col-2 text-center my-auto"><%= inventory.prescription %></div>
-									<div class="col-2 text-center my-auto"><%= inventory.category %></div>
+									<div class="col-2 text-center my-auto"><%= inventory.name.capitalize %></div>
+									<div class="col-2 text-center my-auto"><%= inventory.inventory_type.capitalize %></div>
+									<div class="col-2 text-center my-auto"><%= inventory.prescription.capitalize %></div>
+									<div class="col-2 text-center my-auto"><%= inventory.category.capitalize %></div>
 									<div class="col-2 text-center my-auto"><%= inventory.total_quantity %></div>
-									<div class="col-2 text-center my-auto"><%= inventory.manufacturer %></div><i class="fa fa-xing" aria-hidden="true"></i>
 									<div class="col-2 text-center my-auto">₱<%= inventory.last_price %></div>
 								</div>
 								<div class="col-auto text-center inventory-actions d-flex my-auto">
 									<div class="d-flex">
-										<button class="btn btn-primary me-2" id="inventory-<%= inventory.id %>-edit">
+										<button class="btn btn-primary me-2 my-auto p-1 float-top" id="inventory-<%= inventory.id %>-edit">
 											Edit
 										</button>
-										<%= button_to "Delete", inventory_path(inventory), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger inventory-delete"%>
+										<%= button_to "Delete", inventory_path(inventory), method: :delete, data: { turbo_confirm: "Are you sure to archive this inventory?" }, class: "btn btn-danger my-auto inventory-delete p-1"%>
 									</div>
-									<div>
-										<div class="material-icons" style="font-size: 2.5em" id="inventory-<%= inventory.id %>-icon">
+									<div class="my-auto">
+										<div class="material-icons" style="font-size: 2em" id="inventory-<%= inventory.id %>-icon">
 											chevron_right
 										</div>
 									</div>

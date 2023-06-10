@@ -1,5 +1,6 @@
 class InventoriesController < ApplicationController
   before_action :set_inventory, only: %i[ show edit update destroy ]
+  before_action :set_all_params_downcase, only: %i[ create update ]
 
   # GET /inventories or /inventories.json
   def index
@@ -15,7 +16,7 @@ class InventoriesController < ApplicationController
     @inventory = Inventory.new
     @unique_names = Inventory.distinct.pluck(:name).compact
     @unique_categories = Inventory.distinct.pluck(:category).compact
-    @unique_types = Inventory.distinct.pluck(:type).compact
+    @unique_inventory_types = Inventory.distinct.pluck(:inventory_type).compact
     @prescription_selection = Inventory::PRESCRIPTION_SELECTION
   end  
 
@@ -25,11 +26,14 @@ class InventoriesController < ApplicationController
 
   # POST /inventories or /inventories.json
   def create
+    # fail
+    
     inventory = Inventory.find_or_create_by(
       name: inventory_params[:name],
       category: inventory_params[:category],
       manufacturer: inventory_params[:manufacturer],
-      prescription: inventory_params[:prescription]
+      prescription: inventory_params[:prescription],
+      inventory_type: inventory_params[:inventory_type]
     ) do |inventory|
       inventory.inventory_items.new(
         quantity: inventory_params[:quantity],
@@ -60,12 +64,9 @@ class InventoriesController < ApplicationController
 
   # DELETE /inventories/1 or /inventories/1.json
   def destroy
+    # fail
     @inventory.destroy
-
-    respond_to do |format|
-      format.html { redirect_to inventories_url, notice: "Inventory was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to inventory_index_path, notice: "Inventory was successfully destroyed."
   end
 
   private
@@ -79,7 +80,7 @@ class InventoriesController < ApplicationController
       params.require(:inventory).permit(
         :name,
         :category,
-        :type,
+        :inventory_type,
         :dosage,
         :manufacturer,
         :prescription,
@@ -87,5 +88,11 @@ class InventoriesController < ApplicationController
         :price,
         :expiration_date
       )
+    end
+
+    def set_all_params_downcase
+      inventory_params.each do |key, value|
+        inventory_params[key] = value.downcase
+      end
     end
 end
