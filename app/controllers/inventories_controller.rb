@@ -26,25 +26,35 @@ class InventoriesController < ApplicationController
 
   # POST /inventories or /inventories.json
   def create
-    # fail
-    
-    inventory = Inventory.find_or_create_by(
+    inventory = Inventory.find_or_initialize_by(
       name: inventory_params[:name],
       category: inventory_params[:category],
       manufacturer: inventory_params[:manufacturer],
       prescription: inventory_params[:prescription],
       inventory_type: inventory_params[:inventory_type]
-    ) do |inventory|
-      inventory.inventory_items.new(
-        quantity: inventory_params[:quantity],
-        price: inventory_params[:price],
-        expiration_date: inventory_params[:expiration_date]
-      )
-    end
-  
-    if inventory.save
-      redirect_to inventory_index_path, notice: "Inventory was successfully created."
+    )
+    is_new = inventory.new_record? ? true : false
+    
+    item = inventory.inventory_items.new(
+      quantity: inventory_params[:quantity],
+      price: inventory_params[:price],
+      expiration_date: inventory_params[:expiration_date]
+    )
+    
+    
+    if inventory.save && item.save
+      if is_new
+        notice = "Inventory and Item was successfully created."
+      else
+        notice = "Item was successfully created."
+      end
+      
+      
+      redirect_to inventory_index_path, notice: notice
     else 
+      
+      # flash now
+      flash.now[:alert] = "Error: #{inventory.errors.full_messages.join(', ')}"
       render :new, status: :unprocessable_entity
     end
   end
