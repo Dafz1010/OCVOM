@@ -44,11 +44,13 @@ class InventoriesController < ApplicationController
     
     if inventory.save && item.save
       if is_new
+        inventory.versions.create!(event: "Create Inventory", whodunnit: "#{current_user.username}")
         notice = "Inventory and Item was successfully created."
       else
         notice = "Item was successfully created."
       end
       
+      item.versions.create!(event: "Create Inventory Item", whodunnit: "#{current_user.username}")
       
       redirect_to inventory_index_path, notice: notice
     else 
@@ -75,6 +77,7 @@ class InventoriesController < ApplicationController
   # DELETE /inventories/1 or /inventories/1.json
   def destroy
     @inventory.archive
+    @inventory.versions.create!(event: "Archive Inventory", whodunnit: "#{current_user.username}")
     redirect_to inventory_index_path, notice: "Inventory was successfully archived."
   end
 
