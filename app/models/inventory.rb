@@ -3,7 +3,6 @@ class Inventory < ApplicationRecord
     has_many :inventory_items, dependent: :destroy
 
     validates :name, presence: true, uniqueness: true
-    validates :category, presence: true, uniqueness: true
 
     PRESCRIPTION_SELECTION = [
         "0 to 2 months",
@@ -32,6 +31,10 @@ class Inventory < ApplicationRecord
 
     def items
         self.inventory_items
+    end
+
+    def archive
+        self.update(archived_at: Time.now)
     end
 
 end

@@ -64,9 +64,8 @@ class InventoriesController < ApplicationController
 
   # DELETE /inventories/1 or /inventories/1.json
   def destroy
-    # fail
-    @inventory.destroy
-    redirect_to inventory_index_path, notice: "Inventory was successfully destroyed."
+    @inventory.archive
+    redirect_to inventory_index_path, notice: "Inventory was successfully archived."
   end
 
   private
