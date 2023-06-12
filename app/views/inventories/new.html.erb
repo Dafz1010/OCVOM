@@ -1,147 +1,150 @@
 <div class="inventory-new-page d-flex justify-content-center align-items-center" data-controller="inventories">
   <%= form_with model: @inventory, url: inventory_index_path, html: { class: "col-11 p-4"}  do |form| %>
-    <div class="text-center">  
-      <h3>ADD NEW INVENTORY</h3>
-    </div>
-    <div class="row">
-      <div class="col-6">
+    <%= form.fields_for :inventory_items do |item_form| %>
+      <div class="text-center">  
+        <h3>ADD NEW INVENTORY</h3>
+      </div>
+      <div class="row">
+        <div class="col-6">
+            <div class="custom-dropdown">
+              <h5>Inventory Name: </h5>
+              <%= form.text_field :name, class: 'form-control', id: 'inventory-name', autocomplete: 'off', required: true %>
+              <div class="options" id="inventory-options">
+                <% @unique_names.each do |name| %>
+                  <div class="option"><%= name %></div>
+                <% end %>
+              </div>
+            </div>
           <div class="custom-dropdown">
-            <h5>Inventory Name: </h5>
-            <%= form.text_field :name, class: 'form-control', id: 'inventory-name', autocomplete: 'off', required: true %>
-            <div class="options" id="inventory-options">
-              <% @unique_names.each do |name| %>
-                <div class="option"><%= name %></div>
+            <h5>Type:</h5>
+            <%= form.text_field :inventory_type, class: "form-control", id: "inventory-type-name", autocomplete: 'off', placeholder: "Parvo Shot / Anti-Rabies / Deworm (etc.)", required: true %>
+            <div class="options" id="inventory-type-options">
+              <% @unique_inventory_types.each do |inventory_type| %>
+                <div class="option"><%= inventory_type %></div>
               <% end %>
             </div>
           </div>
-        <div class="custom-dropdown">
-          <h5>Type:</h5>
-          <%= form.text_field :inventory_type, class: "form-control", id: "inventory-type-name", autocomplete: 'off', placeholder: "Parvo Shot / Anti-Rabies / Deworm (etc.)", required: true %>
-          <div class="options" id="inventory-type-options">
-            <% @unique_inventory_types.each do |inventory_type| %>
-              <div class="option"><%= inventory_type %></div>
-            <% end %>
-          </div>
-        </div>
-        <div class="custom-dropdown">
-          <h5>Category</h5>
-          <%= form.text_field :category, class: "form-control", id: "category-name", autocomplete: 'off', placeholder: "Dog / Cat / Cow (etc.)", required: true %>
-          <div class="options" id="category-options">
-            <% @unique_categories.each do |category| %>
-              <div class="option"><%= category %></div>
-            <% end %>
-          </div>
-        </div>
-        <div>
-          <h5 class="mb-2">Manufacturer</h5>
-          <%= form.text_field :manufacturer, class: "form-control", autocomplete: 'off', placeholder: "Pfizer / Merck (etc.)" %>
-        </div>
-      </div>
-      <div class="col-6">
-        <div>
-          <h5>Prescription (age):</h5>
-          <div class="rpw d-flex prescription-container p-2 flex-column">
-            <div class="col-12 d-flex">
-              <div class="col-6">
-                <h5 class="text-center">YOUNG</h5>
-              </div>
-              <div class="col-6">
-                <h5 class="text-center">ADULT</h5>
-              </div>
+          <div class="custom-dropdown">
+            <h5>Category</h5>
+            <%= form.text_field :category, class: "form-control", id: "category-name", autocomplete: 'off', placeholder: "Dog / Cat / Cow (etc.)", required: true %>
+            <div class="options" id="category-options">
+              <% @unique_categories.each do |category| %>
+                <div class="option"><%= category %></div>
+              <% end %>
             </div>
-            <div class="col-12 prescription-select  ">
-              <%= form.collection_radio_buttons :prescription, @prescription_selection, :to_s, :to_s, {},  required: true, autocomplete: 'off' do |b| %>
-                <div class="col">
-                  <%= b.radio_button class:"btn-check" %>
-                  <%= b.label class:"btn btn-outline-success w-100" %>
+          </div>
+          <div>
+            <h5 class="mb-2">Manufacturer</h5>
+            <%= form.text_field :manufacturer, class: "form-control", autocomplete: 'off', placeholder: "Pfizer / Merck (etc.)" %>
+          </div>
+        </div>
+        <div class="col-6">
+          <div>
+            <h5>Prescription (age):</h5>
+            <div class="rpw d-flex prescription-container p-2 flex-column">
+              <div class="col-12 d-flex">
+                <div class="col-6">
+                  <h5 class="text-center">YOUNG</h5>
                 </div>
-              <% end %>
+                <div class="col-6">
+                  <h5 class="text-center">ADULT</h5>
+                </div>
+              </div>
+              <div class="col-12 prescription-select  ">
+                <%= item_form.collection_radio_buttons :age_list_id, @prescription_selection, :last, :first, {},  required: true, autocomplete: 'off' do |b| %>
+                  <div class="col">
+                    <%= b.radio_button class:"btn-check" %>
+                    <%= b.label class:"btn btn-outline-success w-100" %>
+                  </div>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-3">
-        <h5>Quantity:</h5>
-        <%= form.number_field :quantity, class: "form-control", min: 1, value: 1, required: true, autocomplete: 'off'%>
-      </div>
-      <div class="col-3">
-        <h5>Price Each:</h5>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">PHP</span>
-          </div>
-          <%= form.number_field :price, class: "form-control", min: 0, step: 0.01, value: 10.00, required: true, autocomplete: 'off'%>
+      <div class="row">
+        <div class="col-3">
+          <h5>Quantity:</h5>
+          <%= item_form.number_field :quantity, class: "form-control", min: 1, value: 1, required: true, autocomplete: 'off'%>
         </div>
-      </div>
-      <div class="col-3">
-        <h5>Price total:</h5>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">PHP</span>
+        <div class="col-3">
+          <h5>Price Each:</h5>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">PHP</span>
+            </div>
+            <%= item_form.number_field :price, class: "form-control", min: 0, step: 0.01, value: 10.00, required: true, autocomplete: 'off'%>
           </div>
-          <%= form.text_field :price_total, class: "form-control", readonly: true, value: 10.00, autocomplete: 'off', disabled: true %>
         </div>
-        <script type="text/javascript">
-          $(document).ready(function(){
-            $('#inventory_price').on('input', function() {
-              var price = $('#inventory_price').val();
-              var quantity = $('#inventory_quantity').val();
-              var total = price * quantity;
-              $('#inventory_price_total').val(total.toFixed(2));
-            });
-            $('#inventory_quantity').on('input', function() {
-              var price = $('#inventory_price').val();
-              var quantity = $('#inventory_quantity').val();
-              var total = price * quantity;
-              $('#inventory_price_total').val(total.toFixed(2));
-            });
-          });
-
-        </script>
-      </div>
-      <div class="col-3">
-        <h5>Expiration Date:</h5>
-        <%= form.text_field :expiration_date    , placeholder: "Select Date", class: "form-control", required: true, autocomplete: 'off'%>
-        <script type="text/javascript">
-          $(function() {
-
-            $('#inventory_expiration_date').daterangepicker({
-              showDropdowns: true,
-              // min date is set to today
-              minDate: moment(),
-              // max date is set to 5 years from now
-              maxDate: moment().add(10, 'years'),
-              
-              autoUpdateInput: false,
-              locale: {
-                format: 'MMM DD, YYYY'
-              },
-              singleDatePicker: true,
-              // display at the center of the input
-              drops: 'up'
-              
-              
-
+        <div class="col-3">
+          <h5>Price total:</h5>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">PHP</span>
+            </div>
+            <%= item_form.text_field :price_total, class: "form-control", readonly: true, value: 10.00, autocomplete: 'off', disabled: true %>
+          </div>
+          <script type="text/javascript">
+            $(document).ready(function(){
+              $('#inventory_inventory_items_price').on('input', function() {
+                var price = $('#inventory_inventory_items_price').val();
+                var quantity = $('#inventory_inventory_items_quantity').val();
+                var total = price * quantity;
+                $('#inventory_inventory_items_price_total').val(total.toFixed(2));
+              });
+              $('#inventory_inventory_items_quantity').on('input', function() {
+                var price = $('#inventory_inventory_items_price').val();
+                var quantity = $('#inventory_inventory_items_quantity').val();
+                var total = price * quantity;
+                $('#inventory_inventory_items_price_total').val(total.toFixed(2));
+              });
             });
 
+          </script>
+        </div>
+        <div class="col-3">
+          <h5>Expiration Date:</h5>
+          <%= item_form.text_field :expiration_date    , placeholder: "Select Date", class: "form-control", required: true, autocomplete: 'off'%>
+          <script type="text/javascript">
+            $(function() {
+
+              $('#inventory_inventory_items_expiration_date').daterangepicker({
+                showDropdowns: true,
+                // min date is set to today
+                minDate: moment(),
+                // max date is set to 5 years from now
+                maxDate: moment().add(10, 'years'),
+                
+                autoUpdateInput: false,
+                locale: {
+                  format: 'MMM DD, YYYY'
+                },
+                singleDatePicker: true,
+                // display at the center of the input
+                drops: 'up'
+                
+                
+
+              });
+
+              
             
-          
-            $('#inventory_expiration_date').on('apply.daterangepicker', function(ev, picker) {
-              $(this).val(picker.startDate.format('MMM DD, YYYY'));
-            });
+              $('#inventory_inventory_items_expiration_date').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('MMM DD, YYYY'));
+              });
 
-            $('#inventory_expiration_date').on('cancel.daterangepicker', function(ev, picker) {
-              $(this).val('');
+              $('#inventory_inventory_items_expiration_date').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+              });
+              $('#inventory_inventory_items_expiration_date').on('keydown paste', function(e){
+                e.preventDefault();
+              });
             });
-            $('#inventory_expiration_date').on('keydown paste', function(e){
-              e.preventDefault();
-            });
-          });
-        </script>
+          </script>
+        </div>
       </div>
-    </div>
+
+    <% end %>
     <div class="py-3">
       <%= link_to "Cancel", inventory_index_path, class: "btn btn-danger" %>
       <%= form.submit "Add", class: "btn btn-success" %>
