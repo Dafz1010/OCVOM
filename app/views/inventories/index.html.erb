@@ -86,7 +86,7 @@
 									<div class="col-2 text-center my-auto"><%= inventory.prescription.capitalize %></div>
 									<div class="col-2 text-center my-auto"><%= inventory.category.capitalize %></div>
 									<div class="col-2 text-center my-auto"><%= inventory.total_quantity %></div>
-									<div class="col-2 text-center my-auto">₱<%= inventory.last_price %></div>
+									<div class="col-2 text-center my-auto"><%= inventory.price_range %></div>
 								</div>
 								<div class="col-auto text-center inventory-actions d-flex my-auto">
 									<div class="d-flex">
@@ -103,8 +103,12 @@
 								</div>
 							</div>	
 							<div class="col row items-container d-flex mx-4 px-3" id="items-container-<%= inventory.id %>" style="transform: scale(0); max-height: 0;">
+								<div class="col-12 d-flex justify-content-center">
 								<% inventory.items.each do |item| %>
 									<div class="col-auto my-3 item position-relative">
+										<div class="col text-center "> 
+											(<%= item.age_list.group %>) <%= item.age_list.name %>
+										</div>
 										Quantity: <%= item.quantity %>
 										<br>
 										Price: ₱<%= item.price %>

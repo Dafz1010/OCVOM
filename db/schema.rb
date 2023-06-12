@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_10_161608) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_11_142110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -25,6 +25,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_161608) do
     t.datetime "archived_at"
     t.index ["customer_id"], name: "index_adoptions_on_customer_id"
     t.index ["dog_id"], name: "index_adoptions_on_dog_id"
+  end
+
+  create_table "age_lists", force: :cascade do |t|
+    t.string "name"
+    t.string "group"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "appointments", force: :cascade do |t|
@@ -120,7 +127,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_161608) do
 
   create_table "inventories", force: :cascade do |t|
     t.string "name"
-    t.text "prescription"
     t.string "category"
     t.string "manufacturer"
     t.datetime "created_at", null: false
@@ -136,6 +142,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_161608) do
     t.bigint "inventory_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "age_list_id"
+    t.index ["age_list_id"], name: "index_inventory_items_on_age_list_id"
     t.index ["inventory_id"], name: "index_inventory_items_on_inventory_id"
   end
 
@@ -210,6 +218,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_161608) do
   add_foreign_key "dogs", "breeds"
   add_foreign_key "dogs", "places"
   add_foreign_key "dogs", "users"
+  add_foreign_key "inventory_items", "age_lists"
   add_foreign_key "inventory_items", "inventories"
   add_foreign_key "users", "roles"
 end

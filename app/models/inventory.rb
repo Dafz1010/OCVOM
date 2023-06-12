@@ -1,6 +1,7 @@
 class Inventory < ApplicationRecord
     has_paper_trail
     has_many :inventory_items, dependent: :destroy
+    
 
     validates :name, presence: true, uniqueness: true
 
@@ -35,6 +36,36 @@ class Inventory < ApplicationRecord
 
     def archive
         self.update(archived_at: Time.now)
+    end
+
+    def expired_items
+        self.inventory_items.select { |item| item.expired? }
+    end
+
+    def unexpired_items
+        self.inventory_items.select { |item| !item.expired? }
+    end
+
+    def prescription
+        case
+        when self.inventory_items.empty?
+          "No items"
+        when self.unexpired_items.any? { |item| item.young? } && self.unexpired_items.any? { |item| item.adult? }
+          "Young/Adult"
+        when self.unexpired_items.any? { |item| item.adult? }
+          "Adult"
+        when self.unexpired_items.any? { |item| item.young? }
+          "Young"
+        end
+    end
+
+    def price_range
+        return "No items" if self.inventory_items.empty?
+  
+        price_min = self.inventory_items.minimum(:price)
+        price_max = self.inventory_items.maximum(:price)
+        
+        price_min == price_max ? "₱#{price_min}" : "₱#{price_min} to ₱#{price_max}"
     end
 
 end

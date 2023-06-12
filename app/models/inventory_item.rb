@@ -1,6 +1,7 @@
 class InventoryItem < ApplicationRecord
     has_paper_trail
     belongs_to :inventory
+    belongs_to :age_list
 
     validates :quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
     validates :price, presence: true, numericality: { greater_than_or_equal_to: 1 }
@@ -12,5 +13,13 @@ class InventoryItem < ApplicationRecord
 
     def days_left
         (self.expiration_date.to_date - Time.now.to_date).to_i
+    end
+
+    def adult?
+        self.age_list.group == "Adult"
+    end
+
+    def young?
+        self.age_list.group == "Young"
     end
 end
