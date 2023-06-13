@@ -36,7 +36,7 @@ class InventoriesController < ApplicationController
     is_new = inventory.new_record? ? true : false
     item = inventory.inventory_items.new(inventory_params[:inventory_items])
 
-    binding.pry_remote
+    # binding.pry_remote
     if inventory.save && item.save
       if is_new
         inventory.versions.create!(event: "Create Inventory", whodunnit: "#{current_user.username}")
