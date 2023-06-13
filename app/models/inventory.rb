@@ -22,7 +22,7 @@ class Inventory < ApplicationRecord
 
 
     def total_quantity
-        self.inventory_items.sum(:quantity)
+        self.unarchived_items.sum(:quantity)
     end
 
     # get last price of inventory item
@@ -31,7 +31,11 @@ class Inventory < ApplicationRecord
     end
 
     def items
-        self.inventory_items
+        self.unarchived_items
+    end
+
+    def unarchived_items
+        self.inventory_items.where(archived_at: nil)
     end
 
     def archive
@@ -39,16 +43,16 @@ class Inventory < ApplicationRecord
     end
 
     def expired_items
-        self.inventory_items.select { |item| item.expired? }
+        self.unarchived_items.select { |item| item.expired? }
     end
 
     def unexpired_items
-        self.inventory_items.select { |item| !item.expired? }
+        self.unarchived_items.select { |item| !item.expired? }
     end
 
     def prescription
         case
-        when self.inventory_items.empty?
+        when self.unarchived_items.empty?
           "No items"
         when self.unexpired_items.any? { |item| item.young? } && self.unexpired_items.any? { |item| item.adult? }
           "Young/Adult"
@@ -60,10 +64,10 @@ class Inventory < ApplicationRecord
     end
 
     def price_range
-        return "No items" if self.inventory_items.empty?
+        return "No items" if self.unarchived_items.empty?
   
-        price_min = self.inventory_items.minimum(:price)
-        price_max = self.inventory_items.maximum(:price)
+        price_min = self.unarchived_items.minimum(:price)
+        price_max = self.unarchived_items.maximum(:price)
         
         price_min == price_max ? "₱#{price_min}" : "₱#{price_min} to ₱#{price_max}"
     end

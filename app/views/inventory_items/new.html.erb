@@ -1,0 +1,138 @@
+<div class="inventory-item-new-page d-flex justify-content-center align-items-center" data-controller="inventory-items">
+  <%= form_with model: @inventory_item, url: inventory_items_path(inventory_id: @inventory.id), html: { class: "col-11 p-4"}  do |form| %>
+    <div class="text-center">  
+      <h3>ADD NEW ITEM</h3>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="custom-dropdown">
+          <h5>Inventory Name: </h5>
+          <%= form.text_field :name, class: "form-control", value: @inventory.name, disabled: true %>
+        </div>
+        <div class="custom-dropdown">
+          <h5>Type:</h5>
+          <%= form.text_field :type, class: "form-control", value: @inventory.inventory_type, disabled: true %>
+        </div>
+        <div class="custom-dropdown">
+          <h5>Category</h5>
+          <%= form.text_field :category, class: "form-control", value: @inventory.category, disabled: true %>
+        </div>
+        <div>
+          <h5 class="mb-2">Manufacturer</h5>
+          <%= form.text_field :manufacturer, class: "form-control", value: @inventory.manufacturer, disabled: true %>
+        </div>
+      </div>
+      <div class="col-6">
+        <div>
+          <h5>Prescription (age):</h5>
+          <div class="rpw d-flex prescription-container p-2 flex-column">
+            <div class="col-12 d-flex">
+              <div class="col-6">
+                <h5 class="text-center">YOUNG</h5>
+              </div>
+              <div class="col-6">
+                <h5 class="text-center">ADULT</h5>
+              </div>
+            </div>
+            <div class="col-12 prescription-select  ">
+              <%= form.collection_radio_buttons :age_list_id, @prescription_selection, :last, :first, {},  required: true, autocomplete: 'off' do |b| %>
+                <div class="col">
+                  <%= b.radio_button class:"btn-check" %>
+                  <%= b.label class:"btn btn-outline-success w-100" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <h5>Quantity:</h5>
+        <%= form.number_field :quantity, class: "form-control", min: 1, value: 1, required: true, autocomplete: 'off'%>
+      </div>
+      <div class="col-3">
+        <h5>Price Each:</h5>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">PHP</span>
+          </div>
+          <%= form.number_field :price, class: "form-control", min: 0, step: 0.01, value: 10.00, required: true, autocomplete: 'off'%>
+        </div>
+      </div>
+      <div class="col-3">
+        <h5>Price total:</h5>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">PHP</span>
+          </div>
+          <%= form.text_field :price_total, class: "form-control", readonly: true, value: 10.00, autocomplete: 'off', disabled: true %>
+        </div>
+        <script type="text/javascript">
+          $(document).ready(function(){
+            $('#inventory_item_price').on('input', function() {
+              var price = $('#inventory_item_price').val();
+              var quantity = $('#inventory_item_quantity').val();
+              var total = price * quantity;
+              $('#inventory_item_price_total').val(total.toFixed(2));
+            });
+            $('#inventory_item_quantity').on('input', function() {
+              var price = $('#inventory_item_price').val();
+              var quantity = $('#inventory_item_quantity').val();
+              var total = price * quantity;
+              $('#inventory_item_price_total').val(total.toFixed(2));
+            });
+          });
+
+        </script>
+      </div>
+      <div class="col-3">
+        <h5>Expiration Date:</h5>
+        <%= form.text_field :expiration_date    , placeholder: "Select Date", class: "form-control", required: true, autocomplete: 'off'%>
+        <script type="text/javascript">
+          $(function() {
+
+            $('#inventory_item_expiration_date').daterangepicker({
+              showDropdowns: true,
+              // min date is set to today
+              minDate: moment(),
+              // max date is set to 5 years from now
+              maxDate: moment().add(10, 'years'),
+              
+              autoUpdateInput: false,
+              locale: {
+                format: 'MMM DD, YYYY'
+              },
+              singleDatePicker: true,
+              // display at the center of the input
+              drops: 'up'
+              
+              
+
+            });
+
+            
+          
+            $('#inventory_item_expiration_date').on('apply.daterangepicker', function(ev, picker) {
+              $(this).val(picker.startDate.format('MMM DD, YYYY'));
+            });
+
+            $('#inventory_item_expiration_date').on('cancel.daterangepicker', function(ev, picker) {
+              $(this).val('');
+            }); 
+            $('#inventory_item_expiration_date').on('keydown paste', function(e){
+              e.preventDefault();
+            });
+          });
+        </script>
+      </div>
+    </div>
+    <div class="py-3">
+      <%= link_to "Cancel", inventory_index_path, class: "btn btn-danger" %>
+      <%= form.submit "Add", class: "btn btn-success" %>
+    </div>
+  <% end %>
+      
+        
+
+</div>

@@ -22,4 +22,8 @@ class InventoryItem < ApplicationRecord
     def young?
         self.age_list.group == "Young"
     end
+
+    def archive
+        self.update(archived_at: Time.now)
+    end
 end

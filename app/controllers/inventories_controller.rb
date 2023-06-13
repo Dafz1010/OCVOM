@@ -39,13 +39,13 @@ class InventoriesController < ApplicationController
     binding.pry_remote
     if inventory.save && item.save
       if is_new
-        # inventory.versions.create!(event: "Create Inventory", whodunnit: "#{current_user.username}")
+        inventory.versions.create!(event: "Create Inventory", whodunnit: "#{current_user.username}")
         notice = "Inventory and Item was successfully created."
       else
         notice = "Item was successfully created."
       end
       
-      # item.versions.create!(event: "Create Inventory Item", whodunnit: "#{current_user.username}")
+      item.versions.create!(event: "Create Inventory Item", whodunnit: "#{current_user.username}")
       
       redirect_to inventory_index_path, notice: notice
     else 

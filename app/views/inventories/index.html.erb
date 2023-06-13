@@ -83,7 +83,7 @@
 								<div class="col d-flex">
 									<div class="col-2 text-center my-auto"><%= inventory.name.capitalize %></div>
 									<div class="col-2 text-center my-auto"><%= inventory.inventory_type.capitalize %></div>
-									<div class="col-2 text-center my-auto"><%= inventory.prescription.capitalize %></div>
+									<div class="col-2 text-center my-auto"><%= inventory.prescription %></div>
 									<div class="col-2 text-center my-auto"><%= inventory.category.capitalize %></div>
 									<div class="col-2 text-center my-auto"><%= inventory.total_quantity %></div>
 									<div class="col-2 text-center my-auto"><%= inventory.price_range %></div>
@@ -104,6 +104,9 @@
 							</div>	
 							<div class="col row items-container d-flex mx-4 px-3" id="items-container-<%= inventory.id %>" style="transform: scale(0); max-height: 0;">
 								<div class="col-12 d-flex justify-content-center">
+									TODO: Filter by age group and expiration date
+
+								</div>
 								<% inventory.items.each do |item| %>
 									<div class="col-auto my-3 item position-relative">
 										<div class="col text-center "> 
@@ -115,12 +118,13 @@
 										<br>
 										Expiry: <%= item.expiration_date %>	| <%= item.days_left %> days left
 										<div class="position-absolute top-0 start-100 translate-middle">
-											<%= link_to "X", "#", class: "btn btn-danger" %>
-											<%= link_to "X", "#", class: "btn btn-danger px-1 py-0" %>
+											<%= button_to "X", inventory_item_path(item), method: :delete, data: { turbo_confirm: "Are you sure to remove this item?" }, class: "btn btn-danger px-1 py-0" %>
 										</div>
 									</div>
 								<% end %>
-								<div class="col-auto my-auto p-3 new-item">
+								<%# link to add new item %>
+								
+								<div class="col-auto my-auto p-3 new-item" onclick="window.location.href='<%= new_inventory_item_path(inventory_id: inventory.id) %>'">	
 									<div class="material-icons">add</div>
 									ADD NEW ITEM
 								</div>

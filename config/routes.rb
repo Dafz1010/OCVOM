@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "home#index"
   resources :dogs
   resources :inventory, controller: 'inventories', as: 'inventory'
+  resources :inventory_items
   resources :users do
     patch 'set_role', on: :member, as: :set_role
     patch 'restore', on: :member, as: :restore
