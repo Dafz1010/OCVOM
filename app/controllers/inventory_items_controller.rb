@@ -1,4 +1,5 @@
 class InventoryItemsController < ApplicationController
+    include Authentication
     before_action :set_inventory_item, only: [:show, :edit, :update, :destroy]
     before_action :set_inventory, only: [:new, :create]
 

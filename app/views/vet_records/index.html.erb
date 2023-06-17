@@ -1,0 +1,35 @@
+<div class="vet-records-page col d-flex flex-column">
+    <div class="statistic-container row px-3">
+        <div class="col-3">
+            <div class="text-center">Total Vet Records: <%= @vet_records.count %></div>
+        </div>
+        <div class="col-3">
+            <div class="text-center">Total Vet Records: <%= @vet_records.count %></div>
+        </div>
+        <div class="col-3">
+            <div class="text-center">Total Vet Records: <%= @vet_records.count %></div>
+        </div>
+        <div class="col-3">
+            <div class="text-center">Total Vet Records: <%= @vet_records.count %></div>
+        </div>
+    </div>
+    <div class="row px-3 d-flex justify-content-center flex-fill overflow-scroll">
+        <div class="vet-records-container col-11">
+            <div class="col-12 text-center">
+                <h2>
+                    Vet Records
+                </h2>
+            </div>
+            <div class="flex-container col-12 p-3 overflow-scroll">
+                <div class="flex-item">
+                    <%= link_to "New Vet Record", new_vet_record_path, class: "btn" %>
+                </div>
+                <% @vet_records.each do |vet_record| %>
+                    <div class="flex-item bg-image" style="background-image: url(<%= vet_record.picture.url %>)">
+
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,7 @@ class InventoryItem < ApplicationRecord
     has_paper_trail
     belongs_to :inventory
     belongs_to :age_list
+    has_many :medical_histories
 
     validates :quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
     validates :price, presence: true, numericality: { greater_than_or_equal_to: 1 }

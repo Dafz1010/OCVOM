@@ -10,11 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_13_134030) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_16_180918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
 
   create_table "adoptions", force: :cascade do |t|
     t.bigint "customer_id", null: false
@@ -148,6 +176,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_134030) do
     t.index ["inventory_id"], name: "index_inventory_items_on_inventory_id"
   end
 
+  create_table "medical_histories", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "vet_place"
+    t.datetime "date_recorded"
+    t.uuid "vet_record_id", null: false
+    t.bigint "inventory_item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inventory_item_id"], name: "index_medical_histories_on_inventory_item_id"
+    t.index ["vet_record_id"], name: "index_medical_histories_on_vet_record_id"
+  end
+
   create_table "places", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -200,17 +241,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_134030) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  create_table "vet_records", force: :cascade do |t|
+  create_table "vet_records", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
-    t.string "location"
     t.datetime "archived_at"
-    t.uuid "uuid", default: -> { "uuid_generate_v4()" }
     t.string "species"
-    t.integer "age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "age_list_id", null: false
+    t.bigint "place_id", null: false
+    t.string "pet_owner"
+    t.string "pet_owner_phone"
+    t.string "breed"
+    t.boolean "pet_gender"
+    t.boolean "pet_neutered"
+    t.index ["age_list_id"], name: "index_vet_records_on_age_list_id"
+    t.index ["place_id"], name: "index_vet_records_on_place_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "adoptions", "customers"
   add_foreign_key "adoptions", "dogs"
   add_foreign_key "appointments", "customers"
@@ -221,5 +270,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_134030) do
   add_foreign_key "dogs", "users"
   add_foreign_key "inventory_items", "age_lists"
   add_foreign_key "inventory_items", "inventories"
+  add_foreign_key "medical_histories", "inventory_items"
+  add_foreign_key "medical_histories", "vet_records"
   add_foreign_key "users", "roles"
+  add_foreign_key "vet_records", "age_lists"
+  add_foreign_key "vet_records", "age_lists"
+  add_foreign_key "vet_records", "places"
 end

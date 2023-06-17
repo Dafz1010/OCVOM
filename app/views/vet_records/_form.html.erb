@@ -1,0 +1,370 @@
+<%= form_with(model: vet_record, id: "vet_record_form") do |form| %>
+  <script>
+    $(document).on('select2:open', () => {
+    let allFound = document.querySelectorAll('.select2-container--open .select2-search__field');
+    $(this).one('mouseup keyup',()=>{
+      setTimeout(()=>{
+        allFound[allFound.length - 1].focus();
+      },0);
+    });
+  });
+  </script>
+  <div class="row">
+    <div class="col-7 sub-form p-2 ">
+      <div class="subtitle">
+        <h3>Pet Information</h3>
+      </div>
+      <div class="row ">
+        <div class="col-6">
+          <div class="col">
+            <%= form.label "Name:", style: "display: block" %>
+            <%= form.text_field :name, placeholder: "Name of the pet", autocomplete: "off", required: true, autofocus: true, class: "form-control" %>
+          </div>
+
+          <div>
+            <%= form.label "Species:", style: "display: block" %>
+            <%= form.text_field :species, placeholder: "Dog, Cat, Cow, etc.", autocomplete: "off", required: true, class: "form-control"  %>
+          </div>
+
+          <div>
+            <%= form.label "Location:", style: "display: block" %>
+            <%= form.select :place_id, @place_list_options,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0', data: { placeholder: "Select Place"}} %>
+          </div>
+          
+          <div>
+            <%= form.label "Breed:", style: "display: block" %>
+            <%= form.text_field :breed, placeholder: "Breed of the pet (if known)", autocomplete: "off", class: "form-control"  %>
+          </div>
+
+          <div>
+            <%= form.label "Age Group:", style: "display: block" %>
+            <%= form.select :age_list_id, @age_list_options,{prompt: ""},{required: 'true', autocomplete: 'off', class: 'form-select py-0', data: { placeholder: "Select Age Group"}} %>
+          </div>
+
+          <div>
+            <%= form.label "Owner:", style: "display: block" %>
+            <%= form.text_field :pet_owner, placeholder: "Name of the owner", autocomplete: "off", class: "form-control" %>
+          </div>
+
+          <div>
+            <%= form.label "Owner's Contact Number:", style: "display: block" %>
+            <%= form.number_field :pet_owner_phone, placeholder: "Contact number of the owner", autocomplete: "off", class: "form-control" %>
+          </div>
+
+        </div>
+        <div class="col-6">
+          <%= form.label "Image of the Pet:", style: "display: block" %>
+          <div class="col image-upload-container mt-2 position-relative" id="image-drop-container">
+            <div class="position-abolute position-absolute top-50 start-50 translate-middle w-100 text-center" style="">
+              <div class="material-icons" style="font-size: 120px; color: #c4c4c4;">
+                add_a_photo
+              </div>
+              <div class="text-center" style="color: #c4c4c4;">
+                Drag or Upload Image Here
+              </div>
+            </div>
+          </div>
+          <script>
+            const imageDropContainer = document.getElementById('image-drop-container');
+            let currentImg = null;
+
+            imageDropContainer.addEventListener('dragover', (e) => {
+              e.preventDefault();
+              imageDropContainer.classList.add('drag-over');
+            });
+
+            imageDropContainer.addEventListener('dragleave', () => {
+              imageDropContainer.classList.remove('drag-over');
+            });
+
+            imageDropContainer.addEventListener('drop', (e) => {
+              e.preventDefault();
+              imageDropContainer.classList.remove('drag-over');
+              // set border from dashed to solid
+              imageDropContainer.style.border = '2px solid #4F81BD';
+
+              const files = e.dataTransfer.files;
+              if (files.length !== 1) {
+                alert('Please drop only one image file.');
+                return;
+              }
+
+              const file = files[0];
+              if (!file.type.match('image/(png|jpe?g)')) {
+                alert('Only PNG, JPG, and JPEG image files are allowed.');
+                return;
+              }
+
+              handleDroppedFile(file);
+            });
+
+            function handleDroppedFile(file) {
+              if (currentImg) {
+                currentImg.remove();
+              }
+
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                imageDropContainer.appendChild(img);
+                currentImg = img;
+
+                const placeholderDiv = imageDropContainer.querySelector('.position-absolute');
+                if (placeholderDiv) {
+                  placeholderDiv.remove();
+                }
+
+                // Put the file into the hidden input field
+                const hiddenInput = document.getElementById('vet_record_picture');
+                const fileList = new DataTransfer();
+                fileList.items.add(file);
+                hiddenInput.files = fileList.files;
+
+              };
+              reader.readAsDataURL(file);
+            }
+
+          </script>
+          <div class="col-12 d-flex">
+            <div class="col-6">
+              <%= form.label "Gender:", style: "display: block" %>
+              <div class="d-flex justify-content-space-evenly col">
+
+                <%= form.collection_radio_buttons :pet_gender, [[0, "Male"], [1, "Female"]], :first, :last, checked: 0, required: true do |b| %>
+                  <div class="col-6">
+                    <%= b.radio_button %>
+                    <%= b.label %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-6">
+              <%= form.label "Neutered:", style: "display: block" %>
+              <div class="d-flex justify-content-space-evenly col">
+                <%= form.collection_radio_buttons :neutered, [[0, "Yes"], [1, "No"]], :first, :last, checked: 1, required: true do |b| %>
+                  <div class="col-6">
+                    <%= b.radio_button %>
+                    <%= b.label %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div hidden>
+            <%# form file field allow PNG, JPEG and JPG %>
+            <%= form.file_field :picture, accept: "image/png, image/jpeg, image/jpg" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-5 h-100 sub-form p-2 overflow-scroll">
+      <div class="subtitle">
+        <h3>Pet Medical History</h3>
+      </div>
+      <table id="medical-history-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Vet Place</th>
+            <th>Date Recorded</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6">
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-primary w-100" type="button" id="add-medical-history">
+                  Add Medical History
+                </button>
+              </div>
+            </td>
+          </tr>
+      </table>
+      <div class="text-center col-12 fs-6">
+        Leave blank if no medical history
+      </div>
+      <script>
+        document.getElementById("add-medical-history").addEventListener("click", function(){
+          //if no rows add a row
+          var is_empty = document.getElementById("medical-history-table").getElementsByTagName('tbody')[0].getElementsByTagName('tr').length == 0;
+
+          //if last row is not empty add a row
+          if (!is_empty){
+            var lastRowName = document.getElementById("medical-history-table").getElementsByTagName('tbody')[0].getElementsByTagName('tr')[document.getElementById("medical-history-table").getElementsByTagName('tbody')[0].getElementsByTagName('tr').length - 1].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
+            var lastRowDate = document.getElementById("medical-history-table").getElementsByTagName('tbody')[0].getElementsByTagName('tr')[document.getElementById("medical-history-table").getElementsByTagName('tbody')[0].getElementsByTagName('tr').length - 1].getElementsByTagName('td')[4].getElementsByTagName('input')[0].value;
+          } else {
+            var lastRowName = "";
+            var lastRowDate = "";
+          }
+          var is_not_last_row_empty = lastRowName != "" && lastRowDate != "";
+
+          if (is_empty || is_not_last_row_empty){
+            const table = document.querySelector('#medical-history-table tbody');
+            if (is_not_last_row_empty){
+              const lastRowCells = table.querySelector('tr:last-of-type').querySelectorAll('td:not(:first-of-type):not(:last-of-type)');
+              lastRowCells.forEach((cell) => {
+                const input = cell.querySelector('input');
+                cell.innerHTML = input.value? input.value : "N/A";
+              });
+            }
+            
+            //get next id number
+            var id = document.getElementById("medical-history-table").getElementsByTagName('tbody')[0].getElementsByTagName('tr').length + 1;
+            var row = table.insertRow(-1);
+            for (var i = 0; i < 5; i++) {
+              var cell = row.insertCell(i);
+              if (i === 0) {
+                cell.innerHTML = '<div class="px-2">' + id + '</div>';
+              } else {
+                  if (i === 4) {
+                    var script = document.createElement('script');
+                    script.innerHTML = `
+                        $(function() {
+                          $('#medical-history-date').daterangepicker({
+                            showDropdowns: true,
+                            // min date is set to today 
+                            maxDate: moment(),
+                            minDate: moment().subtract(35, 'years'),
+                            
+                            autoUpdateInput: false,
+                            locale: {
+                              format: 'MMM DD, YYYY'
+                            },
+                            singleDatePicker: true,
+                            // display at the center of the input
+                            drops: 'auto',
+                            // center the calendar
+                            opens: 'center'
+                          });
+                        
+                          $('#medical-history-date').on('apply.daterangepicker', function(ev, picker) {
+                            $(this).val(picker.startDate.format('MMM DD, YYYY'));
+                          });
+
+                          $('#medical-history-date').on('cancel.daterangepicker', function(ev, picker) {
+                            $(this).val('');
+                          }); 
+                          $('#medical-history-date').on('keydown paste', function(e){
+                            e.preventDefault();
+                          });
+                        });`;
+                    cell.innerHTML = '<input type="text" class="form-control" id="medical-history-date" />';
+                    cell.appendChild(script);
+                  } else {
+                    cell.innerHTML = '<input type="text" class="form-control" />';
+                  }
+              }
+            }
+            row.insertCell(5);
+            arrangeMedicalHistoryTable();
+          } else {
+            alert("Please fill the Name and Date Recorded before adding a new row.");  
+          }
+        });
+
+        //function to delete medical history
+        function deleteMedicalHistory(id){
+          var table = document.getElementById("medical-history-table").getElementsByTagName('tbody')[0];
+          var rows = table.getElementsByTagName('tr');
+          for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName('td');
+            if(cells[5].getElementsByTagName('button')[0].id == "delete-medical-history-"+id){
+              table.deleteRow(i);
+              break;
+            }
+          }
+          arrangeMedicalHistoryTable();
+        }
+    
+
+        // function to arrange ids of medical history table
+        function arrangeMedicalHistoryTable(){
+          var table = document.getElementById("medical-history-table").getElementsByTagName('tbody')[0];
+          var rows = table.getElementsByTagName('tr');
+          for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName('td');
+            cells[0].innerHTML = '<div class="px-2">'+(i+1)+'</div>';
+            // except last row
+            if (i != rows.length - 1){
+              cells[5].innerHTML = '<div class="d-flex justify-content-end"><button class="btn rounded-circle py-1 px-2 " id="delete-medical-history-'+(i+1)+'" onclick="deleteMedicalHistory('+(i+1)+')"><span class="material-icons" style="font-size: 1.5em; color: red;">remove_circle_outline</span></button></div>';
+            }
+
+            // var cells = rows[i].getElementsByTagName('td');
+            // cells[0].innerHTML = '<div class="px-2">'+(i+1)+'</div>';
+            // cells[5].innerHTML = ;
+          }
+        }
+      </script>
+    </div>
+  </div>
+  <div>
+    <button id="before-submit" class="btn btn-primary w-100 mt-2" type="button" onclick="addMedicalHistoryParams()">
+      Submit
+    </button>
+  </div>
+  <div hidden>
+    <%= form.submit %>
+  </div>
+  <script>
+    function addMedicalHistoryParams(){
+      const form = document.querySelector('#vet_record_form');
+      const table = document.querySelector('#medical-history-table tbody');
+      // get all rows including the last row
+      const rows = table.querySelectorAll('tr');
+      // if no rows, submit form without params
+      if (rows.length == 0){
+        form.submit();
+        return;
+      }
+      // create an array of objects
+      const medical_histories = [];
+      rows.forEach((row) => {
+        const cells = row.querySelectorAll('td');
+        // if not last row
+        if (cells[5].querySelector('button') != null){
+          medical_histories.push({
+            name: cells[1].innerHTML,
+            description: cells[2].innerHTML,
+            vet_place: cells[3].innerHTML,
+            date_recorded: cells[4].innerHTML,
+          });
+        } else {
+          // if last row and name and date recorded is not empty
+          if (cells[1].querySelector('input').value != "" && cells[4].querySelector('input').value != ""){
+            // convert to N/A if description and vet place is empty
+            var description = cells[2].querySelector('input').value != "" ? cells[2].querySelector('input').value : "N/A";
+            var vet_place = cells[3].querySelector('input').value != "" ? cells[3].querySelector('input').value : "N/A";
+            medical_histories.push({
+              name: cells[1].querySelector('input').value,
+              description: description,
+              vet_place: vet_place,
+              date_recorded: cells[4].querySelector('input').value,
+            });
+          }
+        }
+      });
+      // create hidden inputs
+
+      medical_histories.forEach((history, index) => {
+        const fields = ['name', 'description', 'vet_place', 'date_recorded'];
+
+        fields.forEach(field => {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = `vet_record[medical_histories][${index}][${field}]`;
+          input.value = history[field];
+          form.appendChild(input);
+        });
+      });
+
+      // submit form
+      form.submit();
+    }
+  </script>
+<% end %>

@@ -8,6 +8,9 @@ class Dog < ApplicationRecord
   has_and_belongs_to_many :vaccines
   has_and_belongs_to_many :conditions
   has_many :dog_pictures, dependent: :destroy
+  # has one age list in AgeList model
+  has_one :age_list, dependent: :destroy
+
   accepts_nested_attributes_for :dog_pictures, :allow_destroy => true
 
   def breed_name

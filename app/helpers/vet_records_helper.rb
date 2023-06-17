@@ -1,0 +1,2 @@
+module VetRecordsHelper
+end

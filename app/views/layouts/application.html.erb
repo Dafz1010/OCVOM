@@ -57,10 +57,10 @@
               </div>
             </div>
             <div class="nav-item">
-              <%= link_to records_path, class: "item-button" do %>
+              <%= link_to vet_records_path, class: "item-button" do %>
                 <div class="material-icons item-logo">view_list</div> RECORDS
               <% end %>
-              <div class="nav-subitem-container">
+              <div class="nav-subitem-container" hidden>
                 <div class="nav-subitem">
                   <%= link_to records_path(name: "Open for Adoption"), class: "subitem-button" do %>
                     Adoption   

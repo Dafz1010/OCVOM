@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :vet_records
   root "home#index"
   resources :dogs
   resources :inventory, controller: 'inventories', as: 'inventory'

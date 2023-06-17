@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  vet_place: MyString
+  date_recorded: 2023-06-17 02:09:18
+
+two:
+  name: MyString
+  description: MyText
+  vet_place: MyString
+  date_recorded: 2023-06-17 02:09:18

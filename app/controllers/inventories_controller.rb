@@ -1,4 +1,5 @@
 class InventoriesController < ApplicationController
+  include Authentication
   before_action :set_inventory, only: %i[ show edit update destroy ]
   before_action :set_all_params_downcase, only: %i[ create update ]
 
