@@ -9,8 +9,11 @@ Role.create!({name: "admin"})
 Role.create!({name: "Doctor"})
 Role.create!({name: "Frontliner"})
 Role.create!({name: "Encoder"})     
+Role.create!({name: "Staff"})
 
-User.create!([{name: "Administrator", username: "admin", password: "admin123", password_confirmation: "admin123", role_id: 1, approved_at: Time.now}])
+PetStatusCondition.create!(name: "Adopted", status_or_condition: true, three_colors: ["
+
+User.create!([{name: "Administrator", username: "admin", password: "admin123", password_confirmation: "admin123", role_id: 1, approved_at: Time.now, first_login_at: Time.now}])
 
 Condition.create!(name: "Healthy")
 Condition.create!(name: "Adopted")

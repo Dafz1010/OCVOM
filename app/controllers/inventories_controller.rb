@@ -5,7 +5,7 @@ class InventoriesController < ApplicationController
 
   # GET /inventories or /inventories.json
   def index
-    @inventories = Inventory.all
+    @inventories = Inventory.where(archived_at: nil).sort_by(&:created_at).reverse
   end
 
   # GET /inventories/1 or /inventories/1.json
@@ -56,7 +56,7 @@ class InventoriesController < ApplicationController
 
   # PATCH/PUT /inventories/1 or /inventories/1.json
   def update
-    fail
+    redirect_to inventory_index_path, alert: "Cannot update inventory"
   end
 
   # DELETE /inventories/1 or /inventories/1.json

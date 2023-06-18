@@ -1,10 +1,12 @@
-<h1>Editing vet record</h1>
-
-<%= render "form", vet_record: @vet_record %>
-
-<br>
-
-<div>
-  <%= link_to "Show this vet record", @vet_record %> |
-  <%= link_to "Back to vet records", vet_records_path %>
+<div class="vet-records-edit-page" data-controller="vet-record">
+  <div class="row">
+    <div class="col-auto">
+      <h2 class="form-title ms-4 p-1">Edit Vet Record</h2>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-10 edit-container p-3">
+      <%= render 'edit_form', vet_record: @vet_record%>
+    </div>
+  </div>
 </div>

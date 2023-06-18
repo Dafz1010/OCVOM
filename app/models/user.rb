@@ -3,6 +3,7 @@ class User < ApplicationRecord
   belongs_to :role, optional: true
   has_secure_password
   mount_uploader :profile_image, ProfileImageUploader
+  has_many :vet_records, foreign_key: :created_by_user_id
 
 
   validates :name, presence: true, format: { with: /\A[ A-Za-z\.]+\z/i }
@@ -82,6 +83,15 @@ class User < ApplicationRecord
   def doctor!
     self.update(role_id: Role.find_by(name: "Doctor").id)
   end
+
+  def staff?
+    type == "Staff"
+  end
+
+  def staff!
+    self.update(role_id: Role.find_by(name: "Staff").id)
+  end
+  
 
 
   private

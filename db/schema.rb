@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_16_180918) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_18_095254) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -73,6 +73,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_180918) do
     t.index ["customer_id"], name: "index_appointments_on_customer_id"
     t.index ["dog_id"], name: "index_appointments_on_dog_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
+  end
+
+  create_table "assigned_users_vet_records", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.uuid "vet_record_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_assigned_users_vet_records_on_user_id"
+    t.index ["vet_record_id"], name: "index_assigned_users_vet_records_on_vet_record_id"
   end
 
   create_table "breeds", force: :cascade do |t|
@@ -189,6 +198,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_180918) do
     t.index ["vet_record_id"], name: "index_medical_histories_on_vet_record_id"
   end
 
+  create_table "pet_status_conditions", force: :cascade do |t|
+    t.string "name"
+    t.boolean "status_or_condition"
+    t.string "three_colors"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "places", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -254,8 +271,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_180918) do
     t.string "breed"
     t.boolean "pet_gender"
     t.boolean "pet_neutered"
+    t.bigint "created_by_user_id", null: false
+    t.bigint "status_id"
+    t.bigint "condition_id"
     t.index ["age_list_id"], name: "index_vet_records_on_age_list_id"
+    t.index ["condition_id"], name: "index_vet_records_on_condition_id"
+    t.index ["created_by_user_id"], name: "index_vet_records_on_created_by_user_id"
     t.index ["place_id"], name: "index_vet_records_on_place_id"
+    t.index ["status_id"], name: "index_vet_records_on_status_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -264,6 +287,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_180918) do
   add_foreign_key "adoptions", "dogs"
   add_foreign_key "appointments", "customers"
   add_foreign_key "appointments", "dogs"
+  add_foreign_key "assigned_users_vet_records", "users"
+  add_foreign_key "assigned_users_vet_records", "vet_records"
   add_foreign_key "dog_pictures", "dogs"
   add_foreign_key "dogs", "breeds"
   add_foreign_key "dogs", "places"
@@ -275,5 +300,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_180918) do
   add_foreign_key "users", "roles"
   add_foreign_key "vet_records", "age_lists"
   add_foreign_key "vet_records", "age_lists"
+  add_foreign_key "vet_records", "pet_status_conditions", column: "condition_id"
+  add_foreign_key "vet_records", "pet_status_conditions", column: "status_id"
   add_foreign_key "vet_records", "places"
+  add_foreign_key "vet_records", "users", column: "created_by_user_id"
 end

@@ -44,12 +44,7 @@
           <div>
             <%= form.label "Owner:", style: "display: block" %>
             <%= form.text_field :pet_owner, placeholder: "Name of the owner", autocomplete: "off", class: "form-control" %>
-          </div>
-
-          <div>
-            <%= form.label "Owner's Contact Number:", style: "display: block" %>
-            <%= form.number_field :pet_owner_phone, placeholder: "Contact number of the owner", autocomplete: "off", class: "form-control" %>
-          </div>
+          </div>  
 
         </div>
         <div class="col-6">
@@ -303,8 +298,9 @@
       </script>
     </div>
   </div>
-  <div>
-    <button id="before-submit" class="btn btn-primary w-100 mt-2" type="button" onclick="addMedicalHistoryParams()">
+  <div class="row col-12 justify-content-center">
+    <%= link_to "Back", vet_records_path, class: "btn btn-secondary col-2 mt-2 me-2" %>
+    <button id="before-submit" class="btn btn-primary col-9 mt-2" type="button" onclick="addMedicalHistoryParams()">
       Submit
     </button>
   </div>

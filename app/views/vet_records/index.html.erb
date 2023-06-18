@@ -21,15 +21,43 @@
                 </h2>
             </div>
             <div class="flex-container col-12 p-3 overflow-scroll">
-                <div class="flex-item">
-                    <%= link_to "New Vet Record", new_vet_record_path, class: "btn" %>
-                </div>
                 <% @vet_records.each do |vet_record| %>
-                    <div class="flex-item bg-image" style="background-image: url(<%= vet_record.picture.url %>)">
-
+                    <div class="flex-item bg-image position-relative" style="background-image: url(<%= vet_record.picture.url %>)">
+                        <div class="col-auto d-flex">
+                            <%= link_to vet_record_path(vet_record) do %>
+                                <div class="item-actions material-icons text-white fs-1 me-3    ">visibility</div>
+                            <% end %>
+                            <%= link_to vet_record_path(vet_record), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} do %>
+                                <div class="item-actions material-icons text-white fs-1">delete</div>
+                            <% end %>
+                        </div>
+                        <div class="top-overlay position-absolute w-100 top-0 bg-light opacity-75 px-1 ">
+                            <p class="m-0 text-center"> 
+                                <%= vet_record.name %> <span class="material-icons fs-5" style="color:<%= sex_color(vet_record.pet_gender) %>"><%= vet_record.sex_long %></span> (<%= vet_record.age_group %>)
+                            </p>
+                        </div>
+                        <div class=" bottom-overlay position-absolute w-100 bottom-0 bg-light opacity-75 px-1 ">
+                            <p class="m-0"> 
+                                <%= vet_record.species %>, <%= vet_record.breed_name %>
+                                <br>
+                                <%= vet_record.owner %>, <%= vet_record.place_name %>
+                                <br>
+                                <%= vet_record.created_at.strftime("%b %d, %Y %I:%M %p") %>
+                            </p>
+                        </div>
+                        <div class="bottom-overlay2 position-absolute w-100 bottom-0 bg-light opacity-75 px-1">
+                            <%= status_div(vet_record.status) %>
+                            <%= condition_div(vet_record.condition) %>
+                        </div>
                     </div>
                 <% end %>
             </div>
         </div>
     </div>
+	<div class="new-vet-record p-3 me-4" onclick="location.href='<%= new_vet_record_path %>'">
+		<div class="d-flex justify-content-center">
+			<div class="material-icons">add</div>
+			ADD NEW VET RECORD
+		</div>
+	</div>
 </div>
