@@ -48,29 +48,12 @@
           <div class="col-12 d-flex">
             <div class="col-6">
               <%= form.label "Status:", style: "display: block" %>
-              <div class="dropup">
-                <button class="dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  No status
-                </button>
-                <ul class="dropdown-menu">
-                  <%= form.collection_radio_buttons :status, [['Lost', 'Lost'], ['Found', 'Found']], :first, :last, item_wrapper_class: 'd-flex justify-content-between align-items-center', class: 'dropdown-item' do |b| %>
-                    <li><%= b.label { b.radio_button + b.text } %></li>
-                  <% end %> 
-                </ul>
-              </div>
+              <%# form.select %>
+              <%= form.select :status_id, @status_list_options,{prompt: ""},{autocomplete: 'off', class: 'form-select py-0', data: { placeholder: "No Status"}} %>
             </div>
             <div class="col-6">
               <%= form.label "Condition:", style: "display: block" %>
-              <div class="dropup">
-                <button class="dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  No Condition
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Good</a></li>
-                  <li><a class="dropdown-item" href="#">Fair</a></li>
-                  <li><a class="dropdown-item" href="#">Poor</a></li>
-                </ul>
-              </div>
+              <%= form.select :condition_id, @condition_list_options,{prompt: ""},{autocomplete: 'off', class: 'form-select py-0', data: { placeholder: "No Condition"}} %>
             </div>
 
           </div>

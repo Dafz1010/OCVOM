@@ -7,33 +7,37 @@ module VetRecordsHelper
         end
     end
 
-    def status_tag(status)
-        unless status.blank?
-            content_tag :span, status.name, class: "text-center", style: "background-color: #{status.three_colors[0]}; color: #{status.three_colors[1]}; padding: 2px 4px; border-radius: 4px; border: 3px solid #{status.three_colors[2]};"
-        else
-            content_tag :span, "No Status", class: "text-center", style: "background-color: #fff; color: #000; padding: 2px 4px; border-radius: 4px; border: 3px solid #000;"
-        end
-    end
+    # def status_tag(status_id)
+    #     status = PetStatusCondition.find_by(id: status_id)
+    #     unless status.blank?
+    #         content_tag :span, status.name, class: "text-center", style: "background-color: #{status.three_colors[0]}; color: #{status.three_colors[1]}; padding: 2px 4px; border-radius: 4px; border: 3px solid #{status.three_colors[2]};"
+    #     else
+    #         content_tag :span, "No Status", class: "text-center", style: "background-color: #fff; color: #000; padding: 2px 4px; border-radius: 4px; border: 3px solid #000;"
+    #     end
+    # end
 
-    def condition_tag(condition)
-        unless condition.blank?
-            content_tag :span, condition.name, class: "text-center", style: "background-color: #{condition.three_colors[0]}; color: #{condition.three_colors[1]}; padding: 2px 4px; border-radius: 4px;border: 3px solid #{status.three_colors[2]};"
-        else
-            content_tag :span, "No Condition", class: "text-center", style: "background-color: #fff; color: #000; padding: 2px 4px; border-radius: 4px; border: 3px solid #000;"
-        end
-    end
+    # def condition_tag(condition)
+    #     unless condition.blank?
+    #         content_tag :span, condition.name, class: "text-center", style: "background-color: #{condition.three_colors[0]}; color: #{condition.three_colors[1]}; padding: 2px 4px; border-radius: 4px;border: 3px solid #{status.three_colors[2]};"
+    #     else
+    #         content_tag :span, "No Condition", class: "text-center", style: "background-color: #fff; color: #000; padding: 2px 4px; border-radius: 4px; border: 3px solid #000;"
+    #     end
+    # end
 
-    def status_div(status)
+    def status_div(status_id)
+        # binding.pry_remote``
+        status = PetStatusCondition.find_by(id: status_id)
         unless status.blank?
-            content_tag :div, status.name, class: "text-center", style: "background-color: #{status.three_colors[0]}; color: #{status.three_colors[1]}; padding: 2px 4px; border-radius: 4px;border: 3px solid #{status.three_colors[2]};"
+            content_tag :div, status.name, class: "text-center", style: "color: #{status.three_colors[0]}; background-color: #{status.three_colors[1]}; padding: 2px 4px; border-radius: 4px; border: 3px solid #{status.three_colors[2]};"  
         else
             no_status
         end
     end
 
-    def condition_div(condition)
+    def condition_div(condition_id)
+        condition = PetStatusCondition.find_by(id: condition_id)
         unless condition.blank?
-            content_tag :div, condition.name, class: "text-center", style: "background-color: #{condition.three_colors[0]}; color: #{condition.three_colors[1]}; padding: 2px 4px; border-radius: 4px;border: 3px solid #{status.three_colors[2]};"
+            content_tag :div, condition.name, class: "text-center", style: "color: #{condition.three_colors[0]}; background-color: #{condition.three_colors[1]}; padding: 2px 4px; border-radius: 4px; border: 3px solid #{condition.three_colors[2]};"
         else
             no_condition
         end

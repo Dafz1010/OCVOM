@@ -191,9 +191,9 @@
     width: calc(100% - 70px);
     height: calc(100% - 140px);
     float:right;
-    & *{
-        outline: auto;
-    }
+    // & *{
+    //     outline: auto;
+    // }
     & .form-title{
         background-color: $nav-blue;
         color: white;

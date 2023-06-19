@@ -29,8 +29,8 @@ class VetRecordsController < ApplicationController
   def edit
     @age_list_options = AgeList.pluck(:name, :id)
     @place_list_options = Place.pluck(:name, :id)
-    @status_list_options = PetStatusCondition.where(status_or_condition: true)
-    @condition_list_options = PetStatusCondition.where(status_or_condition: false)
+    @status_list_options = PetStatusCondition.where(status_or_condition: true).pluck(:name, :id)
+    @condition_list_options = PetStatusCondition.where(status_or_condition: false).pluck(:name, :id)
   end
 
   # POST /vet_records or /vet_records.json
@@ -113,19 +113,14 @@ class VetRecordsController < ApplicationController
         :breed, 
         :pet_gender, 
         :pet_neutered, 
+        :status_id,
+        :condition_id,
         medical_histories: [
           :id, 
           :name, 
           :description, 
           :vet_place, 
           :date_recorded, 
-          :_destroy
-        ],
-        pet_status_conditions: [
-          :id,
-          :name,
-          :status_or_condition,
-          :three_colors,
           :_destroy
         ]
       )

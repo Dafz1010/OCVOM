@@ -11,7 +11,29 @@ Role.create!({name: "Frontliner"})
 Role.create!({name: "Encoder"})     
 Role.create!({name: "Staff"})
 
-PetStatusCondition.create!(name: "Adopted", status_or_condition: true, three_colors: ["
+PetStatusCondition.create!(name: "Available for Adoption", status_or_condition: true, three_colors: ["#ffffff", "#0000ff", "#00008b"])
+PetStatusCondition.create!(name: "Pending Adoption", status_or_condition: true, three_colors: ["#ffffff", "#ffff00", "#ffd700"])
+PetStatusCondition.create!(name: "Adopted", status_or_condition: true, three_colors: ["#ffffff", "#008000", "#006400"])
+PetStatusCondition.create!(name: "Fostered", status_or_condition: true, three_colors: ["#000000", "#d3d3d3", "#a9a9a9"])
+PetStatusCondition.create!(name: "Owned", status_or_condition: true, three_colors: ["#ffffff", "#800080", "#4b0082"])
+PetStatusCondition.create!(name: "Lost", status_or_condition: true, three_colors: ["#ffffff", "#ff0000", "#8b0000"])
+PetStatusCondition.create!(name: "Found", status_or_condition: true, three_colors: ["#000000", "#ffff00", "#ffd700"])
+PetStatusCondition.create!(name: "Returned", status_or_condition: true, three_colors: ["#000000", "#ffa500", "#ff8c00"])
+PetStatusCondition.create!(name: "Deceased", status_or_condition: true, three_colors: ["#ffffff", "#000000", "#000000"])
+
+PetStatusCondition.create!(name: "Healthy", status_or_condition: false, three_colors: ["#ffffff", "#4caf50", "#2e7d32"])
+PetStatusCondition.create!(name: "Skin Irritation", status_or_condition: false, three_colors: ["#000000", "#ff9800", "#ef6c00"])
+PetStatusCondition.create!(name: "Ear Infection", status_or_condition: false, three_colors: ["#ffffff", "#f44336", "#c62828"])
+PetStatusCondition.create!(name: "Dental Disease", status_or_condition: false, three_colors: ["#ffffff", "#795548", "#5d4037"])
+PetStatusCondition.create!(name: "Allergies", status_or_condition: false, three_colors: ["#000000", "#ffeb3b", "#fbc02d"])
+PetStatusCondition.create!(name: "Arthritis", status_or_condition: false, three_colors: ["#ffffff", "#2196f3", "#1565c0"])
+PetStatusCondition.create!(name: "Obesity", status_or_condition: false, three_colors: ["#ffffff", "#9c27b0", "#6a1b9a"])
+PetStatusCondition.create!(name: "Respiratory Infection", status_or_condition: false, three_colors: ["#ffffff", "#e91e63", "#c2185b"])
+PetStatusCondition.create!(name: "Urinary Tract Infection (UTI)", status_or_condition: false, three_colors: ["#ffffff", "#673ab7", "#4527a0"])
+PetStatusCondition.create!(name: "Gastrointestinal Upset", status_or_condition: false, three_colors: ["#ffffff", "#ff5722", "#e64a19"])
+
+
+
 
 User.create!([{name: "Administrator", username: "admin", password: "admin123", password_confirmation: "admin123", role_id: 1, approved_at: Time.now, first_login_at: Time.now}])
 

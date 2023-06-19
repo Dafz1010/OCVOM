@@ -22,7 +22,7 @@
                   <p><strong>Species:</strong> <br> <%= @vet_record.species %></p>
                   <p><strong>Location:</strong> <br> <%= @vet_record.place_name %></p>
                   <p><strong>Created By User:</strong> <br> <%= @vet_record.created_by_user.username %></p>
-                  <p><strong>Status:</strong> <br> <%= status_tag(@vet_record.status) %></p>
+                  <p><strong>Status:</strong> <br> <%= status_div(@vet_record.status_id) %></p>
 
                 </div>
                 <div class="col-6">
@@ -30,7 +30,7 @@
                   <p><strong>Breed:</strong> <br> <%= @vet_record.breed_name %></p>
                   <p><strong>Owner:</strong> <br> <%= @vet_record.owner %></p>
                   <p><strong>Created At:</strong> <br> <%= @vet_record.created_at.strftime("%b %d, %Y %I:%M %p") %></p>
-                  <p><strong>Condition:</strong> <br> <%= condition_tag(@vet_record.condition) %></p>
+                  <p><strong>Condition:</strong> <br> <%= condition_div(@vet_record.condition_id) %></p>
                   
 
                 </div>
